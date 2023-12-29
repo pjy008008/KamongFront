@@ -60,7 +60,7 @@ const PreStart = () => {
   return (
     <div>
       <Background>
-        <Nav />
+        <Nav bgColor={"#315C40"} fontColor={"white"} />
         <Image src={coffee} />
         <BackImage></BackImage>
         <TitleContainer>
