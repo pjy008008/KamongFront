@@ -8,6 +8,7 @@ const NavBar = styled.nav`
   background-color: #315c40;
   margin: 0px;
   padding-top: 1vh;
+  padding-bottom:3vh;
 `;
 const Title = styled.h1`
   color: white;
