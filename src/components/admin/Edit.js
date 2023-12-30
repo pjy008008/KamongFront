@@ -107,7 +107,7 @@ const Edit = () => {
   };
   return (
     <div>
-      <Nav fontColor={"#315C40"} />
+      <Nav fontcolor={"#315C40"} />
       <ExpContainer>
         <Exp
           onClick={() => {

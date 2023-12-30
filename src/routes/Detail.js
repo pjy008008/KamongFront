@@ -36,7 +36,7 @@ const Container = styled.div``;
 const Detail = () => {
   return (
     <div>
-      <Nav bgColor={"white"} fontColor={"#315C40"}></Nav>
+      <Nav bgcolor={"white"} fontcolor={"#315C40"}></Nav>
       <TopContainer>
         <Title>몰드초콜릿</Title>
         <div>

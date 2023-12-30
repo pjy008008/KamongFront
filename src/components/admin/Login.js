@@ -69,7 +69,7 @@ const Login = ({ setIsLoggedIn }) => {
   return (
     <div>
       <Background>
-        <Nav fontColor={"white"} />
+        <Nav fontcolor={"white"} />
         <LoginContainer>
           <LoginTitle>ADMIN</LoginTitle>
           <LoginForm onSubmit={onSubmit}>

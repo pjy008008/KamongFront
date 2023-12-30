@@ -7,16 +7,17 @@ const ItemContainer = styled.div`
   margin-top: 3vh;
   height: 7vh;
   background-color: #e4e4e4;
-  margin-left: 5vw;
+  margin-left: 3vw;
   display: flex;
   align-items: center;
   padding-left: 3vw;
 `;
 
+
 const List = () => {
   const [items, setItems] = useState([
     "손 씻기",
-    "손 씻기",
+    "손 더럽히기",
     "손 씻기",
     "손 씻기",
   ]);

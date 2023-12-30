@@ -11,7 +11,7 @@ const Background = styled.div`
 const Image = styled.img`
   /* 상하좌우 정중앙 정렬하기 */
   position: absolute;
-  top: 50%;
+  top: 52%;
   left: 50%;
   transform: translate(-50%, -50%);
 
@@ -21,13 +21,13 @@ const Image = styled.img`
 const BackImage = styled.div`
   /* 상하좌우 정중앙 정렬하기 */
   position: absolute;
-  top: 50%;
+  top: 52%;
   left: 50%;
   transform: translate(-50%, -50%);
 
   width: 100vw;
   height: 80vh;
-  background-color: #282828;
+  background-color: #282828;     
   opacity: 75%;
 `;
 const TitleContainer = styled.div`
@@ -60,7 +60,7 @@ const PreStart = () => {
   return (
     <div>
       <Background>
-        <Nav bgColor={"#315C40"} fontColor={"white"} />
+        <Nav bgcolor={"#315C40"} fontcolor={"white"} />
         <Image src={coffee} />
         <BackImage></BackImage>
         <TitleContainer>

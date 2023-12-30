@@ -5,30 +5,30 @@ const NavBar = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: ${(props) => props.bgColor};
+  background-color: ${(props) => props.bgcolor};
   margin: 0px;
   padding-top: 1vh;
   padding-bottom: 3vh;
 `;
 const Title = styled.h1`
-  color: ${(props) => props.fontColor};
+  color: ${(props) => props.fontcolor};
   font-size: 45px;
   margin: 0px;
   margin-top: 20px;
   margin-left: 30px;
 `;
 const UserIcon = styled.span`
-  color: ${(props) => props.fontColor};
+  color: ${(props) => props.fontcolor};
   font-size: 20px;
   margin-right: 30px;
 `;
 const LangIcon = styled.span`
-  color: ${(props) => props.fontColor};
+  color: ${(props) => props.fontcolor};
   font-size: 20px;
   margin-right: 50px;
 `;
 
-const Nav = ({ bgColor, fontColor }) => {
+const Nav = ({ bgcolor, fontcolor }) => {
   const navigate = useNavigate();
   const handleAdmin = () => {
     navigate("/admin");
@@ -38,15 +38,15 @@ const Nav = ({ bgColor, fontColor }) => {
   };
   return (
     <div>
-      <NavBar bgColor={bgColor}>
-        <Title fontColor={fontColor} onClick={handleMain}>
+      <NavBar bgcolor={bgcolor}>
+        <Title fontcolor={fontcolor} onClick={handleMain}>
           BONJUNG
         </Title>
         <div>
-          <UserIcon fontColor={fontColor} onClick={handleAdmin}>
+          <UserIcon fontcolor={fontcolor} onClick={handleAdmin}>
             Admin
           </UserIcon>
-          <LangIcon fontColor={fontColor}>language</LangIcon>
+          <LangIcon fontcolor={fontcolor}>language</LangIcon>
         </div>
       </NavBar>
     </div>
