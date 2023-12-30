@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Nav from "../Nav";
 import styled from "styled-components";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const ExpContainer = styled.div`
   width: 80vw;
@@ -60,20 +61,43 @@ const AddExpContainer = styled.div`
   background-color: #d8d8d8;
 `;
 const AddExpTitle = styled.input`
-  width: 50vw;
+  width: 60vw;
   height: 4vh;
   border: none;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
   margin-bottom: 2vh;
 `;
 const AddExpImage = styled.div`
-  width: 50vw;
+  width: 60vw;
   height: 4vh;
+  display: flex;
+  font-size: 20px;
+  font-weight: bold;
   background-color: white;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  &:hover {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  }
 `;
-const AddBtn = styled.button``;
-
+const AddBtn = styled.button`
+  width: 7vw;
+  background-color: #315c40;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 5vw;
+`;
 
 const Edit = () => {
+  const navigate = useNavigate();
   const [selectedFile, setSelectedFile] = useState(null);
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -85,7 +109,11 @@ const Edit = () => {
     <div>
       <Nav fontColor={"#315C40"} />
       <ExpContainer>
-        <Exp>
+        <Exp
+          onClick={() => {
+            navigate("/test");
+          }}
+        >
           <ExpTitle>몰드 초콜릿</ExpTitle>
           <div>
             <EditBtn>편집</EditBtn>
@@ -111,16 +139,36 @@ const Edit = () => {
         >
           체험
         </h1>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginTop: "5vh",
+          }}
+        >
           <div>
             <div>
-              <span style={{ color: "#4B3327", fontWeight: "bold" }}>
+              <span
+                style={{
+                  color: "#4B3327",
+                  fontWeight: "bold",
+                  paddingLeft: "2vw",
+                  paddingRight: "1vw",
+                }}
+              >
                 체험명
               </span>
-              <AddExpTitle></AddExpTitle>
+              <AddExpTitle placeholder="체험명을 입력하세요"></AddExpTitle>
             </div>
             <div style={{ display: "flex" }}>
-              <span style={{ color: "#4B3327", fontWeight: "bold" }}>
+              <span
+                style={{
+                  color: "#4B3327",
+                  fontWeight: "bold",
+                  paddingLeft: "2vw",
+                  paddingRight: "1vw",
+                }}
+              >
                 이미지
               </span>
               <label for="file">
