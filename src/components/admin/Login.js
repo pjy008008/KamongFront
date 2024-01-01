@@ -8,42 +8,44 @@ const Background = styled.div`
   text-align: center;
 `;
 const LoginContainer = styled.div`
-  /* 상하좌우 정중앙 정렬하기 */
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
-  width: 30vw;
-  margin: 0 auto;
-  height: 50vh;
+  width: 380px;
+  height: 380px;
   background-color: white;
   border-radius: 20px;
   text-align: center;
 `;
 const LoginTitle = styled.h2`
-  font-size: 50px;
+  font-size: 40px;
   font-weight: bold;
-  margin-top: 7vw;
+  margin-top: 85px;
   color: #4b3327;
 `;
 const LoginForm = styled.form``;
 const InputPswd = styled.input`
   border: none;
-  width: 15vw;
-  height: 5vh;
+  width: 250px;
+  height: 50px;
   background-color: #d5d5d5;
   text-align: center;
-  margin-bottom: 20px;
+  margin-top: -5px;
+  margin-bottom: 8px;
   font-size: 25px;
   &:focus {
-    outline: 2px solid black;
+    outline: none;
+  }
+  &::placeholder {
+    font-size: 16px;
   }
 `;
 const SubmitBtn = styled.button`
   border: none;
-  width: 15vw;
-  height: 5vh;
+  width: 250px;
+  height: 50px;
   background-color: #4b3327;
   color: white;
   font-weight: bold;
