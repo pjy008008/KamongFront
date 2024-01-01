@@ -2,30 +2,42 @@ import styled from "styled-components";
 import { Navigate, useNavigate } from "react-router-dom";
 
 const NavBar = styled.nav`
+  // position: fixed;
+  // width: 100%;
+  // height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: ${(props) => props.bgcolor};
   margin: 0px;
-  padding-top: 1vh;
+  padding-top: 0.5vh;
   padding-bottom: 3vh;
 `;
 const Title = styled.h1`
   color: ${(props) => props.fontcolor};
-  font-size: 45px;
-  margin: 0px;
-  margin-top: 20px;
-  margin-left: 30px;
+  font-size: 25px;
+  margin: 15px;
+  margin-top: 15px;
+  margin-left: 5vw;
+  
+  &:hover {
+    cursor: pointer;
 `;
 const UserIcon = styled.span`
   color: ${(props) => props.fontcolor};
-  font-size: 20px;
+  font-size: 15px;
   margin-right: 30px;
+  
+  &:hover {
+    cursor: pointer;
 `;
 const LangIcon = styled.span`
   color: ${(props) => props.fontcolor};
-  font-size: 20px;
-  margin-right: 50px;
+  font-size: 15px;
+  margin-right: 5vw;
+  
+  &:hover {
+    cursor: pointer;
 `;
 
 const Nav = ({ bgcolor, fontcolor }) => {
