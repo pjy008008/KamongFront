@@ -10,13 +10,14 @@ const Background = styled.div`
 `;
 
 const Image = styled.img`
+  /* 상하좌우 정중앙 정렬하기 */
   position: absolute;
-  top: 50%;
+  top: 52%;
   left: 50%;
   transform: translate(-50%, -50%);
+
   width: 100vw;
   height: 80vh;
-  object-fit: cover;
 `;
 
 const BackImage = styled.div`
@@ -43,6 +44,7 @@ const TitleContainer = styled.div`
 
   &:hover {
     cursor: pointer;
+  }
 `;
 
 const Title = styled.h1`

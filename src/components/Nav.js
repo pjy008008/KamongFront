@@ -22,6 +22,7 @@ const Title = styled.h1`
   
   &:hover {
     cursor: pointer;
+  }
 `;
 const UserIcon = styled.span`
   color: ${(props) => props.fontcolor};
@@ -30,6 +31,7 @@ const UserIcon = styled.span`
   
   &:hover {
     cursor: pointer;
+  }
 `;
 const LangIcon = styled.span`
   color: ${(props) => props.fontcolor};
@@ -38,6 +40,7 @@ const LangIcon = styled.span`
   
   &:hover {
     cursor: pointer;
+  }
 `;
 
 const Nav = ({ bgcolor, fontcolor }) => {

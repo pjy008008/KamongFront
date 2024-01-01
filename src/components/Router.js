@@ -5,6 +5,7 @@ import Home from "../routes/Home";
 import Admin from "../routes/Admin";
 import Select from "../routes/Select";
 import Detail from "../routes/Detail";
+import Script from "./admin/Script";
 
 const AppRouter = () => {
   const router = createBrowserRouter([
@@ -38,6 +39,7 @@ const AppRouter = () => {
       element: (
         <div>
           <Detail />
+          {/* <Script /> */}
         </div>
       ),
     },

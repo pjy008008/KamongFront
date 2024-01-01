@@ -4,7 +4,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 
-
 const CustomSlider = styled(Slider)`
   width: 80vw;
   height: 27vh;
@@ -27,7 +26,7 @@ const Image = styled.img`
 
 const ImageContainer = styled.div``;
 
-const BannerSlider = ({images}) => {
+const BannerSlider = ({ images }) => {
   const settings = {
     infinite: true,
     speed: 500,
