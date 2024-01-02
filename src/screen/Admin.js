@@ -4,7 +4,7 @@ import Edit from "../components/admin/Edit";
 const Admin = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
-    <div>{isLoggedIn ? <Edit /> : <Login setIsLoggedIn={setIsLoggedIn} />}</div>
+    <div><Login /></div>
   );
 };
 export default Admin;

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const ItemContainer = styled.div`
@@ -12,7 +13,6 @@ const ItemContainer = styled.div`
   align-items: center;
   padding-left: 3vw;
 `;
-
 
 const List = () => {
   const [items, setItems] = useState([
@@ -31,7 +31,7 @@ const List = () => {
 
     setItems(newItems);
   };
-
+  const navigate = useNavigate();
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
@@ -45,6 +45,7 @@ const List = () => {
               >
                 {(provided) => (
                   <ItemContainer
+                    onClick={() => navigate("/script")}
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}

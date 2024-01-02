@@ -111,7 +111,7 @@ const Edit = () => {
       <ExpContainer>
         <Exp
           onClick={() => {
-            navigate("/test");
+            navigate("/exp");
           }}
         >
           <ExpTitle>몰드 초콜릿</ExpTitle>

@@ -1,8 +1,10 @@
 import Nav from "../Nav";
 import styled from "styled-components";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const InputContainer = styled.div`
+  margin-top: 3vh;
   margin-left: 5vw;
 `;
 const DelBtn = styled.button`
@@ -26,6 +28,7 @@ const StoreBtn = styled.button`
 const Title = styled.h2`
   color: #303030;
   font-size: 20px;
+  margin-right: 1vw;
 `;
 const TitleContainer = styled.div`
   width: 90vw;
@@ -33,9 +36,10 @@ const TitleContainer = styled.div`
   align-items: center;
 `;
 const ContextContainer = styled.div`
+  margin-top: 2vh;
   width: 90vw;
   display: flex;
-  align-items: center;
+  align-items: top;
 `;
 const TimeContainer = styled.div`
   width: 90vw;
@@ -49,6 +53,7 @@ const VoiceContainer = styled.div`
 `;
 const Script = () => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const navigate = useNavigate();
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -59,7 +64,12 @@ const Script = () => {
     <div>
       <Nav bgcolor={"white"} fontcolor={"#315C40"} />
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <button>뒤로가기</button>
+        <button
+          onClick={() => navigate(-1)}
+          style={{ border: "none", marginLeft: "5vw" }}
+        >
+          뒤로가기
+        </button>
         <div>
           <DelBtn>삭제</DelBtn>
           <StoreBtn>저장</StoreBtn>
@@ -73,14 +83,24 @@ const Script = () => {
               backgroundColor: "#DDDDDD",
               border: "none",
               width: "80vw",
-              height: "8vh",
+              height: "5vh",
+              paddingLeft: "20px",
             }}
             placeholder="제목을 입력하세요"
           />
         </TitleContainer>
         <ContextContainer>
           <Title>대사</Title>
-          <input placeholder="대사를 입력하세요" />
+          <input
+            style={{
+              backgroundColor: "#DDDDDD",
+              border: "none",
+              width: "80vw",
+              height: "23vh",
+              paddingLeft: "20px",
+            }}
+            placeholder="대사를 입력하세요"
+          />
         </ContextContainer>
         <TimeContainer>
           <Title>시간</Title>
@@ -90,9 +110,33 @@ const Script = () => {
           <Title>음성</Title>
           <label for="file">
             {selectedFile ? (
-              <div>Selected file: {selectedFile.name}</div>
+              <div
+                style={{
+                  border: "1px solid black",
+                  width: "250px",
+                  height: "40px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: "10px",
+                }}
+              >
+                Selected file: {selectedFile.name}
+              </div>
             ) : (
-              <div>이미지 불러오기</div>
+              <div
+                style={{
+                  border: "1px solid black",
+                  width: "250px",
+                  height: "40px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: "10px",
+                }}
+              >
+                파일에서 불러오기
+              </div>
             )}
           </label>
           <input

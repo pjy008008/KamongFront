@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Nav from "../Nav";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 const Background = styled.div`
   width: 100vw;
   height: 100vh;
@@ -52,8 +53,9 @@ const SubmitBtn = styled.button`
   font-size: 25px;
 `;
 
-const Login = ({ setIsLoggedIn }) => {
+const Login = () => {
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   const onChange = (event) => {
     const { name, value } = event.target;
     if (name === "password") {
@@ -62,8 +64,9 @@ const Login = ({ setIsLoggedIn }) => {
   };
   const onSubmit = (event) => {
     event.preventDefault();
+    localStorage.setItem("idx", password);
     if (password === "1234") {
-      setIsLoggedIn((prev) => true);
+      navigate("/allexp");
     } else {
       alert("비밀번호가 틀립니다.");
     }

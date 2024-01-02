@@ -1,12 +1,14 @@
 import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 
 import Root from "./Root";
-import Home from "../routes/Home";
-import Admin from "../routes/Admin";
-import Select from "../routes/Select";
-import Detail from "../routes/Detail";
+import Home from "../screen/Home";
+import Admin from "../screen/Admin";
+import Select from "../screen/Select";
+import AllExp from "../screen/AllExp";
+import Detail from "../screen/Detail";
 import Script from "./admin/Script";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -34,19 +36,34 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "select",
+        path: "allexp",
         element: (
           <div>
-            <Select />
+            <PrivateRoute component={<AllExp />} />
           </div>
         ),
       },
       {
-        path: "test",
+        path: "exp",
         element: (
           <div>
-            <Script />
-            {/* <Detail /> */}
+            <PrivateRoute component={<Detail />} />
+          </div>
+        ),
+      },
+      {
+        path: "script",
+        element: (
+          <div>
+            <PrivateRoute component={<Script />} />
+          </div>
+        ),
+      },
+      {
+        path: "select",
+        element: (
+          <div>
+            <Select />
           </div>
         ),
       },
