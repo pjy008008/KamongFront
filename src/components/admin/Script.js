@@ -2,13 +2,14 @@ import Nav from "../Nav";
 import styled from "styled-components";
 import { useState } from "react";
 
-const InputContainer = styled.div``;
+const InputContainer = styled.div`
+  margin-left: 5vw;
+`;
 const DelBtn = styled.button`
   background-color: #e4e4e4;
   width: 10vw;
   margin-right: 1vw;
   height: 3vh;
-
   font-weight: bold;
   border: none;
   color: #4b3327;
@@ -22,19 +23,27 @@ const StoreBtn = styled.button`
   font-weight: bold;
   border: none;
 `;
+const Title = styled.h2`
+  color: #303030;
+  font-size: 20px;
+`;
 const TitleContainer = styled.div`
+  width: 90vw;
   display: flex;
   align-items: center;
 `;
 const ContextContainer = styled.div`
+  width: 90vw;
   display: flex;
   align-items: center;
 `;
 const TimeContainer = styled.div`
+  width: 90vw;
   display: flex;
   align-items: center;
 `;
 const VoiceContainer = styled.div`
+  width: 90vw;
   display: flex;
   align-items: center;
 `;
@@ -58,19 +67,27 @@ const Script = () => {
       </div>
       <InputContainer>
         <TitleContainer>
-          <h2>제목</h2>
-          <input placeholder="제목을 입력하세요" />
+          <Title>제목</Title>
+          <input
+            style={{
+              backgroundColor: "#DDDDDD",
+              border: "none",
+              width: "80vw",
+              height: "8vh",
+            }}
+            placeholder="제목을 입력하세요"
+          />
         </TitleContainer>
         <ContextContainer>
-          <h2>대사</h2>
+          <Title>대사</Title>
           <input placeholder="대사를 입력하세요" />
         </ContextContainer>
         <TimeContainer>
-          <h2>시간</h2>
+          <Title>시간</Title>
           <input placeholder="시간을 입력하세요->추후 수정예정" />
         </TimeContainer>
         <VoiceContainer>
-          <h2>음성</h2>
+          <Title>음성</Title>
           <label for="file">
             {selectedFile ? (
               <div>Selected file: {selectedFile.name}</div>
