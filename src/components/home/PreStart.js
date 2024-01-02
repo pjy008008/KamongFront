@@ -10,7 +10,7 @@ const Background = styled.div`
 `;
 
 const Image = styled.img`
-  /* 상하좌우 정중앙 정렬하기 */
+  object-fit: cover;
   position: absolute;
   top: 52%;
   left: 50%;
