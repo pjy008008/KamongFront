@@ -19,7 +19,7 @@ const Title = styled.h1`
   margin: 15px;
   margin-top: 15px;
   margin-left: 5vw;
-  
+
   &:hover {
     cursor: pointer;
   }
@@ -28,7 +28,6 @@ const UserIcon = styled.span`
   color: ${(props) => props.fontcolor};
   font-size: 15px;
   margin-right: 30px;
-  
   &:hover {
     cursor: pointer;
   }
@@ -37,7 +36,7 @@ const LangIcon = styled.span`
   color: ${(props) => props.fontcolor};
   font-size: 15px;
   margin-right: 5vw;
-  
+
   &:hover {
     cursor: pointer;
   }

@@ -12,7 +12,7 @@ const Background = styled.div`
 const Image = styled.img`
   /* 상하좌우 정중앙 정렬하기 */
   position: absolute;
-  top: 52%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
@@ -22,7 +22,7 @@ const Image = styled.img`
 
 const BackImage = styled.div`
   position: absolute;
-  top: 52%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100vw;

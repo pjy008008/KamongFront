@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Nav from "../Nav";
 import styled from "styled-components";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -12,6 +12,8 @@ const ExpContainer = styled.div`
   border-radius: 20px;
   background-color: #315c40;
   padding-top: 3vh;
+  overflow: scroll;
+  overflow-x: hidden;
 `;
 const Exp = styled.div`
   width: 70vw;
@@ -53,7 +55,7 @@ const DelBtn = styled.button`
   border-radius: 20px;
   margin-right: 30px;
 `;
-const AddExpContainer = styled.div`
+const AddExpContainer = styled.form`
   margin-top: 3vh;
   width: 80vw;
   height: 30vh;
@@ -100,51 +102,117 @@ const AddBtn = styled.button`
 const Edit = () => {
   const navigate = useNavigate();
   const [selectedFile, setSelectedFile] = useState(null);
+  const [exp, setExp] = useState([]);
+  const [title, setTitle] = useState("");
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
       setSelectedFile(file);
     }
   };
+  const onChange = (event) => {
+    const { name, value } = event.target;
+    if (name === "title") {
+      setTitle((prev) => value);
+    }
+  };
+  const handleDel = async (expId) => {
+    try {
+      const response = await axios.delete(
+        `http://35.216.68.47:8080/api/experiences/${expId}`,
+        {
+          headers: {
+            accept: "*/*",
+          },
+        }
+      );
 
-  axios
-    .get("http://35.216.68.47:8080/api/experiences")
-    .then(function (response) {
-      // 성공 핸들링
-      console.log(response);
-    })
-    .catch(function (error) {
-      // 에러 핸들링
-      console.log(error);
-    })
-    .finally(function () {
-      // 항상 실행되는 영역
-    });
+      console.log("Deletion successful:", response.data);
+    } catch (error) {
+      console.error("Error deleting data:", error);
+    }
+    window.location.reload();
+  };
+  const onSubmit = async (event) => {
+    event.preventDefault();
+
+    // Create a FormData object
+    const formData = new FormData();
+
+    // Append title to formData
+    formData.append("request", JSON.stringify({ title }));
+
+    // Check if an image is selected
+    if (selectedFile) {
+      // Append the selected file to formData with the key 'image'
+      formData.append("image", selectedFile, setSelectedFile.name);
+    }
+
+    try {
+      // Make a POST request to submit the data
+      const response = await axios.post(
+        "http://35.216.68.47:8080/api/experiences",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      // Handle success, e.g., show a success message
+      console.log("Submission successful:", response.data);
+
+      // Optionally, update the 'exp' state with the new data
+      // setExp((prevExp) => [...prevExp, response.data]);
+
+      // Reset the form values
+      setTitle("");
+      setSelectedFile(null);
+    } catch (error) {
+      // Handle errors, e.g., show an error message
+      console.error("Error submitting data:", error);
+    }
+    window.location.reload();
+  };
+  useEffect(() => {
+    axios
+      .get("http://35.216.68.47:8080/api/experiences")
+      .then(function (response) {
+        // 성공 핸들링
+        console.log(response);
+        setExp(response.data.result.content);
+      })
+      .catch(function (error) {
+        // 에러 핸들링
+        console.log(error);
+      })
+      .finally(function () {
+        // 항상 실행되는 영역
+      });
+  }, []);
 
   return (
     <div>
       <Nav fontcolor={"#315C40"} />
       <ExpContainer>
-        <Exp
-          onClick={() => {
-            navigate("/exp");
-          }}
-        >
-          <ExpTitle>몰드 초콜릿</ExpTitle>
-          <div>
-            <EditBtn>편집</EditBtn>
-            <DelBtn>삭제</DelBtn>
-          </div>
-        </Exp>
-        <Exp>
-          <ExpTitle>빼빼로 만들기</ExpTitle>
-          <div>
-            <EditBtn>편집</EditBtn>
-            <DelBtn>삭제</DelBtn>
-          </div>
-        </Exp>
+        {exp.map((item, index) => (
+          <Exp key={index}>
+            <ExpTitle
+              onClick={() => {
+                navigate(`/exp/${item.experienceId}`);
+              }}
+            >
+              {item.title}
+            </ExpTitle>
+            <div>
+              <EditBtn>편집</EditBtn>
+              <DelBtn onClick={() => handleDel(item.experienceId)}>삭제</DelBtn>
+            </div>
+          </Exp>
+        ))}
       </ExpContainer>
-      <AddExpContainer>
+      <AddExpContainer onSubmit={onSubmit}>
         <h1
           style={{
             fontSize: "40px",
@@ -174,7 +242,11 @@ const Edit = () => {
               >
                 체험명
               </span>
-              <AddExpTitle placeholder="체험명을 입력하세요"></AddExpTitle>
+              <AddExpTitle
+                onChange={onChange}
+                name="title"
+                placeholder="체험명을 입력하세요"
+              ></AddExpTitle>
             </div>
             <div style={{ display: "flex" }}>
               <span
