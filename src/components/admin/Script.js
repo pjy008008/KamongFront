@@ -67,6 +67,23 @@ const Script = () => {
   // console.log(params);
   const navigate = useNavigate();
 
+  const handleDel = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.delete(
+        `http://35.216.68.47:8080/api/experiences/pages/${params.scriptId}`,
+        {
+          headers: {
+            accept: "*/*",
+          },
+        }
+      );
+      console.log("Deletion successful:", response.data);
+    } catch (error) {
+      console.error("Error deleting data:", error);
+    }
+    navigate(-1);
+  };
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -86,6 +103,7 @@ const Script = () => {
     }
   };
   const onSubmit = (event) => {
+    event.preventDefault();
     const totalDuration = 60 * parseInt(minute, 10) + parseInt(second, 10);
     const formData = new FormData();
     formData.append(
@@ -101,12 +119,16 @@ const Script = () => {
 
     // PATCH 요청 보내기
     axios
-      .patch("http://35.216.68.47:8080/api/experiences/pages/12", formData, {
-        headers: {
-          accept: "*/*",
-          "Content-Type": "multipart/form-data",
-        },
-      })
+      .patch(
+        `http://35.216.68.47:8080/api/experiences/pages/${params.scriptId}`,
+        formData,
+        {
+          headers: {
+            accept: "*/*",
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
       .then(function (response) {
         // 성공 핸들링
         console.log(response.data);
@@ -154,7 +176,7 @@ const Script = () => {
           뒤로가기
         </button>
         <div>
-          <DelBtn>삭제</DelBtn>
+          <DelBtn onClick={handleDel}>삭제</DelBtn>
           <StoreBtn type="submit" form="form">
             저장
           </StoreBtn>
