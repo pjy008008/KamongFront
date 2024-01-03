@@ -14,6 +14,12 @@ const ItemContainer = styled.div`
   align-items: center;
   padding-left: 3vw;
 `;
+const Title = styled.h2`
+  font-size: 20px;
+  width: 13vw;
+  padding-right: 20px;
+`;
+const Line = styled.span``;
 
 const List = () => {
   const params = useParams();
@@ -86,7 +92,10 @@ const List = () => {
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                   >
-                    #{index + 1} {item.title}
+                    <Title>
+                      #{index + 1} {item.title}
+                    </Title>
+                    <Line style={{ paddingLeft: "5px" }}>{item.line}</Line>
                   </ItemContainer>
                 )}
               </Draggable>

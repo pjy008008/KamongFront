@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import Nav from "../components/Nav";
 import List from "../components/admin/List";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 const TopContainer = styled.div`
   margin-top: 1vh;
   display: flex;
@@ -35,12 +37,38 @@ const Newbtn = styled.button`
 `;
 const Container = styled.div``;
 const Detail = () => {
+  const params = useParams();
   const navigate = useNavigate();
+  const [title, setTitle] = useState("");
+  useEffect(() => {
+    axios
+      .get("http://35.216.68.47:8080/api/experiences")
+      .then(function (response) {
+        // 성공 핸들링
+
+        const findTitle = response.data.result.content.find(
+          (item) => item.experienceId === parseInt(params.expId, 10)
+        );
+
+        if (findTitle) {
+          setTitle(findTitle.title);
+        } else {
+          console.log("can't find");
+        }
+      })
+      .catch(function (error) {
+        // 에러 핸들링
+        console.log(error);
+      })
+      .finally(function () {
+        // 항상 실행되는 영역
+      });
+  }, [title]);
   return (
     <div>
       <Nav bgcolor={"white"} fontcolor={"#315C40"}></Nav>
       <TopContainer>
-        <Title>몰드초콜릿</Title>
+        <Title>{title}</Title>
         <div>
           <ScriptBtn>대사 전체보기</ScriptBtn>
           <Newbtn onClick={() => navigate("/script")}>+새 페이지</Newbtn>
