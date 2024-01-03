@@ -131,6 +131,7 @@ const Script = () => {
       )
       .then(function (response) {
         // 성공 핸들링
+        alert("저장되었습니다");
         console.log(response.data);
       })
       .catch(function (error) {
