@@ -44,7 +44,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "exp",
+        path: "exp/:expId",
         element: (
           <div>
             <PrivateRoute component={<Detail />} />
