@@ -1,7 +1,7 @@
 import Nav from "../Nav";
 import styled from "styled-components";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const InputContainer = styled.div`
   margin-top: 3vh;
@@ -54,6 +54,11 @@ const VoiceContainer = styled.div`
 `;
 const Script = () => {
   const [selectedFile, setSelectedFile] = useState(null);
+  
+  //script Id출력
+  const params = useParams();
+  console.log(params);
+
   const navigate = useNavigate();
   const handleFileChange = (event) => {
     const file = event.target.files[0];

@@ -81,7 +81,7 @@ const List = () => {
               >
                 {(provided) => (
                   <ItemContainer
-                    onClick={() => navigate("/script")}
+                    onClick={() => navigate(`/script/${item.stepId}`)}
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}

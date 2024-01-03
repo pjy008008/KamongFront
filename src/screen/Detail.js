@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Nav from "../components/Nav";
 import List from "../components/admin/List";
+import { useNavigate } from "react-router-dom";
 const TopContainer = styled.div`
   margin-top: 1vh;
   display: flex;
@@ -34,6 +35,7 @@ const Newbtn = styled.button`
 `;
 const Container = styled.div``;
 const Detail = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <Nav bgcolor={"white"} fontcolor={"#315C40"}></Nav>
@@ -41,7 +43,7 @@ const Detail = () => {
         <Title>몰드초콜릿</Title>
         <div>
           <ScriptBtn>대사 전체보기</ScriptBtn>
-          <Newbtn>+새 페이지</Newbtn>
+          <Newbtn onClick={() => navigate("/script")}>+새 페이지</Newbtn>
         </div>
       </TopContainer>
       <List />
