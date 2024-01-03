@@ -1,9 +1,10 @@
 import Nav from "../Nav";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
-const InputContainer = styled.div`
+const InputContainer = styled.form`
   margin-top: 3vh;
   margin-left: 5vw;
 `;
@@ -54,18 +55,94 @@ const VoiceContainer = styled.div`
 `;
 const Script = () => {
   const [selectedFile, setSelectedFile] = useState(null);
-  
+  const [title, setTitle] = useState("");
+  const [line, setLine] = useState("");
+  const [duration, setDuration] = useState(0);
+  const [imageUrl, setImageUrl] = useState("");
+  const [voiceUrl, setVoiceUrl] = useState("");
+  const [minute, setMinute] = useState(0);
+  const [second, setSecond] = useState(0);
   //script Id출력
   const params = useParams();
-  console.log(params);
-
+  // console.log(params);
   const navigate = useNavigate();
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
       setSelectedFile(file);
     }
   };
+  const onChange = (event) => {
+    const { name, value } = event.target;
+    if (name === "title") {
+      setTitle((prev) => value);
+    } else if (name === "line") {
+      setLine((prev) => value);
+    } else if (name === "minute") {
+      setMinute((prev) => value);
+    } else if (name === "second") {
+      setSecond((prev) => value);
+    }
+  };
+  const onSubmit = (event) => {
+    const totalDuration = 60 * parseInt(minute, 10) + parseInt(second, 10);
+    const formData = new FormData();
+    formData.append(
+      "request",
+      JSON.stringify({
+        title: title,
+        line: line,
+        duration: totalDuration,
+      })
+    );
+    formData.append("image", ""); // 이미지는 비어있는 문자열로 추가
+    formData.append("voice", ""); // 음성도 비어있는 문자열로 추가
+
+    // PATCH 요청 보내기
+    axios
+      .patch("http://35.216.68.47:8080/api/experiences/pages/12", formData, {
+        headers: {
+          accept: "*/*",
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then(function (response) {
+        // 성공 핸들링
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        // 에러 핸들링
+        console.error(error);
+      });
+  };
+
+  useEffect(() => {
+    axios
+      .get(`http://35.216.68.47:8080/api/experiences/pages/${params.scriptId}`)
+      .then(function (response) {
+        // 성공 핸들링
+        console.log(response);
+        setTitle(response.data.result.title);
+        setLine(response.data.result.line);
+        setDuration(response.data.result.duration);
+        setImageUrl(response.data.result.imageUrl);
+        setVoiceUrl(response.data.result.voiceUrl);
+      })
+      .catch(function (error) {
+        // 에러 핸들링
+        console.log(error);
+      })
+      .finally(function () {
+        // 항상 실행되는 영역
+      });
+  }, []);
+
+  useEffect(() => {
+    // duration 값이 변경될 때마다 minute 및 second를 업데이트
+    setSecond(duration % 60);
+    setMinute(Math.floor(duration / 60));
+  }, [duration]);
   return (
     <div>
       <Nav bgcolor={"white"} fontcolor={"#315C40"} />
@@ -78,10 +155,12 @@ const Script = () => {
         </button>
         <div>
           <DelBtn>삭제</DelBtn>
-          <StoreBtn>저장</StoreBtn>
+          <StoreBtn type="submit" form="form">
+            저장
+          </StoreBtn>
         </div>
       </div>
-      <InputContainer>
+      <InputContainer onSubmit={onSubmit} id="form">
         <TitleContainer>
           <Title>제목</Title>
           <input
@@ -92,6 +171,9 @@ const Script = () => {
               height: "5vh",
               paddingLeft: "20px",
             }}
+            onChange={onChange}
+            value={title}
+            name="title"
             type="text"
             placeholder="제목을 입력하세요"
           />
@@ -106,6 +188,9 @@ const Script = () => {
               height: "23vh",
               paddingLeft: "20px",
             }}
+            onChange={onChange}
+            name="line"
+            value={line}
             type="text"
             placeholder="대사를 입력하세요"
           />
@@ -120,6 +205,9 @@ const Script = () => {
               height: "5vh",
               paddingLeft: "20px",
             }}
+            onChange={onChange}
+            value={minute}
+            name="minute"
             type="number"
             placeholder="분"
           />
@@ -132,6 +220,10 @@ const Script = () => {
               height: "5vh",
               paddingLeft: "20px",
             }}
+            max="60"
+            onChange={onChange}
+            value={second}
+            name="second"
             type="number"
             placeholder="초"
           />

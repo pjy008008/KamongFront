@@ -52,7 +52,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "script/:scriptId?",
+        path: "script/:scriptId",
         element: (
           <div>
             <PrivateRoute component={<Script />} />
