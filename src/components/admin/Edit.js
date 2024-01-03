@@ -2,6 +2,7 @@ import { useState } from "react";
 import Nav from "../Nav";
 import styled from "styled-components";
 import { Navigate, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const ExpContainer = styled.div`
   width: 80vw;
@@ -105,6 +106,21 @@ const Edit = () => {
       setSelectedFile(file);
     }
   };
+
+  axios
+    .get("http://35.216.68.47:8080/api/experiences")
+    .then(function (response) {
+      // 성공 핸들링
+      console.log(response);
+    })
+    .catch(function (error) {
+      // 에러 핸들링
+      console.log(error);
+    })
+    .finally(function () {
+      // 항상 실행되는 영역
+    });
+
   return (
     <div>
       <Nav fontcolor={"#315C40"} />
@@ -171,7 +187,7 @@ const Edit = () => {
               >
                 이미지
               </span>
-              <label for="file">
+              <label htmlFor="file">
                 {selectedFile ? (
                   <AddExpImage>Selected file: {selectedFile.name}</AddExpImage>
                 ) : (

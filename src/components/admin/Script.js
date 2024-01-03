@@ -36,12 +36,13 @@ const TitleContainer = styled.div`
   align-items: center;
 `;
 const ContextContainer = styled.div`
-  margin-top: 2vh;
+  margin-top: 1vh;
   width: 90vw;
   display: flex;
   align-items: top;
 `;
 const TimeContainer = styled.div`
+  margin-top: 1vh;
   width: 90vw;
   display: flex;
   align-items: center;
@@ -86,6 +87,7 @@ const Script = () => {
               height: "5vh",
               paddingLeft: "20px",
             }}
+            type="text"
             placeholder="제목을 입력하세요"
           />
         </TitleContainer>
@@ -99,12 +101,35 @@ const Script = () => {
               height: "23vh",
               paddingLeft: "20px",
             }}
+            type="text"
             placeholder="대사를 입력하세요"
           />
         </ContextContainer>
         <TimeContainer>
           <Title>시간</Title>
-          <input placeholder="시간을 입력하세요->추후 수정예정" />
+          <input
+            style={{
+              backgroundColor: "#DDDDDD",
+              border: "none",
+              width: "10vw",
+              height: "5vh",
+              paddingLeft: "20px",
+            }}
+            type="number"
+            placeholder="분"
+          />
+          <input
+            style={{
+              backgroundColor: "#DDDDDD",
+              marginLeft: "1vw",
+              border: "none",
+              width: "10vw",
+              height: "5vh",
+              paddingLeft: "20px",
+            }}
+            type="number"
+            placeholder="초"
+          />
         </TimeContainer>
         <VoiceContainer>
           <Title>음성</Title>
@@ -135,7 +160,7 @@ const Script = () => {
                   borderRadius: "10px",
                 }}
               >
-                파일에서 불러오기
+                파일에서 불러오기(mp3)
               </div>
             )}
           </label>
@@ -143,6 +168,7 @@ const Script = () => {
             id="file"
             name="file"
             type="file"
+            accept="audio/*"
             style={{ display: "none" }}
             onChange={handleFileChange}
           />
