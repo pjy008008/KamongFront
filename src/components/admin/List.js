@@ -26,36 +26,30 @@ const List = () => {
     const newScript = [...script];
     const [removed] = newScript.splice(result.source.index, 1);
     newScript.splice(result.destination.index, 0, removed);
+    // console.log(newScript)
+
+    const adjustedScript = newScript.map((item, index) => ({
+      stepId: item.stepId,
+      updatedSequence: index + 1,
+    }));
+    console.log(adjustedScript);
+
+    axios
+      .patch(`http://35.216.68.47:8080/api/experiences/pages`, adjustedScript, {
+        headers: {
+          accept: "*/*",
+          "Content-Type": "application/json",
+        },
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
     setScript(newScript);
   };
-
-  // const onDragEnd = async (result) => {
-  //   if (!result.destination) return;
-
-  //   const newScriptOrder = [...script];
-  //   const [removed] = newScriptOrder.splice(result.source.index, 1);
-  //   newScriptOrder.splice(result.destination.index, 0, removed);
-
-  //   try {
-  //     // 서버에 순서를 업데이트하는 요청을 보냄
-  //     await axios.put(
-  //       `http://35.216.68.47:8080/api/experiences/${params.expId}/updatePageOrder`,
-  //       {
-  //         pageOrder: newScriptOrder.map((item) => item.id), // 각 항목에 'id' 속성이 있다고 가정
-  //       }
-  //     );
-
-  //     // 서버가 순서를 업데이트하면 업데이트된 데이터를 가져와 상태를 업데이트
-  //     const updatedScript = await axios.get(
-  //       `http://35.216.68.47:8080/api/experiences/${params.expId}/pages`
-  //     );
-  //     setScript(updatedScript.data.result);
-  //   } catch (error) {
-  //     // 에러 핸들링, 예를 들어 에러 메시지 표시 등
-  //     console.error("순서 업데이트 중 오류 발생:", error);
-  //   }
-  // };
 
   useEffect(() => {
     axios

@@ -133,7 +133,7 @@ const Script = () => {
         </TimeContainer>
         <VoiceContainer>
           <Title>음성</Title>
-          <label for="file">
+          <label htmlFor="file">
             {selectedFile ? (
               <div
                 style={{
