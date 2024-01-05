@@ -38,6 +38,8 @@ const Newbtn = styled.button`
 const Container = styled.div``;
 const Detail = () => {
   const params = useParams();
+  const param = params.expId;
+  const [maxStep, setMaxStep] = useState(0);
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   useEffect(() => {
@@ -63,6 +65,23 @@ const Detail = () => {
       .finally(function () {
         // 항상 실행되는 영역
       });
+
+    axios
+      .get(`http://35.216.68.47:8080/api/experiences/${param}/pages`)
+      .then(function (response) {
+        // 성공 핸들링
+        // console.log(response);
+        setMaxStep(
+          Math.max(...response.data.result.map((item) => item.stepId))
+        );
+      })
+      .catch(function (error) {
+        // 에러 핸들링
+        console.log(error);
+      })
+      .finally(function () {
+        // 항상 실행되는 영역
+      });
   }, [title]);
   return (
     <div>
@@ -71,7 +90,18 @@ const Detail = () => {
         <Title>{title}</Title>
         <div>
           <ScriptBtn>대사 전체보기</ScriptBtn>
-          <Newbtn onClick={() => navigate("/script")}>+새 페이지</Newbtn>
+          <Newbtn
+            onClick={() =>
+              navigate("/script/makescript", {
+                state: {
+                  expId: param,
+                  stepId: maxStep,
+                },
+              })
+            }
+          >
+            +새 페이지
+          </Newbtn>
         </div>
       </TopContainer>
       <List />

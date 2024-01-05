@@ -8,6 +8,7 @@ import Select from "../screen/Select";
 import AllExp from "../screen/AllExp";
 import Detail from "../screen/Detail";
 import Script from "./admin/Script";
+import MakeScript from "./admin/MakeScript";
 import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
@@ -43,6 +44,7 @@ const router = createBrowserRouter([
           </div>
         ),
       },
+
       {
         path: "exp/:expId",
         element: (
@@ -52,7 +54,15 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "script/:scriptId",
+        path: "script/makescript",
+        element: (
+          <div>
+            <PrivateRoute component={<MakeScript />} />
+          </div>
+        ),
+      },
+      {
+        path: "script/:scriptId?",
         element: (
           <div>
             <PrivateRoute component={<Script />} />
