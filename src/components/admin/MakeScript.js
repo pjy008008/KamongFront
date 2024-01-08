@@ -54,7 +54,6 @@ const VoiceContainer = styled.div`
   align-items: center;
 `;
 const MakeScript = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
   const [title, setTitle] = useState("");
   const [line, setLine] = useState("");
   const [selectedVoiceFile, setSelectedVoiceFile] = useState(null);
@@ -152,7 +151,7 @@ const MakeScript = () => {
       <Nav bgcolor={"white"} fontcolor={"#315C40"} />
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <button
-          onClick={() => navigate(-1)}
+          onClick={() => navigate(`/exp/${expId}`)}
           style={{ border: "none", marginLeft: "5vw" }}
         >
           뒤로가기

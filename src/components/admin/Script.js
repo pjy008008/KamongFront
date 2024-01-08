@@ -1,7 +1,7 @@
 import Nav from "../Nav";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import axios from "axios";
 
 const InputContainer = styled.form`
@@ -53,8 +53,17 @@ const VoiceContainer = styled.div`
   display: flex;
   align-items: center;
 `;
+const SampleContainer = styled.div``;
+const SampleVoiceContainer = styled.audio``;
+const SampleVoice = styled.source``;
+const SampleImageContainer = styled.img`
+  //이미지 크기
+  width: 50vw;
+  height: 30vh;
+`;
 const Script = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedVoiceFile, setSelectedVoiceFile] = useState("");
+  const [selectedImageFile, setSelectedImageFile] = useState("");
   const [title, setTitle] = useState("");
   const [line, setLine] = useState("");
   const [duration, setDuration] = useState(0);
@@ -66,6 +75,8 @@ const Script = () => {
   const params = useParams();
   // console.log(params);
   const navigate = useNavigate();
+  const location = useLocation();
+  let expId = location.state.expId;
 
   const handleDel = async (event) => {
     event.preventDefault();
@@ -82,12 +93,20 @@ const Script = () => {
     } catch (error) {
       console.error("Error deleting data:", error);
     }
-    navigate(-1);
+    navigate(`/exp/${expId}`);
   };
-  const handleFileChange = (event) => {
+
+  const handleVoiceFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setSelectedFile(file);
+      setSelectedVoiceFile(file);
+    }
+  };
+
+  const handleImageFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedImageFile(file);
     }
   };
   const onChange = (event) => {
@@ -103,7 +122,7 @@ const Script = () => {
     }
   };
   const onSubmit = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     const totalDuration = 60 * parseInt(minute, 10) + parseInt(second, 10);
     const formData = new FormData();
     formData.append(
@@ -114,8 +133,8 @@ const Script = () => {
         duration: totalDuration,
       })
     );
-    formData.append("image", ""); // 이미지는 비어있는 문자열로 추가
-    formData.append("voice", ""); // 음성도 비어있는 문자열로 추가
+    formData.append("image", selectedImageFile); // 이미지는 비어있는 문자열로 추가
+    formData.append("voice", selectedVoiceFile); // 음성도 비어있는 문자열로 추가
 
     // PATCH 요청 보내기
     axios
@@ -253,8 +272,8 @@ const Script = () => {
         </TimeContainer>
         <VoiceContainer>
           <Title>음성</Title>
-          <label htmlFor="file">
-            {selectedFile ? (
+          <label htmlFor="voiceFile">
+            {selectedVoiceFile ? (
               <div
                 style={{
                   border: "1px solid black",
@@ -266,7 +285,7 @@ const Script = () => {
                   borderRadius: "10px",
                 }}
               >
-                Selected file: {selectedFile.name}
+                Selected file: {selectedVoiceFile.name}
               </div>
             ) : (
               <div
@@ -285,15 +304,70 @@ const Script = () => {
             )}
           </label>
           <input
-            id="file"
-            name="file"
+            id="voiceFile"
+            name="voiceFile"
             type="file"
             accept="audio/*"
             style={{ display: "none" }}
-            onChange={handleFileChange}
+            onChange={handleVoiceFileChange}
+          />
+        </VoiceContainer>
+        <VoiceContainer>
+          <Title>이미지</Title>
+          <label htmlFor="imageFile">
+            {selectedImageFile ? (
+              <div
+                style={{
+                  border: "1px solid black",
+                  width: "250px",
+                  height: "40px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: "10px",
+                }}
+              >
+                Selected file: {selectedImageFile.name}
+              </div>
+            ) : (
+              <div
+                style={{
+                  border: "1px solid black",
+                  width: "250px",
+                  height: "40px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: "10px",
+                }}
+              >
+                파일에서 불러오기
+              </div>
+            )}
+          </label>
+          <input
+            id="imageFile"
+            name="imageFile"
+            type="file"
+            style={{ display: "none" }}
+            onChange={handleImageFileChange}
           />
         </VoiceContainer>
       </InputContainer>
+      <SampleContainer>
+        {voiceUrl ? (
+          <SampleVoiceContainer controls autoPlay>
+            <SampleVoice src={voiceUrl} type="audio/mpeg" />
+          </SampleVoiceContainer>
+        ) : (
+          <p>Loading audio</p>
+        )}
+        {imageUrl ? (
+          <SampleImageContainer src={imageUrl}></SampleImageContainer>
+        ) : (
+          <p>Loading audio</p>
+        )}
+      </SampleContainer>
     </div>
   );
 };

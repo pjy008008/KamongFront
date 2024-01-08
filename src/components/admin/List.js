@@ -21,7 +21,7 @@ const Title = styled.h2`
 `;
 const Line = styled.span``;
 
-const List = () => {
+const List = ({ expId }) => {
   const params = useParams();
   const navigate = useNavigate();
   const [script, setScript] = useState([]);
@@ -87,7 +87,13 @@ const List = () => {
               >
                 {(provided) => (
                   <ItemContainer
-                    onClick={() => navigate(`/script/${item.stepId}`)}
+                    onClick={() =>
+                      navigate(`/script/${item.stepId}`, {
+                        state: {
+                          expId: expId,
+                        },
+                      })
+                    }
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}

@@ -104,7 +104,7 @@ const Detail = () => {
           </Newbtn>
         </div>
       </TopContainer>
-      <List />
+      <List expId={param} />
     </div>
   );
 };
