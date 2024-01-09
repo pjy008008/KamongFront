@@ -5,52 +5,41 @@ import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const ExpContainer = styled.div`
-  width: 1000px;
-  height: 260px;
-  margin-top: 20px;
+  width: 80vw;
+  height: 40vh;
+  margin-top: 2vh;
+  margin-left: 10vw;
   border-radius: 20px;
   background-color: #315c40;
   padding-top: 3vh;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-
-  @media screen and (max-width: 1000px) {
-    width: 90%; 
-  }
   overflow: scroll;
   overflow-x: hidden;
 `;
-
 const Exp = styled.div`
-  width: 900px;
-  height: 55px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 70vw;
+  height: 7vh;
+  margin-left: 5vw;
+
   margin-top: 1vh;
   background-color: #e4e4e4;
   justify-content: space-between;
   display: flex;
   align-items: center;
-
-  @media screen and (max-width: 1000px) {
-    width: 90%; 
-  }
 `;
 const ExpTitle = styled.h2`
   color: #303030;
   margin: 0px;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 30px;
   padding-left: 3vw;
 `;
 const EditBtn = styled.button`
   background-color: #4b3327;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 20px;
   border: none;
   color: white;
-  width: 50px;
+  width: 5vw;
   height: 5vh;
   border-radius: 20px;
   margin-right: 10px;
@@ -58,44 +47,34 @@ const EditBtn = styled.button`
 const DelBtn = styled.button`
   background-color: #4b3327;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 20px;
   border: none;
   color: white;
-  width: 50px;
+  width: 5vw;
   height: 5vh;
   border-radius: 20px;
   margin-right: 30px;
 `;
-const AddExpContainer = styled.div`
+const AddExpContainer = styled.form`
   margin-top: 3vh;
   width: 80vw;
   height: 30vh;
   margin-left: 10vw;
   border-radius: 20px;
   background-color: #d8d8d8;
-
-  @media screen and (max-width: 1000px) {
-    width: 90%; 
-  }
 `;
 const AddExpTitle = styled.input`
-  width: 750px;
-  height: 40px;
-  margin-bottom: 20px;
+  width: 60vw;
+  height: 4vh;
   border: none;
-  margin-left: auto;
-  margin-right: auto;
   text-align: center;
   font-size: 20px;
   font-weight: bold;
-
-  @media screen and (max-width: 1000px) {
-    width: 60vw; 
-  }
+  margin-bottom: 2vh;
 `;
 const AddExpImage = styled.div`
-  width: 750px;
-  height: 40px;
+  width: 60vw;
+  height: 4vh;
   display: flex;
   font-size: 20px;
   font-weight: bold;
@@ -108,24 +87,16 @@ const AddExpImage = styled.div`
   &:hover {
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   }
-
-  @media screen and (max-width: 1000px) {
-    width: 60vw; 
-  }
 `;
 const AddBtn = styled.button`
-  width: 100px;
+  width: 7vw;
   background-color: #315c40;
   border: none;
   border-radius: 10px;
   color: white;
   font-size: 20px;
   font-weight: bold;
-  margin-right: 15px;
-  
-  @media screen and (max-width: 1000px) {
-    width: 12%; 
-  }
+  margin-right: 5vw;
 `;
 
 const Edit = () => {
@@ -225,24 +196,21 @@ const Edit = () => {
     <div>
       <Nav fontcolor={"#315C40"} />
       <ExpContainer>
-        <Exp
-          onClick={() => {
-            navigate("/exp");
-          }}
-        >
-          <ExpTitle>몰드 초콜릿</ExpTitle>
-          <div>
-            <EditBtn>편집</EditBtn>
-            <DelBtn>삭제</DelBtn>
-          </div>
-        </Exp>
-        <Exp>
-          <ExpTitle>빼빼로 만들기</ExpTitle>
-          <div>
-            <EditBtn>편집</EditBtn>
-            <DelBtn>삭제</DelBtn>
-          </div>
-        </Exp>
+        {exp.map((item, index) => (
+          <Exp key={index}>
+            <ExpTitle
+              onClick={() => {
+                navigate(`/exp/${item.experienceId}`);
+              }}
+            >
+              {item.title}
+            </ExpTitle>
+            <div>
+              <EditBtn>편집</EditBtn>
+              <DelBtn onClick={() => handleDel(item.experienceId)}>삭제</DelBtn>
+            </div>
+          </Exp>
+        ))}
       </ExpContainer>
       <AddExpContainer onSubmit={onSubmit}>
         <h1
@@ -270,7 +238,6 @@ const Edit = () => {
                   fontWeight: "bold",
                   paddingLeft: "2vw",
                   paddingRight: "1vw",
-                  fontSize: "20px"
                 }}
               >
                 체험명
@@ -288,7 +255,6 @@ const Edit = () => {
                   fontWeight: "bold",
                   paddingLeft: "2vw",
                   paddingRight: "1vw",
-                  fontSize: "20px"
                 }}
               >
                 이미지
