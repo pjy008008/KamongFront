@@ -53,48 +53,21 @@ const VoiceContainer = styled.div`
   display: flex;
   align-items: center;
 `;
-const SampleContainer = styled.div``;
-const SampleVoiceContainer = styled.audio``;
-const SampleVoice = styled.source``;
-const SampleImageContainer = styled.img`
-  //이미지 크기
-  width: 50vw;
-  height: 30vh;
-`;
-const Script = () => {
-  const [selectedVoiceFile, setSelectedVoiceFile] = useState("");
-  const [selectedImageFile, setSelectedImageFile] = useState("");
+const MakeScript = () => {
   const [title, setTitle] = useState("");
   const [line, setLine] = useState("");
+  const [selectedVoiceFile, setSelectedVoiceFile] = useState(null);
+  const [selectedImageFile, setSelectedImageFile] = useState(null);
   const [duration, setDuration] = useState(0);
-  const [imageUrl, setImageUrl] = useState("");
-  const [voiceUrl, setVoiceUrl] = useState("");
   const [minute, setMinute] = useState(0);
   const [second, setSecond] = useState(0);
   //script Id출력
   const params = useParams();
-  // console.log(params);
-  const navigate = useNavigate();
   const location = useLocation();
   let expId = location.state.expId;
-
-  const handleDel = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await axios.delete(
-        `http://35.216.68.47:8080/api/experiences/pages/${params.scriptId}`,
-        {
-          headers: {
-            accept: "*/*",
-          },
-        }
-      );
-      console.log("Deletion successful:", response.data);
-    } catch (error) {
-      console.error("Error deleting data:", error);
-    }
-    navigate(`/exp/${expId}`);
-  };
+  // let stepId = location.state.stepId;
+  // console.log(stepId);
+  const navigate = useNavigate();
 
   const handleVoiceFileChange = (event) => {
     const file = event.target.files[0];
@@ -122,63 +95,51 @@ const Script = () => {
     }
   };
   const onSubmit = (event) => {
-    // event.preventDefault();
+    event.preventDefault();
     const totalDuration = 60 * parseInt(minute, 10) + parseInt(second, 10);
-    const formData = new FormData();
-    formData.append(
-      "request",
-      JSON.stringify({
-        title: title,
-        line: line,
-        duration: totalDuration,
-      })
-    );
-    formData.append("image", selectedImageFile); // 이미지는 비어있는 문자열로 추가
-    formData.append("voice", selectedVoiceFile); // 음성도 비어있는 문자열로 추가
 
-    // PATCH 요청 보내기
+    // const FormData = require(`form-data`);
+    const requestData = {
+      title: title,
+      line: line,
+      duration: totalDuration,
+      // sequence: stepId + 1,
+    };
+
+    // FormData 인스턴스를 생성하고 요청 데이터를 추가합니다.
+    const formData = new FormData();
+    formData.append("request", JSON.stringify(requestData));
+    formData.append("image", selectedImageFile, {
+      filename: selectedImageFile.name,
+      contentType: "image/jpeg",
+    });
+    formData.append("voice", selectedVoiceFile, {
+      filename: selectedVoiceFile.name,
+      contentType: "audio/mpeg",
+    });
+
+    // POST 요청을 보냅니다.
     axios
-      .patch(
-        `http://35.216.68.47:8080/api/experiences/pages/${params.scriptId}`,
+      .post(
+        `http://35.216.68.47:8080/api/experiences/${expId}/pages`,
         formData,
         {
           headers: {
+            "Content-Type": "multipart/form-data", // Content-Type 헤더 설정
             accept: "*/*",
-            "Content-Type": "multipart/form-data",
           },
         }
       )
-      .then(function (response) {
-        // 성공 핸들링
-        alert("저장되었습니다");
-        console.log(response.data);
+      .then((response) => {
+        // 성공적인 응답 처리
+        console.log("응답 데이터:", response.data);
+        alert("생성완료");
       })
-      .catch(function (error) {
-        // 에러 핸들링
-        console.error(error);
+      .catch((error) => {
+        // 에러 처리
+        console.error("에러:", error);
       });
   };
-
-  useEffect(() => {
-    axios
-      .get(`http://35.216.68.47:8080/api/experiences/pages/${params.scriptId}`)
-      .then(function (response) {
-        // 성공 핸들링
-        console.log(response);
-        setTitle(response.data.result.title);
-        setLine(response.data.result.line);
-        setDuration(response.data.result.duration);
-        setImageUrl(response.data.result.imageUrl);
-        setVoiceUrl(response.data.result.voiceUrl);
-      })
-      .catch(function (error) {
-        // 에러 핸들링
-        console.log(error);
-      })
-      .finally(function () {
-        // 항상 실행되는 영역
-      });
-  }, []);
 
   useEffect(() => {
     // duration 값이 변경될 때마다 minute 및 second를 업데이트
@@ -190,13 +151,13 @@ const Script = () => {
       <Nav bgcolor={"white"} fontcolor={"#315C40"} />
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <button
-          onClick={() => navigate(-1)}
+          onClick={() => navigate(`/exp/${expId}`)}
           style={{ border: "none", marginLeft: "5vw" }}
         >
           뒤로가기
         </button>
         <div>
-          <DelBtn onClick={handleDel}>삭제</DelBtn>
+          {/* <DelBtn onClick={handleDel}>삭제</DelBtn> */}
           <StoreBtn type="submit" form="form">
             저장
           </StoreBtn>
@@ -354,21 +315,7 @@ const Script = () => {
           />
         </VoiceContainer>
       </InputContainer>
-      <SampleContainer>
-        {voiceUrl ? (
-          <SampleVoiceContainer controls>
-            <SampleVoice src={voiceUrl} type="audio/mpeg" />
-          </SampleVoiceContainer>
-        ) : (
-          <p>Loading audio</p>
-        )}
-        {imageUrl ? (
-          <SampleImageContainer src={imageUrl}></SampleImageContainer>
-        ) : (
-          <p>Loading audio</p>
-        )}
-      </SampleContainer>
     </div>
   );
 };
-export default Script;
+export default MakeScript;

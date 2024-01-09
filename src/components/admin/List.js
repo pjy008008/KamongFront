@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 
 const ItemContainer = styled.div`
   width: 90vw;
@@ -13,31 +14,72 @@ const ItemContainer = styled.div`
   align-items: center;
   padding-left: 3vw;
 `;
+const Title = styled.h2`
+  font-size: 20px;
+  width: 13vw;
+  padding-right: 20px;
+`;
+const Line = styled.span``;
 
-const List = () => {
-  const [items, setItems] = useState([
-    "손 씻기",
-    "손 더럽히기",
-    "손 씻기",
-    "손 씻기",
-  ]);
+const List = ({ expId }) => {
+  const params = useParams();
+  const navigate = useNavigate();
+  const [script, setScript] = useState([]);
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
 
-    const newItems = [...items];
-    const [removed] = newItems.splice(result.source.index, 1);
-    newItems.splice(result.destination.index, 0, removed);
+    const newScript = [...script];
+    const [removed] = newScript.splice(result.source.index, 1);
+    newScript.splice(result.destination.index, 0, removed);
+    // console.log(newScript)
 
-    setItems(newItems);
+    const adjustedScript = newScript.map((item, index) => ({
+      stepId: item.stepId,
+      updatedSequence: index + 1,
+    }));
+    console.log(adjustedScript);
+
+    axios
+      .patch(`http://35.216.68.47:8080/api/experiences/pages`, adjustedScript, {
+        headers: {
+          accept: "*/*",
+          "Content-Type": "application/json",
+        },
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    setScript(newScript);
   };
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get(`http://35.216.68.47:8080/api/experiences/${params.expId}/pages`)
+      .then(function (response) {
+        // 성공 핸들링
+        console.log(response);
+        setScript(response.data.result);
+      })
+      .catch(function (error) {
+        // 에러 핸들링
+        console.log(error);
+      })
+      .finally(function () {
+        // 항상 실행되는 영역
+      });
+  }, [params.expId]);
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
         {(provided) => (
           <div ref={provided.innerRef} {...provided.droppableProps}>
-            {items.map((item, index) => (
+            {script.map((item, index) => (
               <Draggable
                 key={index}
                 draggableId={`item-${index}`}
@@ -45,12 +87,21 @@ const List = () => {
               >
                 {(provided) => (
                   <ItemContainer
-                    onClick={() => navigate("/script")}
+                    onClick={() =>
+                      navigate(`/script/${item.stepId}`, {
+                        state: {
+                          expId: expId,
+                        },
+                      })
+                    }
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                   >
-                    #{index + 1} {item}
+                    <Title>
+                      #{index + 1} {item.title}
+                    </Title>
+                    <Line style={{ paddingLeft: "5px" }}>{item.line}</Line>
                   </ItemContainer>
                 )}
               </Draggable>
