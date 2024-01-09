@@ -70,7 +70,7 @@ const Detail = () => {
       .get(`http://35.216.68.47:8080/api/experiences/${param}/pages`)
       .then(function (response) {
         // 성공 핸들링
-        // console.log(response);
+        console.log(response);
         setMaxStep(
           Math.max(...response.data.result.map((item) => item.stepId))
         );
@@ -105,6 +105,7 @@ const Detail = () => {
         </div>
       </TopContainer>
       <List expId={param} />
+      
     </div>
   );
 };

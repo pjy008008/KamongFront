@@ -356,7 +356,7 @@ const Script = () => {
       </InputContainer>
       <SampleContainer>
         {voiceUrl ? (
-          <SampleVoiceContainer controls autoPlay>
+          <SampleVoiceContainer controls>
             <SampleVoice src={voiceUrl} type="audio/mpeg" />
           </SampleVoiceContainer>
         ) : (

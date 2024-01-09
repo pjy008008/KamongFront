@@ -65,8 +65,8 @@ const MakeScript = () => {
   const params = useParams();
   const location = useLocation();
   let expId = location.state.expId;
-  let stepId = location.state.stepId;
-  //   console.log(param);
+  // let stepId = location.state.stepId;
+  // console.log(stepId);
   const navigate = useNavigate();
 
   const handleVoiceFileChange = (event) => {
@@ -103,7 +103,7 @@ const MakeScript = () => {
       title: title,
       line: line,
       duration: totalDuration,
-      sequence: stepId + 1,
+      // sequence: stepId + 1,
     };
 
     // FormData 인스턴스를 생성하고 요청 데이터를 추가합니다.
