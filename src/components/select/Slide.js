@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
+import axios from 'axios'
+
+const API_ENDPOINT = 'http://35.216.68.47:8080/api/experiences?page=0&size=50'; // Define API_ENDPOINT
 
 const CustomSlider = styled(Slider)`
   width: 80vw;
@@ -19,14 +22,36 @@ const CustomSlider = styled(Slider)`
     z-index: 1;
   }
 `;
+
 const Image = styled.img`
   width: 26vw;
   height: 20vh;
 `;
 
-const ImageContainer = styled.div``;
+const BannerSlider = () => {
+  const [experiences, setExperiences] = useState([]);
 
-const BannerSlider = ({ images }) => {
+  useEffect(() => {
+    const fetchExperiences = async () => {
+      try {
+        const response = await axios.get(API_ENDPOINT, {
+          headers: {
+            'Accept': '*/*'
+          }
+        });
+        const responseData = response.data;
+        const contentArray = responseData.result.content;
+
+        // 전체 체험 정보를 상태 업데이트
+        setExperiences(contentArray);
+      } catch (error) {
+        console.error('에러:', error.message);
+      }
+    };
+
+    fetchExperiences();
+  }, []);
+
   const settings = {
     infinite: true,
     speed: 500,
@@ -38,12 +63,12 @@ const BannerSlider = ({ images }) => {
 
   return (
     <CustomSlider {...settings}>
-      {images.map((image, index) => (
+      {experiences.map((experience, index) => (
         <div key={index}>
-          <Image src={image} alt={`Slide ${index + 1}`} />
+          <Image src={experience.imageUrl} alt={`Slide ${index + 1}`} />
+          <p>{experience.title}</p>
         </div>
       ))}
-      {/* Add more slides as needed */}
     </CustomSlider>
   );
 };
