@@ -7,6 +7,8 @@ import Admin from "../screen/Admin";
 import Select from "../screen/Select";
 import AllExp from "../screen/AllExp";
 import Detail from "../screen/Detail";
+import Start from "../screen/Start";
+import StartExp from "../screen/StartExp";
 import Script from "./admin/Script";
 import MakeScript from "./admin/MakeScript";
 import PrivateRoute from "./PrivateRoute";
@@ -74,6 +76,22 @@ const router = createBrowserRouter([
         element: (
           <div>
             <Select />
+          </div>
+        ),
+      },
+      {
+        path: "start",
+        element: (
+          <div>
+            <PrivateRoute component={<Start />} />
+          </div>
+        ),
+      },
+      {
+        path: "startexp/:stepId",
+        element: (
+          <div>
+            <PrivateRoute component={<StartExp />} />
           </div>
         ),
       },

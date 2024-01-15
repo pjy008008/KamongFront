@@ -4,8 +4,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 
-const API_ENDPOINT = "http://35.216.68.47:8080/api/experiences"; // Define API_ENDPOINT
+const API_ENDPOINT = "http://35.216.68.47:8080/api/experiences";
 
 const CustomSlider = styled(Slider)`
   width: 80vw;
@@ -30,9 +31,10 @@ const Image = styled.img`
 
 const BannerSlider = () => {
   const [experiences, setExperiences] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
-    const fetchExperiences = async () => {
+    
+    const fetchData = async () => {
       try {
         const response = await axios.get(API_ENDPOINT, {
           headers: {
@@ -40,15 +42,13 @@ const BannerSlider = () => {
           },
         });
         const contentArray = response.data.result.content;
-
-        // 전체 체험 정보를 상태 업데이트
         setExperiences(contentArray);
       } catch (error) {
         console.error("에러:", error.message);
       }
     };
 
-    fetchExperiences();
+    fetchData();
   }, []);
 
   const settings = {
@@ -63,7 +63,17 @@ const BannerSlider = () => {
   return (
     <CustomSlider {...settings}>
       {experiences.map((experience, index) => (
-        <div key={index}>
+        <div
+          key={index}
+          onClick={() =>
+            navigate(`/start`, {
+              state: {
+                expTitle: experience.title,
+                expId: experience.experienceId,
+              },
+            })
+          }
+        >
           <Image src={experience.imageUrl} alt={`Slide ${index + 1}`} />
           <p>{experience.title}</p>
         </div>
