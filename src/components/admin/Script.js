@@ -122,7 +122,7 @@ const Script = () => {
     }
   };
   const onSubmit = (event) => {
-    // event.preventDefault();
+    event.preventDefault();
     const totalDuration = 60 * parseInt(minute, 10) + parseInt(second, 10);
     const formData = new FormData();
     formData.append(
@@ -151,7 +151,8 @@ const Script = () => {
       .then(function (response) {
         // 성공 핸들링
         alert("저장되었습니다");
-        console.log(response.data);
+        // navigate(`/exp/${expId}`);
+        // console.log(response.data);
       })
       .catch(function (error) {
         // 에러 핸들링
