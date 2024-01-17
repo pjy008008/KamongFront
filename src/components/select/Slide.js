@@ -6,6 +6,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
+
 const API_ENDPOINT = "http://35.216.68.47:8080/api/experiences";
 
 const CustomSlider = styled(Slider)`

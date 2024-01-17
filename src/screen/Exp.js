@@ -2,19 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-import eraser from "../img/eraser.png"
+import eraser from "../img/eraser.png";
 
 const StartContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 85vh;
 `;
 
 const Blackboard = styled.div`
-  width: 65vw;
-  height: 100vw;
+  width: 80vw;
+  height: 80vh;
   background-color: #315c40;
   color: white;
   display: flex;
@@ -26,29 +25,29 @@ const Blackboard = styled.div`
 `;
 
 const EraserImage = styled.img`
-position: absolute;
-  bottom: 18vh;
-  left: 25vw;
-  width: 7vw; 
+  position: absolute;
+  bottom: 10vh;
+  left: 20vw;
+  width: 7vw;
 `;
 
 const Chalk1 = styled.div`
   width: 1vw;
   height: 4vw;
-  background-color:white;
+  background-color: white;
   position: absolute;
   bottom: 55vh;
   right: 23vw;
   border-radius: 10px;
 `;
 const Chalk2 = styled.div`
-width: 1vw;
-height: 4vw;
-background-color: #F6AFAF;
-position: absolute;
-bottom: 55vh;
-right: 21.7vw;
-border-radius: 10px;
+  width: 1vw;
+  height: 4vw;
+  background-color: #f6afaf;
+  position: absolute;
+  bottom: 55vh;
+  right: 21.7vw;
+  border-radius: 10px;
 `;
 const Button = styled.button`
   padding: 10px 20px;
@@ -58,6 +57,7 @@ const Button = styled.button`
   border: none;
   cursor: pointer;
   margin-top: 20px;
+  border-radius: 10px;
 `;
 
 const GoBackButton = styled.button`
@@ -69,6 +69,13 @@ const GoBackButton = styled.button`
   cursor: pointer;
   margin-top: 20px;
   margin-right: auto;
+`;
+
+const Title = styled.h2`
+  color: white;
+  font-weight: bold;
+  font-size: 30px;
+  margin: 0px;
 `;
 
 const Exp = () => {
@@ -108,21 +115,33 @@ const Exp = () => {
     if (sequence == 0) {
       return (
         <Blackboard>
-          <h2>카몽이와 함께 하는 {expTitle}</h2>
+          <Title>카몽이와 함께 하는 {expTitle}</Title>
           <Button onClick={nextBtn}>체험 시작</Button>
         </Blackboard>
       );
     } else if (sequence - 1 == steps.length) {
       return (
         <Blackboard>
-          <h2>this is last page</h2>
+          <Title>[{expTitle} 순서]</Title>
+          {steps.map((item, key) => (
+            <Title
+              style={{}}
+              onClick={() => {
+                setCount(key + 1);
+              }}
+            >
+              {key + 1}
+              {". "}
+              {item.title}
+            </Title>
+          ))}
           <Button onClick={prevBtn}>이전</Button>
         </Blackboard>
       );
     } else {
       return (
         <Blackboard>
-          <h2>{steps[sequence - 1].title}</h2>
+          <Title>{steps[sequence - 1].title}</Title>
           <p>{steps[sequence - 1].line}</p>
           <p>
             <img
@@ -137,7 +156,9 @@ const Exp = () => {
           </audio>
           <div style={{ display: "flex" }}>
             <Button onClick={prevBtn}>이전</Button>
-            <Button onClick={nextBtn}>다음</Button>
+            <Button style={{ marginLeft: "10px" }} onClick={nextBtn}>
+              다음
+            </Button>
           </div>
         </Blackboard>
       );
@@ -155,8 +176,6 @@ const Exp = () => {
       <GoBackButton onClick={goBack}>뒤로가기</GoBackButton>
       {handleExp(count)}
       <EraserImage src={eraser} />
-      <Chalk1></Chalk1>
-      <Chalk2></Chalk2>
     </StartContainer>
   );
 };
