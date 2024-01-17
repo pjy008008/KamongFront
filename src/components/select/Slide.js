@@ -6,15 +6,14 @@ import styled from "styled-components";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
-
 const API_ENDPOINT = "http://35.216.68.47:8080/api/experiences";
 
 const CustomSlider = styled(Slider)`
-  width: 80vw;
-  height: 27vh;
+  width: 90vw;
+  height: 23vh;
   z-index: 1;
   margin: 0 auto;
-
+  margin-bottom: 8vh;
   .slick-prev {
     left: 3% !important;
     z-index: 1;
@@ -26,8 +25,8 @@ const CustomSlider = styled(Slider)`
 `;
 
 const Image = styled.img`
-  width: 26vw;
-  height: 20vh;
+  width: 30vw;
+  height: 23vh;
 `;
 
 const BannerSlider = () => {
@@ -74,8 +73,10 @@ const BannerSlider = () => {
             })
           }
         >
-          <Image src={experience.imageUrl} alt={`Slide ${index + 1}`} />
-          <p>{experience.title}</p>
+          <Image src={experience.imageUrl} alt={`Slide ${index + 1}`}></Image>
+          <p style={{ textAlign: "center", fontWeight: "bold" }}>
+            {experience.title}
+          </p>
         </div>
       ))}
     </CustomSlider>

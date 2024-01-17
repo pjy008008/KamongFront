@@ -18,15 +18,8 @@ const CustomSlider = styled(Slider)`
   width: 100vw;
   height: 85vh;
   margin: 0 auto;
-
-  .slick-prev {
-    left: 3% !important;
-    z-index: 1;
-  }
-  .slick-next {
-    right: 3% !important;
-    z-index: 1;
-  }
+  overflow-y: hidden;
+  overflow-x: hidden;
 `;
 
 const Background = styled.div`
@@ -91,7 +84,7 @@ const PreStart = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 4000,
   };
 
   return (

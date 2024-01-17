@@ -3,6 +3,7 @@ import Nav from "../Nav";
 import styled from "styled-components";
 import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Modal from "react-modal";
 
 const ExpContainer = styled.div`
   width: 80vw;
@@ -12,6 +13,7 @@ const ExpContainer = styled.div`
   border-radius: 20px;
   background-color: #315c40;
   padding-top: 3vh;
+  padding-bottom: 3vh;
   overflow: scroll;
   overflow-x: hidden;
 `;
@@ -104,6 +106,15 @@ const Edit = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [exp, setExp] = useState([]);
   const [title, setTitle] = useState("");
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const customStyles = {
+    content: {
+      width: "50%", // 원하는 크기로 조정
+      height: "50%", // 원하는 크기로 조정
+      margin: "auto",
+    },
+  };
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -117,26 +128,37 @@ const Edit = () => {
     }
   };
   const handleDel = async (expId) => {
-    try {
-      const response = await axios.delete(
-        `http://35.216.68.47:8080/api/experiences/${expId}`,
-        {
-          headers: {
-            accept: "*/*",
-          },
-        }
-      );
-
-      console.log("Deletion successful:", response.data);
-    } catch (error) {
-      console.error("Error deleting data:", error);
+    if (window.confirm("삭제 하시겠습니까??")) {
+      try {
+        const response = await axios.delete(
+          `http://35.216.68.47:8080/api/experiences/${expId}`,
+          {
+            headers: {
+              accept: "*/*",
+            },
+          }
+        );
+        console.log("Deletion successful:", response.data);
+      } catch (error) {
+        console.error("Error deleting data:", error);
+      }
+      window.location.reload();
+    } else {
     }
-    window.location.reload();
+  };
+  const handleEdit = (expId) => {
+    const foundExperience = exp.find((item) => item.experienceId === expId);
+    // setTitle((prev) => foundExperience.title);
+    if (foundExperience) {
+      setTitle(foundExperience.title);
+    } else {
+      console.error(`Experience with ID ${expId} not found.`);
+    }
   };
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    // Create a FormData object
+    // Create a FormData objecta
     const formData = new FormData();
 
     // Append title to formData
@@ -195,6 +217,25 @@ const Edit = () => {
   return (
     <div>
       <Nav fontcolor={"#315C40"} />
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+        style={customStyles}
+      >
+        This is Modal content
+        <button
+          style={{
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+            border: "none",
+            fontWeight: "bold",
+          }}
+          onClick={() => setModalIsOpen(false)}
+        >
+          닫기
+        </button>
+      </Modal>
       <ExpContainer>
         {exp.map((item, index) => (
           <Exp key={index}>
@@ -206,7 +247,7 @@ const Edit = () => {
               {item.title}
             </ExpTitle>
             <div>
-              <EditBtn>편집</EditBtn>
+              <EditBtn onClick={() => setModalIsOpen(true)}>편집</EditBtn>
               <DelBtn onClick={() => handleDel(item.experienceId)}>삭제</DelBtn>
             </div>
           </Exp>
@@ -246,6 +287,7 @@ const Edit = () => {
                 onChange={onChange}
                 name="title"
                 placeholder="체험명을 입력하세요"
+                value={title}
               ></AddExpTitle>
             </div>
             <div style={{ display: "flex" }}>

@@ -9,6 +9,9 @@ const Title = styled.h1`
   font-size: 30px;
   text-align: center;
   color: #4b3327;
+  margin: 0px;
+  margin-bottom: 30px;
+  margin-top: 5vh;
 `;
 const Select = () => {
   return (
