@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import eraser from "../img/eraser.png"
 
 const StartContainer = styled.div`
   display: flex;
@@ -12,16 +13,43 @@ const StartContainer = styled.div`
 `;
 
 const Blackboard = styled.div`
-  width: 80%;
-  height: 100%;
+  width: 65vw;
+  height: 100vw;
   background-color: #315c40;
   color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border: 35px solid #4b3327;
+  border-radius: 50px;
 `;
 
+const EraserImage = styled.img`
+position: absolute;
+  bottom: 18vh;
+  left: 25vw;
+  width: 7vw; 
+`;
+
+const Chalk1 = styled.div`
+  width: 1vw;
+  height: 4vw;
+  background-color:white;
+  position: absolute;
+  bottom: 55vh;
+  right: 23vw;
+  border-radius: 10px;
+`;
+const Chalk2 = styled.div`
+width: 1vw;
+height: 4vw;
+background-color: #F6AFAF;
+position: absolute;
+bottom: 55vh;
+right: 21.7vw;
+border-radius: 10px;
+`;
 const Button = styled.button`
   padding: 10px 20px;
   font-size: 16px;
@@ -126,6 +154,9 @@ const Exp = () => {
     <StartContainer>
       <GoBackButton onClick={goBack}>뒤로가기</GoBackButton>
       {handleExp(count)}
+      <EraserImage src={eraser} />
+      <Chalk1></Chalk1>
+      <Chalk2></Chalk2>
     </StartContainer>
   );
 };
