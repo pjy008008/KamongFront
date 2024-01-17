@@ -11,16 +11,13 @@ const Title = styled.h1`
   color: #4b3327;
 `;
 const Select = () => {
-  const images1 = [first, second, third, first, second, third];
-  const images2 = [third, first, second, third, first, second];
-  // 모든 체험 받아오는 코드
   return (
     <div>
       <Nav bgcolor={"white"} fontcolor={"#315C40"} />
       {/* api 호출 후 메뉴 호출하는 함수 구현 */}
       <Title>체험목록</Title>
-      <Slide images={images1} />
-      <Slide images={images2} />
+      <Slide />
+      <Slide />
     </div>
   );
 };

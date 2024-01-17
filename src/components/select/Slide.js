@@ -33,7 +33,6 @@ const BannerSlider = () => {
   const [experiences, setExperiences] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    
     const fetchData = async () => {
       try {
         const response = await axios.get(API_ENDPOINT, {
@@ -66,7 +65,7 @@ const BannerSlider = () => {
         <div
           key={index}
           onClick={() =>
-            navigate(`/start`, {
+            navigate(`/exp`, {
               state: {
                 expTitle: experience.title,
                 expId: experience.experienceId,

@@ -7,7 +7,7 @@ import Admin from "../screen/Admin";
 import Select from "../screen/Select";
 import AllExp from "../screen/AllExp";
 import Detail from "../screen/Detail";
-import Start from "../screen/Start";
+import Exp from "../screen/Exp";
 import StartExp from "../screen/StartExp";
 import Script from "./admin/Script";
 import MakeScript from "./admin/MakeScript";
@@ -80,10 +80,10 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "start",
+        path: "exp",
         element: (
           <div>
-            <PrivateRoute component={<Start />} />
+            <PrivateRoute component={<Exp />} />
           </div>
         ),
       },
