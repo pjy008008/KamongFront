@@ -87,14 +87,6 @@ const router = createBrowserRouter([
           </div>
         ),
       },
-      {
-        path: "startexp/:stepId",
-        element: (
-          <div>
-            <PrivateRoute component={<StartExp />} />
-          </div>
-        ),
-      },
     ],
   },
 ]);

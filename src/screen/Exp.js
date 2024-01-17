@@ -95,8 +95,22 @@ const Exp = () => {
       return (
         <Blackboard>
           <h2>{steps[sequence - 1].title}</h2>
-          <Button onClick={prevBtn}>이전</Button>
-          <Button onClick={nextBtn}>다음</Button>
+          <p>{steps[sequence - 1].line}</p>
+          <p>
+            <img
+              style={{ width: "500px", height: "300px" }}
+              src={steps[sequence - 1].imageUrl}
+              alt="Experience Image"
+            />
+          </p>
+          <audio controls key={steps[sequence - 1].voiceUrl}>
+            <source src={steps[sequence - 1].voiceUrl} type="audio/mpeg" />
+            Your browser does not support the audio tag.
+          </audio>
+          <div style={{ display: "flex" }}>
+            <Button onClick={prevBtn}>이전</Button>
+            <Button onClick={nextBtn}>다음</Button>
+          </div>
         </Blackboard>
       );
     }
