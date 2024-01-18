@@ -106,8 +106,12 @@ const Edit = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [exp, setExp] = useState([]);
   const [title, setTitle] = useState("");
+  //수정을 하기위한 state
+  const [expEditId, setExpEditId] = useState(0);
+  const [editTitle, setEditTitle] = useState("");
+  const [editImage, setEditImage] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
+  const [selectedEditFile, setSelectedEditFile] = useState(null);
   const customStyles = {
     content: {
       width: "50%", // 원하는 크기로 조정
@@ -121,10 +125,18 @@ const Edit = () => {
       setSelectedFile(file);
     }
   };
+  const handleEditFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedEditFile(file);
+    }
+  };
   const onChange = (event) => {
     const { name, value } = event.target;
     if (name === "title") {
       setTitle((prev) => value);
+    } else if (name === "editTitle") {
+      setEditTitle((prev) => value);
     }
   };
   const handleDel = async (expId) => {
@@ -147,17 +159,45 @@ const Edit = () => {
     }
   };
   const handleEdit = (expId) => {
+    setModalIsOpen(true);
+    setExpEditId(expId);
     const foundExperience = exp.find((item) => item.experienceId === expId);
     // setTitle((prev) => foundExperience.title);
     if (foundExperience) {
-      setTitle(foundExperience.title);
+      setEditTitle(foundExperience.title);
+      setEditImage(foundExperience.imageUrl);
     } else {
       console.error(`Experience with ID ${expId} not found.`);
     }
   };
+  const handleEditSubmit = (event) => {
+    // event.preventDefault();
+    const apiUrl = `http://35.216.68.47:8080/api/experiences/${expEditId}`;
+
+    const formData = new FormData();
+    formData.append("request", JSON.stringify({ title: editTitle }));
+
+    // Assume you have a file input in your HTML with id="imageInput"
+    const imageInput = document.getElementById("imageInput");
+    formData.append("image", selectedEditFile);
+
+    // Make a PATCH request using axios
+    axios
+      .patch(apiUrl, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Accept: "*/*",
+        },
+      })
+      .then((response) => {
+        console.log("Update successful:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error updating data:", error);
+      });
+  };
   const onSubmit = async (event) => {
     event.preventDefault();
-
     // Create a FormData objecta
     const formData = new FormData();
 
@@ -184,10 +224,8 @@ const Edit = () => {
 
       // Handle success, e.g., show a success message
       console.log("Submission successful:", response.data);
-
       // Optionally, update the 'exp' state with the new data
       // setExp((prevExp) => [...prevExp, response.data]);
-
       // Reset the form values
       setTitle("");
       setSelectedFile(null);
@@ -222,7 +260,37 @@ const Edit = () => {
         onRequestClose={() => setModalIsOpen(false)}
         style={customStyles}
       >
-        This is Modal content
+        <form onSubmit={handleEditSubmit}>
+          <span>제목</span>
+          <input name="editTitle" onChange={onChange} value={editTitle} />
+          <br />
+          <span>현재 이미지</span>
+          <br />
+          <img style={{ width: "200px", height: "100px" }} src={editImage} />
+          <label htmlFor="edit">
+            {selectedEditFile ? (
+              <div>
+                <span>변경할 이미지:</span>
+                <br />
+                <img
+                  style={{ width: "200px", height: "100px" }}
+                  src={URL.createObjectURL(selectedEditFile)}
+                  alt="Selected Image"
+                />
+              </div>
+            ) : (
+              <div>이미지 변경하기</div>
+            )}
+          </label>
+          <input
+            style={{ display: "none" }}
+            id="edit"
+            name="file"
+            type="file"
+            onChange={handleEditFileChange}
+          />
+          <button type="submit">변경</button>
+        </form>
         <button
           style={{
             position: "absolute",
@@ -247,7 +315,9 @@ const Edit = () => {
               {item.title}
             </ExpTitle>
             <div>
-              <EditBtn onClick={() => setModalIsOpen(true)}>편집</EditBtn>
+              <EditBtn onClick={() => handleEdit(item.experienceId)}>
+                편집
+              </EditBtn>
               <DelBtn onClick={() => handleDel(item.experienceId)}>삭제</DelBtn>
             </div>
           </Exp>

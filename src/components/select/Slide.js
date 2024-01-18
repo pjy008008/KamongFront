@@ -9,8 +9,8 @@ import { useNavigate, useParams } from "react-router-dom";
 const API_ENDPOINT = "http://35.216.68.47:8080/api/experiences";
 
 const CustomSlider = styled(Slider)`
-  width: 90vw;
-  height: 23vh;
+  width: 85vw;
+  height: 25vh;
   z-index: 1;
   margin: 0 auto;
   margin-bottom: 8vh;
@@ -29,26 +29,8 @@ const Image = styled.img`
   height: 23vh;
 `;
 
-const BannerSlider = () => {
-  const [experiences, setExperiences] = useState([]);
+const BannerSlider = ({experiences}) => {
   const navigate = useNavigate();
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(API_ENDPOINT, {
-          headers: {
-            Accept: "*/*",
-          },
-        });
-        const contentArray = response.data.result.content;
-        setExperiences(contentArray);
-      } catch (error) {
-        console.error("에러:", error.message);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const settings = {
     infinite: true,
