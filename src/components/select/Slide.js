@@ -9,8 +9,8 @@ import { useNavigate, useParams } from "react-router-dom";
 const API_ENDPOINT = "http://35.216.68.47:8080/api/experiences";
 
 const CustomSlider = styled(Slider)`
-  width: 85vw;
-  height: 25vh;
+  width: 79vw;
+  height: 28vh;
   z-index: 1;
   margin: 0 auto;
   margin-bottom: 8vh;
@@ -25,8 +25,9 @@ const CustomSlider = styled(Slider)`
 `;
 
 const Image = styled.img`
-  width: 30vw;
-  height: 23vh;
+  width: 38vw;
+  height: 31vh;
+  border-radius: 3%;
 `;
 
 const BannerSlider = ({experiences}) => {
@@ -35,7 +36,7 @@ const BannerSlider = ({experiences}) => {
   const settings = {
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 2,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
