@@ -20,6 +20,16 @@ const Title = styled.h2`
   padding-right: 20px;
 `;
 const Line = styled.span``;
+const EmptyContainer = styled.div`
+  width: 90vw;
+  height: 60vh;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: bold;
+`;
 
 const List = ({ expId }) => {
   const params = useParams();
@@ -62,7 +72,7 @@ const List = ({ expId }) => {
       .get(`http://35.216.68.47:8080/api/experiences/${params.expId}/pages`)
       .then(function (response) {
         // 성공 핸들링
-        console.log(response);
+        // console.log(response);
         setScript(response.data.result);
       })
       .catch(function (error) {
@@ -79,33 +89,37 @@ const List = ({ expId }) => {
       <Droppable droppableId="droppable">
         {(provided) => (
           <div ref={provided.innerRef} {...provided.droppableProps}>
-            {script.map((item, index) => (
-              <Draggable
-                key={index}
-                draggableId={`item-${index}`}
-                index={index}
-              >
-                {(provided) => (
-                  <ItemContainer
-                    onClick={() =>
-                      navigate(`/script/${item.stepId}`, {
-                        state: {
-                          expId: expId,
-                        },
-                      })
-                    }
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                  >
-                    <Title>
-                      #{index + 1} {item.title}
-                    </Title>
-                    <Line style={{ paddingLeft: "5px" }}>{item.line}</Line>
-                  </ItemContainer>
-                )}
-              </Draggable>
-            ))}
+            {script.length === 0 ? (
+              <EmptyContainer>대사가 존재하지 않습니다</EmptyContainer>
+            ) : (
+              script.map((item, index) => (
+                <Draggable
+                  key={index}
+                  draggableId={`item-${index}`}
+                  index={index}
+                >
+                  {(provided) => (
+                    <ItemContainer
+                      onClick={() =>
+                        navigate(`/script/${item.stepId}`, {
+                          state: {
+                            expId: expId,
+                          },
+                        })
+                      }
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                      <Title>
+                        #{index + 1} {item.title}
+                      </Title>
+                      <Line style={{ paddingLeft: "5px" }}>{item.line}</Line>
+                    </ItemContainer>
+                  )}
+                </Draggable>
+              ))
+            )}
             {provided.placeholder}
           </div>
         )}
