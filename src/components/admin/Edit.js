@@ -371,6 +371,7 @@ const Edit = () => {
             </div>
           )}
           
+          {!selectedEditFile && (
             <label htmlFor="edit">
               <ChangeImage>이미지 변경하기</ChangeImage>
               <input
@@ -381,7 +382,7 @@ const Edit = () => {
                 onChange={handleEditFileChange}
               />
             </label>
-          
+          )}
           
           <div>
             <ChangeImageButton type="submit">변경 완료</ChangeImageButton>
