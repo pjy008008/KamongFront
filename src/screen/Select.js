@@ -30,8 +30,10 @@ const Select = () => {
             Accept: "*/*",
           },
         });
-        const contentArray = response.data.result.content;
-        setExperiences(contentArray);
+        const filteredExperiences = response.data.result.content.filter(
+          (item) => item.isEnabled === true
+        );
+        setExperiences(filteredExperiences);
         // const middleIndex = Math.ceil(contentArray.length / 2);
         // const newArray1 = contentArray.slice(0, middleIndex);
         // const newArray2 = contentArray.slice(middleIndex);

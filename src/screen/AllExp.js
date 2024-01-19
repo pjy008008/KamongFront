@@ -4,7 +4,6 @@ const AllExp = () => {
   return (
     <div>
       <Edit />
-      
     </div>
   );
 };

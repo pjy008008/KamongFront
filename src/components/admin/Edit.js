@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Modal from "react-modal";
+import Toggle from "../Toggle";
 
 const ExpContainer = styled.div`
   width: 80vw;
@@ -315,6 +316,10 @@ const Edit = () => {
               {item.title}
             </ExpTitle>
             <div>
+              <Toggle
+                expId={item.experienceId}
+                status={item.isEnabled}
+              ></Toggle>
               <EditBtn onClick={() => handleEdit(item.experienceId)}>
                 편집
               </EditBtn>
