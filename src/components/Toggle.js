@@ -14,6 +14,7 @@ const ToggleContainer = styled.span`
   height: 40px;
   border-radius: 30px;
   background-color: lightgray;
+  transition: 0.5s;
   ${(props) =>
     props.checked &&
     css`

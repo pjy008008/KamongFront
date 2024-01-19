@@ -111,13 +111,15 @@ const ChangeExpTitle = styled.input`
   width: 20vw;
   height: 4vh;
   border: none;
-  border: 1px solid #4b3327;
+  border-bottom: 2px solid #4b3327;
+  padding-left: 10px;
   font-size: 20px;
   font-weight: bold;
 `;
 
 const ChangeImage = styled.div`
-  width: 13vw;
+  width: 170px;
+  height: 30px;
   color: #4b3327;
   font-weight: bold;
   font-size: 22px;
@@ -125,15 +127,15 @@ const ChangeImage = styled.div`
   border: 1px solid #4b3327;
   border-radius: 5px;
   padding: 0.5vw 0.5vw;
-  margin-top: 1vw;
   margin-bottom: 1vw;
+  margin-right: 10px;
   align-items: center;
   cursor: pointer;
 `;
 
 const ChangeImageButton = styled.button`
-  width: 10vw;
-  height: 5vh;
+  width: 170px;
+  height: 49px;
   background-color: #315c40;
   border: none;
   color: white;
@@ -156,8 +158,10 @@ const Edit = () => {
   const customStyles = {
     content: {
       width: "50%", // 원하는 크기로 조정
-      height: "50%", // 원하는 크기로 조정
+      height: "55%", // 원하는 크기로 조정
       margin: "auto",
+      overflowY: "hidden",
+      overflowX: "hidden",
     },
   };
   const handleFileChange = (event) => {
@@ -181,7 +185,7 @@ const Edit = () => {
     }
   };
   const handleDel = async (expId) => {
-    if (window.confirm("삭제 하시겠습니까??")) {
+    if (window.confirm("정말 삭제 하시겠습니까?")) {
       try {
         const response = await axios.delete(
           `http://35.216.68.47:8080/api/experiences/${expId}`,
@@ -212,7 +216,7 @@ const Edit = () => {
     }
   };
   const handleEditSubmit = (event) => {
-    // event.preventDefault();
+    event.preventDefault();
     const apiUrl = `http://35.216.68.47:8080/api/experiences/${expEditId}`;
 
     const formData = new FormData();
@@ -231,6 +235,8 @@ const Edit = () => {
         },
       })
       .then((response) => {
+        alert("변경완료");
+        window.location.reload();
         console.log("Update successful:", response.data);
       })
       .catch((error) => {
@@ -338,10 +344,10 @@ const Edit = () => {
               <br />
               <img
                 style={{
-                  width: "400px",
-                  height: "200px",
-                  paddingRight: "10vw",
-                  paddingBottom: "1vw",
+                  paddingTop: "5px",
+                  paddingBottom: "10px",
+                  width: "50vw",
+                  height: "40vh",
                 }}
                 src={editImage}
               />
@@ -362,17 +368,17 @@ const Edit = () => {
               <br />
               <img
                 style={{
-                  width: "400px",
-                  height: "200px",
-                  paddingBottom: "2vw",
+                  paddingTop: "5px",
+                  paddingBottom: "10px",
+                  width: "50vw",
+                  height: "40vh",
                 }}
                 src={URL.createObjectURL(selectedEditFile)}
                 alt="Selected Image"
               />
             </div>
           )}
-          
-          {!selectedEditFile && (
+          <div style={{ display: "flex" }}>
             <label htmlFor="edit">
               <ChangeImage>이미지 변경하기</ChangeImage>
               <input
@@ -383,16 +389,15 @@ const Edit = () => {
                 onChange={handleEditFileChange}
               />
             </label>
-          )}
-          
-          <div>
-            <ChangeImageButton type="submit">변경 완료</ChangeImageButton>
+            <div>
+              <ChangeImageButton type="submit">변경 완료</ChangeImageButton>
+            </div>
           </div>
         </form>
         <button
           style={{
-            width: "7vw",
-            height: "5vh",
+            width: "5vw",
+            height: "4vh",
             position: "absolute",
             top: "10px",
             right: "10px",
