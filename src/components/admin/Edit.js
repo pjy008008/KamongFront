@@ -67,7 +67,7 @@ const AddExpContainer = styled.form`
   background-color: #d8d8d8;
 `;
 const AddExpTitle = styled.input`
-  width: 60vw;
+  width: 58vw;
   height: 4vh;
   border: none;
   text-align: center;
@@ -76,7 +76,7 @@ const AddExpTitle = styled.input`
   margin-bottom: 2vh;
 `;
 const AddExpImage = styled.div`
-  width: 60vw;
+  width: 58vw;
   height: 4vh;
   display: flex;
   font-size: 20px;
@@ -97,9 +97,49 @@ const AddBtn = styled.button`
   border: none;
   border-radius: 10px;
   color: white;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: bold;
   margin-right: 5vw;
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const ChangeExpTitle = styled.input`
+  width: 20vw;
+  height: 4vh;
+  border: none;
+  border: 1px solid #4b3327;
+  font-size: 20px;
+  font-weight: bold;
+`;
+
+const ChangeImage = styled.div`
+  width: 13vw;
+  color: #4b3327;
+  font-weight: bold;
+  font-size: 22px;
+  background-color: white;
+  border: 1px solid #4b3327;
+  border-radius: 5px;
+  padding: 0.5vw 0.5vw;
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+  align-items: center;
+  cursor: pointer;
+`;
+
+const ChangeImageButton = styled.button`
+  width: 10vw;
+  height: 5vh;
+  background-color: #315c40;
+  border: none;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  border-radius: 10px;
 `;
 
 const Edit = () => {
@@ -197,6 +237,7 @@ const Edit = () => {
         console.error("Error updating data:", error);
       });
   };
+
   const onSubmit = async (event) => {
     event.preventDefault();
     // Create a FormData objecta
@@ -262,43 +303,103 @@ const Edit = () => {
         style={customStyles}
       >
         <form onSubmit={handleEditSubmit}>
-          <span>제목</span>
-          <input name="editTitle" onChange={onChange} value={editTitle} />
+          <TitleContainer>
+            <span
+              style={{
+                color: "#4B3327",
+                fontWeight: "bold",
+                paddingRight: "1vw",
+                fontSize: "25px",
+              }}
+            >
+              제목
+            </span>
+            <div></div>
+            <ChangeExpTitle
+              name="editTitle"
+              onChange={onChange}
+              value={editTitle}
+            />
+          </TitleContainer>
           <br />
-          <span>현재 이미지</span>
-          <br />
-          <img style={{ width: "200px", height: "100px" }} src={editImage} />
-          <label htmlFor="edit">
-            {selectedEditFile ? (
-              <div>
-                <span>변경할 이미지:</span>
-                <br />
-                <img
-                  style={{ width: "200px", height: "100px" }}
-                  src={URL.createObjectURL(selectedEditFile)}
-                  alt="Selected Image"
-                />
-              </div>
-            ) : (
-              <div>이미지 변경하기</div>
-            )}
-          </label>
-          <input
-            style={{ display: "none" }}
-            id="edit"
-            name="file"
-            type="file"
-            onChange={handleEditFileChange}
-          />
-          <button type="submit">변경</button>
+          {editImage && !selectedEditFile && (
+            <div>
+              <span
+                style={{
+                  color: "#4B3327",
+                  fontWeight: "bold",
+                  paddingRight: "1vw",
+                  marginTop: "10vw",
+                  fontSize: "25px",
+                }}
+              >
+                현재 이미지
+              </span>
+              <br />
+              <img
+                style={{
+                  width: "400px",
+                  height: "200px",
+                  paddingRight: "10vw",
+                  paddingBottom: "1vw",
+                }}
+                src={editImage}
+              />
+            </div>
+          )}
+          {selectedEditFile && (
+            <div>
+              <span
+                style={{
+                  color: "#4B3327",
+                  fontWeight: "bold",
+                  paddingRight: "1vw",
+                  fontSize: "25px",
+                }}
+              >
+                변경할 이미지
+              </span>
+              <br />
+              <img
+                style={{
+                  width: "400px",
+                  height: "200px",
+                  paddingBottom: "2vw",
+                }}
+                src={URL.createObjectURL(selectedEditFile)}
+                alt="Selected Image"
+              />
+            </div>
+          )}
+          
+          {!selectedEditFile && (
+            <label htmlFor="edit">
+              <ChangeImage>이미지 변경하기</ChangeImage>
+              <input
+                style={{ display: "none" }}
+                id="edit"
+                name="file"
+                type="file"
+                onChange={handleEditFileChange}
+              />
+            </label>
+          )}
+          
+          <div>
+            <ChangeImageButton type="submit">변경 완료</ChangeImageButton>
+          </div>
         </form>
         <button
           style={{
+            width: "7vw",
+            height: "5vh",
             position: "absolute",
             top: "10px",
             right: "10px",
             border: "none",
             fontWeight: "bold",
+            borderRadius: "10px",
+            fontSize: "18px",
           }}
           onClick={() => setModalIsOpen(false)}
         >
@@ -331,13 +432,14 @@ const Edit = () => {
       <AddExpContainer onSubmit={onSubmit}>
         <h1
           style={{
-            fontSize: "40px",
+            fontSize: "38px",
             color: "#315C40",
             paddingLeft: "2vw",
             paddingTop: "2vh",
+            fontWeight: "bold",
           }}
         >
-          체험
+          체험 추가
         </h1>
         <div
           style={{
@@ -354,6 +456,7 @@ const Edit = () => {
                   fontWeight: "bold",
                   paddingLeft: "2vw",
                   paddingRight: "1vw",
+                  fontSize: "25px",
                 }}
               >
                 체험명
@@ -372,6 +475,7 @@ const Edit = () => {
                   fontWeight: "bold",
                   paddingLeft: "2vw",
                   paddingRight: "1vw",
+                  fontSize: "25px",
                 }}
               >
                 이미지
