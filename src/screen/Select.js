@@ -13,7 +13,7 @@ const Title = styled.h1`
   color: #4b3327;
   margin: 0px;
   margin-bottom: 30px;
-  margin-top: 5vh;
+  margin-top: 2vh;
 `;
 
 const API_ENDPOINT = "http://35.216.68.47:8080/api/experiences";

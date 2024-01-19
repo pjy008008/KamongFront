@@ -8,7 +8,6 @@ import Select from "../screen/Select";
 import AllExp from "../screen/AllExp";
 import Detail from "../screen/Detail";
 import Exp from "../screen/Exp";
-import StartExp from "../screen/StartExp";
 import Script from "./admin/Script";
 import MakeScript from "./admin/MakeScript";
 import PrivateRoute from "./PrivateRoute";

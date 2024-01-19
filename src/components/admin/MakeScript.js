@@ -133,6 +133,7 @@ const MakeScript = () => {
       .then((response) => {
         // 성공적인 응답 처리
         console.log("응답 데이터:", response.data);
+        navigate(`/exp/${expId}`);
         alert("생성완료");
       })
       .catch((error) => {

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Nav from "../components/Nav";
 import List from "../components/admin/List";
+import EntireScript from "../components/admin/EntireScript";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -41,7 +42,9 @@ const Detail = () => {
   const param = params.expId;
   const [maxStep, setMaxStep] = useState(0);
   const navigate = useNavigate();
+  const [exp, setExp] = useState([]);
   const [title, setTitle] = useState("");
+  const [viewEntire, setViewEntier] = useState(false);
   useEffect(() => {
     axios
       .get("http://35.216.68.47:8080/api/experiences")
@@ -71,6 +74,7 @@ const Detail = () => {
       .then(function (response) {
         // 성공 핸들링
         console.log(response);
+        setExp(response.data.result);
         setMaxStep(
           Math.max(...response.data.result.map((item) => item.stepId))
         );
@@ -89,7 +93,9 @@ const Detail = () => {
       <TopContainer>
         <Title>{title}</Title>
         <div>
-          <ScriptBtn>대사 전체보기</ScriptBtn>
+          <ScriptBtn onClick={() => setViewEntier((prev) => !prev)}>
+            {viewEntire ? "대사 따로 보기" : "대사 전체 보기"}
+          </ScriptBtn>
           <Newbtn
             onClick={() =>
               navigate("/script/makescript", {
@@ -104,8 +110,7 @@ const Detail = () => {
           </Newbtn>
         </div>
       </TopContainer>
-      <List expId={param} />
-      
+      {viewEntire ? <EntireScript exp={exp} /> : <List expId={param} />}
     </div>
   );
 };
