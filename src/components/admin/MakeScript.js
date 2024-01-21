@@ -20,11 +20,13 @@ const DelBtn = styled.button`
 const StoreBtn = styled.button`
   background-color: #315c40;
   margin-right: 5vw;
-  width: 10vw;
+  width: 8vw;
   color: white;
-  height: 3vh;
+  height: 4vh;
   font-weight: bold;
+  font-size: 16px;
   border: none;
+  border-radius: 10px;
 `;
 const Title = styled.h2`
   color: #303030;
@@ -47,6 +49,10 @@ const TimeContainer = styled.div`
   width: 90vw;
   display: flex;
   align-items: center;
+`;
+const TimeTitle = styled.div`
+  font-size: 17px;
+  padding-left: 5px;
 `;
 const VoiceContainer = styled.div`
   width: 90vw;
@@ -153,7 +159,15 @@ const MakeScript = () => {
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <button
           onClick={() => navigate(`/exp/${expId}`)}
-          style={{ border: "none", marginLeft: "5vw" }}
+          style={{
+            width: "8vw",
+            height: "4vh",
+            fontSize: "16px",
+            fontWeight: "bold",
+            border: "none",
+            marginLeft: "5vw",
+            borderRadius: "10px",
+          }}
         >
           뒤로가기
         </button>
@@ -174,6 +188,8 @@ const MakeScript = () => {
               width: "80vw",
               height: "5vh",
               paddingLeft: "20px",
+              fontSize: "17px",
+              marginLeft: "1.8vw",
             }}
             onChange={onChange}
             value={title}
@@ -191,6 +207,8 @@ const MakeScript = () => {
               width: "80vw",
               height: "23vh",
               paddingLeft: "20px",
+              fontSize: "17px",
+              marginLeft: "1.8vw",
             }}
             onChange={onChange}
             name="line"
@@ -205,9 +223,11 @@ const MakeScript = () => {
             style={{
               backgroundColor: "#DDDDDD",
               border: "none",
-              width: "10vw",
+              width: "4vw",
               height: "5vh",
               paddingLeft: "20px",
+              fontSize: "17px",
+              marginLeft: "1.8vw",
             }}
             onChange={onChange}
             value={minute}
@@ -215,14 +235,16 @@ const MakeScript = () => {
             type="number"
             placeholder="분"
           />
+          <TimeTitle>분</TimeTitle>
           <input
             style={{
               backgroundColor: "#DDDDDD",
               marginLeft: "1vw",
               border: "none",
-              width: "10vw",
+              width: "4vw",
               height: "5vh",
               paddingLeft: "20px",
+              fontSize: "17px",
             }}
             max="60"
             onChange={onChange}
@@ -231,6 +253,7 @@ const MakeScript = () => {
             type="number"
             placeholder="초"
           />
+          <TimeTitle>초</TimeTitle>
         </TimeContainer>
         <VoiceContainer>
           <Title>음성</Title>
@@ -259,6 +282,7 @@ const MakeScript = () => {
                   justifyContent: "center",
                   alignItems: "center",
                   borderRadius: "10px",
+                  marginLeft: "1.8vw",
                 }}
               >
                 파일에서 불러오기(mp3)
