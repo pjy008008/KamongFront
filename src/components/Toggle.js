@@ -24,10 +24,10 @@ const ToggleContainer = styled.span`
 `;
 const ToggleCircle = styled.span`
   position: absolute;
-  top: 2.5px;
+  top: 4px;
   left: 3px;
   width: 35px;
-  height: 35px;
+  height: 33px;
   border-radius: 50%;
   background-color: white;
   transition: 0.5s;

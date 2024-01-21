@@ -22,6 +22,23 @@ const Select = () => {
   const [experiences, setExperiences] = useState([]);
   // const [contentArray1, setContentArray1] = useState([]);
   // const [contentArray2, setContentArray2] = useState([]);
+  const handleList = () => {
+    if (experiences.length <= 1) {
+      return (
+        <div>
+          {/* list개수 컨트롤 코드 작성 */}
+          <p>list 개수 부족</p>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <Slide experiences={experiences} />
+          <Slide experiences={experiences} />
+        </div>
+      );
+    }
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -51,8 +68,7 @@ const Select = () => {
       <Nav bgcolor={"white"} fontcolor={"#315C40"} />
       {/* api 호출 후 메뉴 호출하는 함수 구현 */}
       <Title>체험목록</Title>
-      <Slide experiences={experiences} />
-      <Slide experiences={experiences} />
+      {handleList()}
     </div>
   );
 };
