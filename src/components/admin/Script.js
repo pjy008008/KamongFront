@@ -10,20 +10,24 @@ const InputContainer = styled.form`
 `;
 const DelBtn = styled.button`
   background-color: #e4e4e4;
-  width: 10vw;
+  width: 8vw;
   margin-right: 1vw;
-  height: 3vh;
+  height: 4vh;
   font-weight: bold;
+  font-size: 16px;
+  border-radius: 10px;
   border: none;
   color: #4b3327;
 `;
 const StoreBtn = styled.button`
   background-color: #315c40;
   margin-right: 5vw;
-  width: 10vw;
+  width: 8vw;
   color: white;
-  height: 3vh;
+  height: 4vh;
   font-weight: bold;
+  font-size: 16px;
+  border-radius: 10px;
   border: none;
 `;
 const Title = styled.h2`
@@ -48,12 +52,18 @@ const TimeContainer = styled.div`
   display: flex;
   align-items: center;
 `;
+const TimeTitle = styled.div`
+  font-size: 17px;
+  padding-left: 5px;
+`;
 const VoiceContainer = styled.div`
   width: 90vw;
   display: flex;
   align-items: center;
 `;
-const SampleContainer = styled.div``;
+const SampleContainer = styled.div`
+  margin-left: 11.5vw;
+`;
 const SampleVoiceContainer = styled.audio``;
 const SampleVoice = styled.source``;
 const SampleImageContainer = styled.img`
@@ -192,7 +202,15 @@ const Script = () => {
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <button
           onClick={() => navigate(-1)}
-          style={{ border: "none", marginLeft: "5vw" }}
+          style={{
+            width: "8vw",
+            height: "4vh",
+            fontWeight: "bold",
+            fontSize: "16px",
+            borderRadius: "10px",
+            border: "none",
+            marginLeft: "5vw",
+          }}
         >
           뒤로가기
         </button>
@@ -213,6 +231,8 @@ const Script = () => {
               width: "80vw",
               height: "5vh",
               paddingLeft: "20px",
+              marginLeft: "1.8vw",
+              fontSize: "17px",
             }}
             onChange={onChange}
             value={title}
@@ -230,6 +250,8 @@ const Script = () => {
               width: "80vw",
               height: "23vh",
               paddingLeft: "20px",
+              marginLeft: "1.8vw",
+              fontSize: "17px",
             }}
             onChange={onChange}
             name="line"
@@ -244,9 +266,11 @@ const Script = () => {
             style={{
               backgroundColor: "#DDDDDD",
               border: "none",
-              width: "10vw",
+              width: "3vw",
               height: "5vh",
               paddingLeft: "20px",
+              marginLeft: "1.8vw",
+              fontSize: "17px",
             }}
             onChange={onChange}
             value={minute}
@@ -254,14 +278,16 @@ const Script = () => {
             type="number"
             placeholder="분"
           />
+          <TimeTitle>분</TimeTitle>
           <input
             style={{
               backgroundColor: "#DDDDDD",
               marginLeft: "1vw",
               border: "none",
-              width: "10vw",
+              width: "3vw",
               height: "5vh",
               paddingLeft: "20px",
+              fontSize: "17px",
             }}
             max="60"
             onChange={onChange}
@@ -270,6 +296,7 @@ const Script = () => {
             type="number"
             placeholder="초"
           />
+          <TimeTitle>초</TimeTitle>
         </TimeContainer>
         <VoiceContainer>
           <Title>음성</Title>
@@ -298,6 +325,8 @@ const Script = () => {
                   justifyContent: "center",
                   alignItems: "center",
                   borderRadius: "10px",
+                  marginLeft: "1.8vw",
+                  marginRight: "1vw",
                 }}
               >
                 파일에서 불러오기(mp3)
@@ -312,6 +341,13 @@ const Script = () => {
             style={{ display: "none" }}
             onChange={handleVoiceFileChange}
           />
+          {voiceUrl ? (
+            <SampleVoiceContainer controls>
+              <SampleVoice src={voiceUrl} type="audio/mpeg" />
+            </SampleVoiceContainer>
+          ) : (
+            <p>Loading audio</p>
+          )}
         </VoiceContainer>
         <VoiceContainer>
           <Title>이미지</Title>
@@ -356,13 +392,6 @@ const Script = () => {
         </VoiceContainer>
       </InputContainer>
       <SampleContainer>
-        {voiceUrl ? (
-          <SampleVoiceContainer controls>
-            <SampleVoice src={voiceUrl} type="audio/mpeg" />
-          </SampleVoiceContainer>
-        ) : (
-          <p>Loading audio</p>
-        )}
         {imageUrl ? (
           <SampleImageContainer src={imageUrl}></SampleImageContainer>
         ) : (
