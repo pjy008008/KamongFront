@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import axios from "axios";
+import eraser from "../../img/eraser.png";
 
 const InputContainer = styled.form`
   margin-top: 3vh;
@@ -71,6 +72,27 @@ const SampleImageContainer = styled.img`
   width: 50vw;
   height: 30vh;
 `;
+const Blackboard = styled.div`
+  width: 80vw;
+  height: 70vh;
+  background-color: #315c40;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 35px solid #4b3327;
+  border-radius: 50px;
+  margin: 0 auto;
+  margin-bottom: 50px;
+`;
+const EraserImage = styled.img`
+  position: relative;
+  width: 7vw;
+  right: 20vw;
+  top: 35vh;
+`;
+
 const Script = () => {
   const [selectedVoiceFile, setSelectedVoiceFile] = useState("");
   const [selectedImageFile, setSelectedImageFile] = useState("");
@@ -395,9 +417,12 @@ const Script = () => {
         {imageUrl ? (
           <SampleImageContainer src={imageUrl}></SampleImageContainer>
         ) : (
-          <p>Loading audio</p>
+          <p>Loading image</p>
         )}
       </SampleContainer>
+      <Blackboard>
+        <EraserImage src={eraser} />
+      </Blackboard>
     </div>
   );
 };

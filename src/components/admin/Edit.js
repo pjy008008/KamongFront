@@ -160,7 +160,7 @@ const Edit = () => {
       width: "50%", // 원하는 크기로 조정
       height: "55%", // 원하는 크기로 조정
       margin: "auto",
-      overflowY: "hidden",
+      overflowY: "scroll",
       overflowX: "hidden",
     },
   };
