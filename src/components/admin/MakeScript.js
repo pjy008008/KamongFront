@@ -109,6 +109,7 @@ const MakeScript = () => {
       title: title,
       line: line,
       duration: totalDuration,
+      isImage: true,
       // sequence: stepId + 1,
     };
 
@@ -174,7 +175,7 @@ const MakeScript = () => {
         <div>
           {/* <DelBtn onClick={handleDel}>삭제</DelBtn> */}
           <StoreBtn type="submit" form="form">
-            저장
+            생성
           </StoreBtn>
         </div>
       </div>
