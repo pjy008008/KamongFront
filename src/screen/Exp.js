@@ -56,12 +56,13 @@ const Button = styled.button`
   color: black;
   border: none;
   cursor: pointer;
-  margin-top: 20px;
+  margin-right: 0.8vw;
   border-radius: 10px;
 `;
 
 const GoBackButton = styled.button`
   padding: 10px 20px;
+  font-weight: bold;
   font-size: 16px;
   background-color: white;
   color: black;
@@ -141,25 +142,41 @@ const Exp = () => {
     } else {
       return (
         <Blackboard>
-          <Title>{steps[sequence - 1].title}</Title>
-          <p>{steps[sequence - 1].line}</p>
-          <p>
-            <img
-              style={{ width: "500px", height: "300px" }}
-              src={steps[sequence - 1].imageUrl}
-              alt="Experience Image"
-            />
-          </p>
-          <audio controls key={steps[sequence - 1].voiceUrl}>
-            <source src={steps[sequence - 1].voiceUrl} type="audio/mpeg" />
-            Your browser does not support the audio tag.
-          </audio>
-          <div style={{ display: "flex" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              paddingBottom: "2vw",
+            }}
+          >
             <Button onClick={prevBtn}>이전</Button>
+            <audio
+              controls
+              key={steps[sequence - 1].voiceUrl}
+              style={{
+                paddingBottom: "0.1vw",
+              }}
+            >
+              <source src={steps[sequence - 1].voiceUrl} type="audio/mpeg" />
+              Your browser does not support the audio tag.
+            </audio>
             <Button style={{ marginLeft: "10px" }} onClick={nextBtn}>
               다음
             </Button>
           </div>
+
+          <Title>{steps[sequence - 1].title}</Title>
+          <p style={{ fontWeight: "bold", fontSize: "20px" }}>
+            {steps[sequence - 1].line}
+          </p>
+          <p>
+            <img
+              style={{ width: "700px", height: "380px" }}
+              src={steps[sequence - 1].imageUrl}
+              alt="Experience Image"
+            />
+          </p>
         </Blackboard>
       );
     }

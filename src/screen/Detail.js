@@ -22,18 +22,22 @@ const ScriptBtn = styled.button`
   background-color: #315c40;
   width: 10vw;
   margin-right: 1vw;
-  height: 3vh;
+  height: 4vh;
   color: white;
   font-weight: bold;
+  font-size: 16px;
   border: none;
+  border-radius: 10px;
 `;
 const Newbtn = styled.button`
   background-color: #e4e4e4;
   color: #4b3327;
   margin-right: 5vw;
   width: 10vw;
-  height: 3vh;
+  height: 4vh;
   font-weight: bold;
+  font-size: 16px;
+  border-radius: 10px;
   border: none;
 `;
 const Container = styled.div``;
