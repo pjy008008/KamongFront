@@ -82,7 +82,7 @@ const router = createBrowserRouter([
         path: "exp",
         element: (
           <div>
-            <PrivateRoute component={<Exp />} />
+            <Exp />
           </div>
         ),
       },

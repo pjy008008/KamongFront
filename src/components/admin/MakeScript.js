@@ -67,6 +67,11 @@ const MakeScript = () => {
   const [duration, setDuration] = useState(0);
   const [minute, setMinute] = useState(0);
   const [second, setSecond] = useState(0);
+  const [videoUrl, setVideoUrl] = useState("");
+  const [videoToggle, setVideoToggle] = useState(false);
+  const [toggle, setToggle] = useState(false);
+  const [iframeKey, setIframeKey] = useState(0);
+  const [expVideoUrl, setExpVideoUrl] = useState("");
   //script Id출력
   const params = useParams();
   const location = useLocation();
@@ -98,6 +103,8 @@ const MakeScript = () => {
       setMinute((prev) => value);
     } else if (name === "second") {
       setSecond((prev) => value);
+    } else if (name === "videoUrl") {
+      setVideoUrl((prev) => value);
     }
   };
   const onSubmit = (event) => {
@@ -146,6 +153,48 @@ const MakeScript = () => {
       .catch((error) => {
         // 에러 처리
         console.error("에러:", error);
+        alert("에러");
+      });
+  };
+  const onLinkSubmit = (event) => {
+    // FormData 인스턴스를 생성하고 요청 데이터를 추가합니다.
+    event.preventDefault();
+    if (videoUrl !== expVideoUrl) {
+      alert("비디오 체크 버튼을 눌러주세요");
+      return;
+    }
+    const formData = new FormData();
+
+    const url = `http://35.216.68.47:8080/api/experiences/${expId}/pages`;
+
+    const form = new FormData();
+    form.append(
+      "request",
+      JSON.stringify({
+        title: title,
+        isImage: false,
+        videoUrl: expVideoUrl,
+      })
+    );
+
+    form.append("image", ""); // 이미지는 빈 문자열 또는 원하는 이미지 데이터로 대체
+    form.append("voice", ""); // 음성은 빈 문자열 또는 원하는 음성 파일 데이터로 대체
+
+    axios
+      .post(url, form, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          accept: "*/*",
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        navigate(`/exp/${expId}`);
+        alert("생성완료");
+      })
+      .catch((error) => {
+        console.error(error);
+        alert("에러");
       });
   };
 
@@ -154,6 +203,7 @@ const MakeScript = () => {
     setSecond(duration % 60);
     setMinute(Math.floor(duration / 60));
   }, [duration]);
+
   return (
     <div>
       <Nav bgcolor={"white"} fontcolor={"#315C40"} />
@@ -179,168 +229,249 @@ const MakeScript = () => {
           </StoreBtn>
         </div>
       </div>
-      <InputContainer onSubmit={onSubmit} id="form">
-        <TitleContainer>
-          <Title>제목</Title>
-          <input
-            style={{
-              backgroundColor: "#DDDDDD",
-              border: "none",
-              width: "80vw",
-              height: "5vh",
-              paddingLeft: "20px",
-              fontSize: "17px",
-              marginLeft: "1.8vw",
+      <button
+        onClick={() => {
+          setToggle((prev) => !prev);
+          setTitle("");
+          setLine("");
+          setSelectedImageFile(null);
+          setSelectedVoiceFile(null);
+          setDuration(0);
+          setMinute(0);
+          setSecond(0);
+        }}
+      >
+        토글
+      </button>
+      {toggle ? (
+        <InputContainer onSubmit={onLinkSubmit} id="form">
+          <TitleContainer>
+            <Title>제목</Title>
+            <input
+              style={{
+                backgroundColor: "#DDDDDD",
+                border: "none",
+                width: "80vw",
+                height: "5vh",
+                paddingLeft: "20px",
+                fontSize: "17px",
+                marginLeft: "1.8vw",
+              }}
+              onChange={onChange}
+              value={title}
+              name="title"
+              type="text"
+              placeholder="제목을 입력하세요"
+            />
+          </TitleContainer>
+
+          <TitleContainer>
+            <Title>링크</Title>
+            <input
+              style={{
+                backgroundColor: "#DDDDDD",
+                border: "none",
+                width: "80vw",
+                height: "5vh",
+                paddingLeft: "20px",
+                fontSize: "17px",
+                marginLeft: "1.8vw",
+              }}
+              onChange={onChange}
+              value={videoUrl}
+              name="videoUrl"
+              type="text"
+              placeholder="유튜브 링크를 입력하세요"
+            />
+          </TitleContainer>
+          <button
+            onClick={(event) => {
+              setVideoToggle(true);
+              setExpVideoUrl(videoUrl);
+              setIframeKey((prev) => prev + 1); // key 값을 변경하여 iframe을 새로 고침
+              event.preventDefault();
             }}
-            onChange={onChange}
-            value={title}
-            name="title"
-            type="text"
-            placeholder="제목을 입력하세요"
-          />
-        </TitleContainer>
-        <ContextContainer>
-          <Title>대사</Title>
-          <input
-            style={{
-              backgroundColor: "#DDDDDD",
-              border: "none",
-              width: "80vw",
-              height: "23vh",
-              paddingLeft: "20px",
-              fontSize: "17px",
-              marginLeft: "1.8vw",
-            }}
-            onChange={onChange}
-            name="line"
-            value={line}
-            type="text"
-            placeholder="대사를 입력하세요"
-          />
-        </ContextContainer>
-        <TimeContainer>
-          <Title>시간</Title>
-          <input
-            style={{
-              backgroundColor: "#DDDDDD",
-              border: "none",
-              width: "4vw",
-              height: "5vh",
-              paddingLeft: "20px",
-              fontSize: "17px",
-              marginLeft: "1.8vw",
-            }}
-            onChange={onChange}
-            value={minute}
-            name="minute"
-            type="number"
-            placeholder="분"
-          />
-          <TimeTitle>분</TimeTitle>
-          <input
-            style={{
-              backgroundColor: "#DDDDDD",
-              marginLeft: "1vw",
-              border: "none",
-              width: "4vw",
-              height: "5vh",
-              paddingLeft: "20px",
-              fontSize: "17px",
-            }}
-            max="60"
-            onChange={onChange}
-            value={second}
-            name="second"
-            type="number"
-            placeholder="초"
-          />
-          <TimeTitle>초</TimeTitle>
-        </TimeContainer>
-        <VoiceContainer>
-          <Title>음성</Title>
-          <label htmlFor="voiceFile">
-            {selectedVoiceFile ? (
-              <div
-                style={{
-                  border: "1px solid black",
-                  width: "250px",
-                  height: "40px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderRadius: "10px",
-                }}
-              >
-                Selected file: {selectedVoiceFile.name}
-              </div>
-            ) : (
-              <div
-                style={{
-                  border: "1px solid black",
-                  width: "250px",
-                  height: "40px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderRadius: "10px",
-                  marginLeft: "1.8vw",
-                }}
-              >
-                파일에서 불러오기(mp3)
-              </div>
-            )}
-          </label>
-          <input
-            id="voiceFile"
-            name="voiceFile"
-            type="file"
-            accept="audio/*"
-            style={{ display: "none" }}
-            onChange={handleVoiceFileChange}
-          />
-        </VoiceContainer>
-        <VoiceContainer>
-          <Title>이미지</Title>
-          <label htmlFor="imageFile">
-            {selectedImageFile ? (
-              <div
-                style={{
-                  border: "1px solid black",
-                  width: "250px",
-                  height: "40px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderRadius: "10px",
-                }}
-              >
-                Selected file: {selectedImageFile.name}
-              </div>
-            ) : (
-              <div
-                style={{
-                  border: "1px solid black",
-                  width: "250px",
-                  height: "40px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderRadius: "10px",
-                }}
-              >
-                파일에서 불러오기
-              </div>
-            )}
-          </label>
-          <input
-            id="imageFile"
-            name="imageFile"
-            type="file"
-            style={{ display: "none" }}
-            onChange={handleImageFileChange}
-          />
-        </VoiceContainer>
-      </InputContainer>
+          >
+            비디오 체크
+          </button>
+          {videoToggle ? (
+            <iframe
+              key={iframeKey} // key 값을 변경하여 iframe을 새로 고침
+              width="560"
+              height="315"
+              src={expVideoUrl}
+              frameBorder="0"
+              allow="autoplay;"
+              allowFullScreen
+            ></iframe>
+          ) : (
+            <div></div>
+          )}
+        </InputContainer>
+      ) : (
+        <InputContainer onSubmit={onSubmit} id="form">
+          <TitleContainer>
+            <Title>제목</Title>
+            <input
+              style={{
+                backgroundColor: "#DDDDDD",
+                border: "none",
+                width: "80vw",
+                height: "5vh",
+                paddingLeft: "20px",
+                fontSize: "17px",
+                marginLeft: "1.8vw",
+              }}
+              onChange={onChange}
+              value={title}
+              name="title"
+              type="text"
+              placeholder="제목을 입력하세요"
+            />
+          </TitleContainer>
+          <ContextContainer>
+            <Title>대사</Title>
+            <input
+              style={{
+                backgroundColor: "#DDDDDD",
+                border: "none",
+                width: "80vw",
+                height: "23vh",
+                paddingLeft: "20px",
+                fontSize: "17px",
+                marginLeft: "1.8vw",
+              }}
+              onChange={onChange}
+              name="line"
+              value={line}
+              type="text"
+              placeholder="대사를 입력하세요"
+            />
+          </ContextContainer>
+          <TimeContainer>
+            <Title>시간</Title>
+            <input
+              style={{
+                backgroundColor: "#DDDDDD",
+                border: "none",
+                width: "4vw",
+                height: "5vh",
+                paddingLeft: "20px",
+                fontSize: "17px",
+                marginLeft: "1.8vw",
+              }}
+              onChange={onChange}
+              value={minute}
+              name="minute"
+              type="number"
+              placeholder="분"
+            />
+            <TimeTitle>분</TimeTitle>
+            <input
+              style={{
+                backgroundColor: "#DDDDDD",
+                marginLeft: "1vw",
+                border: "none",
+                width: "4vw",
+                height: "5vh",
+                paddingLeft: "20px",
+                fontSize: "17px",
+              }}
+              max="60"
+              onChange={onChange}
+              value={second}
+              name="second"
+              type="number"
+              placeholder="초"
+            />
+            <TimeTitle>초</TimeTitle>
+          </TimeContainer>
+          <VoiceContainer>
+            <Title>음성</Title>
+            <label htmlFor="voiceFile">
+              {selectedVoiceFile ? (
+                <div
+                  style={{
+                    border: "1px solid black",
+                    width: "250px",
+                    height: "40px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: "10px",
+                  }}
+                >
+                  Selected file: {selectedVoiceFile.name}
+                </div>
+              ) : (
+                <div
+                  style={{
+                    border: "1px solid black",
+                    width: "250px",
+                    height: "40px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: "10px",
+                    marginLeft: "1.8vw",
+                  }}
+                >
+                  파일에서 불러오기(mp3)
+                </div>
+              )}
+            </label>
+            <input
+              id="voiceFile"
+              name="voiceFile"
+              type="file"
+              accept="audio/*"
+              style={{ display: "none" }}
+              onChange={handleVoiceFileChange}
+            />
+          </VoiceContainer>
+          <VoiceContainer>
+            <Title>이미지</Title>
+            <label htmlFor="imageFile">
+              {selectedImageFile ? (
+                <div
+                  style={{
+                    border: "1px solid black",
+                    width: "250px",
+                    height: "40px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: "10px",
+                  }}
+                >
+                  Selected file: {selectedImageFile.name}
+                </div>
+              ) : (
+                <div
+                  style={{
+                    border: "1px solid black",
+                    width: "250px",
+                    height: "40px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: "10px",
+                  }}
+                >
+                  파일에서 불러오기
+                </div>
+              )}
+            </label>
+            <input
+              id="imageFile"
+              name="imageFile"
+              type="file"
+              style={{ display: "none" }}
+              onChange={handleImageFileChange}
+            />
+          </VoiceContainer>
+        </InputContainer>
+      )}
     </div>
   );
 };

@@ -5,6 +5,7 @@ import axios from "axios";
 import eraser from "../img/eraser.png";
 import pause from "../img/pause.png";
 import play from "../img/play.png";
+import styles from "./Exp.module.css";
 
 const StartContainer = styled.div`
   display: flex;
@@ -27,9 +28,9 @@ const Blackboard = styled.div`
 `;
 
 const EraserImage = styled.img`
-  position: absolute;
-  bottom: 10vh;
-  left: 20vw;
+  position: relative;
+  bottom: 9vh;
+  right: 25vw;
   width: 7vw;
 `;
 
@@ -168,19 +169,26 @@ const Exp = () => {
   };
 
   const handleExp = (sequence) => {
-    if (sequence == 0) {
+    const blackboardStyle = {
+      height: "80vh",
+      overflow: "auto",
+      overflowX: "hidden",
+    };
+
+    if (sequence === 0) {
       return (
-        <Blackboard>
+        <Blackboard style={blackboardStyle}>
           <Title>카몽이와 함께 하는 {expTitle}</Title>
           <StartButton onClick={nextBtn}>체험 시작</StartButton>
         </Blackboard>
       );
-    } else if (sequence - 1 == steps.length) {
+    } else if (sequence - 1 === steps.length) {
       return (
-        <Blackboard>
+        <Blackboard style={blackboardStyle}>
           <Title>[{expTitle} 순서]</Title>
           {steps.map((item, key) => (
             <Title
+              key={key}
               style={{}}
               onClick={() => {
                 setCount(key + 1);
@@ -195,43 +203,83 @@ const Exp = () => {
         </Blackboard>
       );
     } else {
-      return (
-        <Blackboard>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              paddingBottom: "2vw",
-            }}
-          >
-            <Button onClick={prevBtn}>이전</Button>
-            <CustomButton
-              onClick={() => toggleAudio(steps[sequence - 1].voiceUrl)}
+      if (steps[sequence - 1].isImage) {
+        return (
+          <Blackboard style={blackboardStyle}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                paddingBottom: "2vh",
+              }}
             >
-              <IconImg
-                src={isPlaying ? pause : play}
-                alt={isPlaying ? "멈춤" : "재생"}
-              />
-            </CustomButton>
-            <Button onClick={nextBtn}>다음</Button>
-          </div>
+              <Button onClick={prevBtn}>이전</Button>
+              <CustomButton
+                onClick={() => toggleAudio(steps[sequence - 1].voiceUrl)}
+              >
+                <IconImg
+                  src={isPlaying ? pause : play}
+                  alt={isPlaying ? "멈춤" : "재생"}
+                />
+              </CustomButton>
+              <Button onClick={nextBtn}>다음</Button>
+            </div>
 
-          <Title>{steps[sequence - 1].title}</Title>
-          <p style={{ fontWeight: "bold", fontSize: "20px" }}>
-            {steps[sequence - 1].line}
-          </p>
-          <p>
-            <img
-              style={{ width: "900px", height: "480px" }}
-              src={steps[sequence - 1].imageUrl}
-              alt="Experience Image"
-            />
-          </p>
-        </Blackboard>
-      );
+            <Title>{steps[sequence - 1].title}</Title>
+            <p
+              style={{
+                fontWeight: "bold",
+                fontSize: "20px",
+                maxHeight: "20vh",
+                overflowY: "auto",
+              }}
+            >
+              {steps[sequence - 1].line}
+            </p>
+            <p>
+              <img
+                style={{
+                  width: "900px",
+                  height: "480px",
+                  maxHeight: "40vh",
+                  overflowY: "auto",
+                }}
+                src={steps[sequence - 1].imageUrl}
+                alt="체험 이미지"
+              />
+            </p>
+          </Blackboard>
+        );
+      } else {
+        return (
+          <Blackboard style={blackboardStyle}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                paddingBottom: "2vh",
+              }}
+            >
+              <Button onClick={prevBtn}>이전</Button>
+              <Button onClick={nextBtn}>다음</Button>
+            </div>
+            <div className={styles.youtubeContainer}>
+              <iframe
+                className={styles.youtubeVideo}
+                src={steps[sequence - 1].videoUrl}
+                allow="autoplay;"
+                frameBorder="0"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </Blackboard>
+        );
+      }
     }
   };
+
   const prevBtn = () => {
     setCount((prev) => prev - 1);
   };
