@@ -130,6 +130,12 @@ const Script = () => {
     navigate(`/exp/${expId}`);
   };
 
+  const convertToEmbedUrl = () => {
+    const embedUrl = videoUrl.replace("watch?v=", "embed/");
+    setVideoUrl(embedUrl);
+    setExpVideoUrl(embedUrl);
+  };
+
   const handleVoiceFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -525,7 +531,7 @@ const Script = () => {
                 border: "none",
               }}
               onClick={(event) => {
-                setExpVideoUrl(videoUrl);
+                convertToEmbedUrl();
                 setIframeKey((prev) => prev + 1); // key 값을 변경하여 iframe을 새로 고침
                 event.preventDefault();
               }}

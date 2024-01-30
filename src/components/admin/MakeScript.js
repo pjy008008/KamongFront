@@ -72,6 +72,7 @@ const MakeScript = () => {
   const [toggle, setToggle] = useState(false);
   const [iframeKey, setIframeKey] = useState(0);
   const [expVideoUrl, setExpVideoUrl] = useState("");
+  const [embedUrl, setEmbedUrl] = useState("");
   //script Id출력
   const params = useParams();
   const location = useLocation();
@@ -105,8 +106,16 @@ const MakeScript = () => {
       setSecond((prev) => value);
     } else if (name === "videoUrl") {
       setVideoUrl((prev) => value);
+      setVideoToggle(false);
     }
   };
+
+  const convertToEmbedUrl = () => {
+    const embedUrl = videoUrl.replace("watch?v=", "embed/");
+    setVideoUrl(embedUrl);
+    setExpVideoUrl(embedUrl);
+  };
+
   const onSubmit = (event) => {
     event.preventDefault();
     const totalDuration = 60 * parseInt(minute, 10) + parseInt(second, 10);
@@ -306,8 +315,8 @@ const MakeScript = () => {
                 border: "none",
               }}
               onClick={(event) => {
+                convertToEmbedUrl();
                 setVideoToggle(true);
-                setExpVideoUrl(videoUrl);
                 setIframeKey((prev) => prev + 1); // key 값을 변경하여 iframe을 새로 고침
                 event.preventDefault();
               }}
