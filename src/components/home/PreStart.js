@@ -12,11 +12,11 @@ import bon3 from "../../img/bon3.jpg";
 const CustomSlider = styled(Slider)`
   /* object-fit: cover; */
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100vw;
-  height: 85vh;
+  height: 90vh;
   margin: 0 auto;
   overflow-y: hidden;
   overflow-x: hidden;
@@ -31,16 +31,16 @@ const Background = styled.div`
 const Image = styled.img`
   object-fit: cover;
   width: 100vw;
-  height: 85vh;
+  height: 90vh;
 `;
 
 const BackImage = styled.div`
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100vw;
-  height: 85vh;
+  height: 90vh;
   background-color: #282828;
   opacity: 75%;
 `;

@@ -62,9 +62,7 @@ const VoiceContainer = styled.div`
   display: flex;
   align-items: center;
 `;
-const SampleContainer = styled.div`
-  margin-left: 11.5vw;
-`;
+const SampleContainer = styled.div``;
 const SampleVoiceContainer = styled.audio``;
 const SampleVoice = styled.source``;
 const SampleImageContainer = styled.img`
@@ -74,7 +72,7 @@ const SampleImageContainer = styled.img`
 `;
 const Blackboard = styled.div`
   width: 80vw;
-  height: 70vh;
+  height: 80vh;
   background-color: #315c40;
   color: white;
   display: flex;
@@ -89,8 +87,8 @@ const Blackboard = styled.div`
 const EraserImage = styled.img`
   position: relative;
   width: 7vw;
-  right: 20vw;
-  top: 35vh;
+  right: 30vw;
+  top: 24vh;
 `;
 
 const Script = () => {
@@ -467,14 +465,14 @@ const Script = () => {
           </InputContainer>
           <SampleContainer>
             {imageUrl ? (
-              <SampleImageContainer src={imageUrl}></SampleImageContainer>
+              <Blackboard>
+                <SampleImageContainer src={imageUrl} />
+                <EraserImage src={eraser} />
+              </Blackboard>
             ) : (
               <p>Loading image</p>
             )}
           </SampleContainer>
-          <Blackboard>
-            <EraserImage src={eraser} />
-          </Blackboard>
         </div>
       ) : (
         <div>
@@ -498,7 +496,6 @@ const Script = () => {
                 placeholder="제목을 입력하세요"
               />
             </TitleContainer>
-
             <TitleContainer>
               <Title>링크</Title>
               <input
@@ -519,6 +516,14 @@ const Script = () => {
               />
             </TitleContainer>
             <button
+              style={{
+                marginTop: "20px",
+                width: "120px",
+                height: "32px",
+                fontWeight: "bold",
+                fontSize: "16px",
+                border: "none",
+              }}
               onClick={(event) => {
                 setExpVideoUrl(videoUrl);
                 setIframeKey((prev) => prev + 1); // key 값을 변경하여 iframe을 새로 고침
@@ -529,6 +534,7 @@ const Script = () => {
             </button>
           </InputContainer>
           <iframe
+            style={{ marginTop: "30px", marginLeft: "5vw" }}
             key={iframeKey} // key 값을 변경하여 iframe을 새로 고침
             width="560"
             height="315"

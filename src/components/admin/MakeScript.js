@@ -230,6 +230,17 @@ const MakeScript = () => {
         </div>
       </div>
       <button
+        style={{
+          backgroundColor: "rgb(240, 240, 240)",
+          border: "none",
+          width: "130px",
+          height: "30px",
+          color: "black",
+          fontWeight: "bold",
+          fontSize: "15px",
+          marginTop: "20px",
+          marginLeft: "5vw",
+        }}
         onClick={() => {
           setToggle((prev) => !prev);
           setTitle("");
@@ -241,62 +252,73 @@ const MakeScript = () => {
           setSecond(0);
         }}
       >
-        토글
+        {toggle ? "이미지 입력하기" : "링크 입력하기"}
       </button>
       {toggle ? (
-        <InputContainer onSubmit={onLinkSubmit} id="form">
-          <TitleContainer>
-            <Title>제목</Title>
-            <input
-              style={{
-                backgroundColor: "#DDDDDD",
-                border: "none",
-                width: "80vw",
-                height: "5vh",
-                paddingLeft: "20px",
-                fontSize: "17px",
-                marginLeft: "1.8vw",
-              }}
-              onChange={onChange}
-              value={title}
-              name="title"
-              type="text"
-              placeholder="제목을 입력하세요"
-            />
-          </TitleContainer>
+        <div>
+          <InputContainer onSubmit={onLinkSubmit} id="form">
+            <TitleContainer>
+              <Title>제목</Title>
+              <input
+                style={{
+                  backgroundColor: "#DDDDDD",
+                  border: "none",
+                  width: "80vw",
+                  height: "5vh",
+                  paddingLeft: "20px",
+                  fontSize: "17px",
+                  marginLeft: "1.8vw",
+                }}
+                onChange={onChange}
+                value={title}
+                name="title"
+                type="text"
+                placeholder="제목을 입력하세요"
+              />
+            </TitleContainer>
 
-          <TitleContainer>
-            <Title>링크</Title>
-            <input
+            <TitleContainer>
+              <Title>링크</Title>
+              <input
+                style={{
+                  backgroundColor: "#DDDDDD",
+                  border: "none",
+                  width: "80vw",
+                  height: "5vh",
+                  paddingLeft: "20px",
+                  fontSize: "17px",
+                  marginLeft: "1.8vw",
+                }}
+                onChange={onChange}
+                value={videoUrl}
+                name="videoUrl"
+                type="text"
+                placeholder="유튜브 링크를 입력하세요"
+              />
+            </TitleContainer>
+            <button
               style={{
-                backgroundColor: "#DDDDDD",
+                marginTop: "20px",
+                width: "120px",
+                height: "32px",
+                fontWeight: "bold",
+                fontSize: "16px",
                 border: "none",
-                width: "80vw",
-                height: "5vh",
-                paddingLeft: "20px",
-                fontSize: "17px",
-                marginLeft: "1.8vw",
               }}
-              onChange={onChange}
-              value={videoUrl}
-              name="videoUrl"
-              type="text"
-              placeholder="유튜브 링크를 입력하세요"
-            />
-          </TitleContainer>
-          <button
-            onClick={(event) => {
-              setVideoToggle(true);
-              setExpVideoUrl(videoUrl);
-              setIframeKey((prev) => prev + 1); // key 값을 변경하여 iframe을 새로 고침
-              event.preventDefault();
-            }}
-          >
-            비디오 체크
-          </button>
+              onClick={(event) => {
+                setVideoToggle(true);
+                setExpVideoUrl(videoUrl);
+                setIframeKey((prev) => prev + 1); // key 값을 변경하여 iframe을 새로 고침
+                event.preventDefault();
+              }}
+            >
+              비디오 체크
+            </button>
+          </InputContainer>
           {videoToggle ? (
             <iframe
               key={iframeKey} // key 값을 변경하여 iframe을 새로 고침
+              style={{ marginTop: "30px", marginLeft: "5vw" }}
               width="560"
               height="315"
               src={expVideoUrl}
@@ -307,7 +329,7 @@ const MakeScript = () => {
           ) : (
             <div></div>
           )}
-        </InputContainer>
+        </div>
       ) : (
         <InputContainer onSubmit={onSubmit} id="form">
           <TitleContainer>

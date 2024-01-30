@@ -9,9 +9,10 @@ import styles from "./Exp.module.css";
 
 const StartContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
+  width: 100vw;
+  height: 100vh;
 `;
 
 const Blackboard = styled.div`
@@ -30,28 +31,10 @@ const Blackboard = styled.div`
 const EraserImage = styled.img`
   position: relative;
   bottom: 9vh;
-  right: 25vw;
+  right: 30vw;
   width: 7vw;
 `;
 
-const Chalk1 = styled.div`
-  width: 1vw;
-  height: 4vw;
-  background-color: white;
-  position: absolute;
-  bottom: 55vh;
-  right: 23vw;
-  border-radius: 10px;
-`;
-const Chalk2 = styled.div`
-  width: 1vw;
-  height: 4vw;
-  background-color: #f6afaf;
-  position: absolute;
-  bottom: 55vh;
-  right: 21.7vw;
-  border-radius: 10px;
-`;
 const Button = styled.button`
   padding: 10px 20px;
   font-size: 16px;
@@ -79,16 +62,16 @@ const StartButton = styled.button`
 `;
 
 const GoBackButton = styled.button`
+  position: absolute;
+  background-color: transparent;
   padding: 10px 20px;
   font-weight: bold;
   font-size: 16px;
-  background-color: white;
   color: black;
   border: none;
   cursor: pointer;
-  margin-top: 20px;
-  margin-right: auto;
-  margin-left: 1vw;
+  margin-top: 10px;
+  margin-left: 5px;
 `;
 
 const Title = styled.h2`
@@ -170,7 +153,6 @@ const Exp = () => {
 
   const handleExp = (sequence) => {
     const blackboardStyle = {
-      height: "80vh",
       overflow: "auto",
       overflowX: "hidden",
     };
@@ -288,11 +270,15 @@ const Exp = () => {
   };
 
   return (
-    <StartContainer>
+    <div>
       <GoBackButton onClick={goBack}>뒤로가기</GoBackButton>
-      {handleExp(count)}
-      <EraserImage src={eraser} />
-    </StartContainer>
+      <StartContainer>
+        <div>
+          {handleExp(count)}
+          <EraserImage src={eraser} />
+        </div>
+      </StartContainer>
+    </div>
   );
 };
 
