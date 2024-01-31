@@ -167,11 +167,19 @@ const Exp = () => {
     } else if (sequence - 1 === steps.length) {
       return (
         <Blackboard style={blackboardStyle}>
-          <Title>[{expTitle} 순서]</Title>
+          <Title>{expTitle} 순서</Title>
+          <div style={{ height: "30px" }}></div>
           {steps.map((item, key) => (
-            <Title
+            <p
+              style={{
+                marginTop: "0px",
+                textAlign: "left",
+                width: "30vw",
+                color: "white",
+                fontWeight: "bold",
+                fontSize: "25px",
+              }}
               key={key}
-              style={{}}
               onClick={() => {
                 setCount(key + 1);
               }}
@@ -179,7 +187,7 @@ const Exp = () => {
               {key + 1}
               {". "}
               {item.title}
-            </Title>
+            </p>
           ))}
           <Button onClick={prevBtn}>이전</Button>
         </Blackboard>
@@ -209,6 +217,16 @@ const Exp = () => {
             </div>
 
             <Title>{steps[sequence - 1].title}</Title>
+            <img
+              style={{
+                width: "40vw",
+                maxHeight: "40vh",
+                overflowY: "auto",
+              }}
+              src={steps[sequence - 1].imageUrl}
+              alt="체험 이미지"
+            />
+
             <p
               style={{
                 fontWeight: "bold",
@@ -218,18 +236,6 @@ const Exp = () => {
               }}
             >
               {steps[sequence - 1].line}
-            </p>
-            <p>
-              <img
-                style={{
-                  width: "900px",
-                  height: "480px",
-                  maxHeight: "40vh",
-                  overflowY: "auto",
-                }}
-                src={steps[sequence - 1].imageUrl}
-                alt="체험 이미지"
-              />
             </p>
           </Blackboard>
         );

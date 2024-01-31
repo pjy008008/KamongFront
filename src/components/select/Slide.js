@@ -12,9 +12,8 @@ const CustomSlider = styled(Slider)`
   overflow-y: hidden;
   overflow-x: hidden;
   width: 100vw;
-  height: 45vh;
+  height: ${(props) => (props.size === 1 ? "89.5vh" : "45vh")};
   z-index: 1;
-  margin: 0 auto;
   .slick-prev {
     left: 3% !important;
     z-index: 1;
@@ -23,17 +22,20 @@ const CustomSlider = styled(Slider)`
     right: 3% !important;
     z-index: 1;
   }
+  .slick-track {
+    margin-left: ${(props) =>
+      props.size === 1 ? "0" : props.size === 2 ? "15vw" : "0"};
+  }
 `;
 
 const Image = styled.img`
-  width: 34vw;
-  height: 45vh;
+  width: ${(props) => (props.size === 1 ? "100vw" : "34vw")};
+  height: ${(props) => (props.size === 1 ? "89.5vh" : "45vh")};
   filter: brightness(40%);
 `;
 
-const BannerSlider = ({ experiences, initialSlide }) => {
+const BannerSlider = ({ experiences, size }) => {
   const navigate = useNavigate();
-
   const settings = {
     infinite: true,
     speed: 500,
@@ -41,11 +43,11 @@ const BannerSlider = ({ experiences, initialSlide }) => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
-    initialSlide: initialSlide,
+    initialSlide: 1,
   };
 
   return (
-    <CustomSlider {...settings}>
+    <CustomSlider {...settings} size={size}>
       {experiences.map((experience, index) => (
         <div
           key={index}
@@ -58,15 +60,20 @@ const BannerSlider = ({ experiences, initialSlide }) => {
             })
           }
         >
-          <Image src={experience.imageUrl} alt={`Slide ${index + 1}`}></Image>
+          <Image
+            size={size}
+            src={experience.imageUrl}
+            alt={`Slide ${index + 1}`}
+          ></Image>
           <p
             style={{
               textAlign: "center",
               fontWeight: "bold",
               position: "relative",
-              bottom: "27vh",
+              bottom: size === 1 ? "52vh" : "27vh",
+              left: size === 1 ? "35vw" : "0",
               color: "white",
-              fontSize: "20px",
+              fontSize: size === 1 ? "35px" : "20px",
             }}
           >
             {experience.title}

@@ -113,7 +113,7 @@ const MakeScript = () => {
     const match = videoUrl.match(
       /(?:youtu\.be\/|youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/
     );
-  
+
     if (match) {
       const videoId = match[1]; // 동영상 ID 추출
       const embedUrl = `https://www.youtube.com/embed/${videoId}`;
@@ -121,7 +121,7 @@ const MakeScript = () => {
       setExpVideoUrl(embedUrl);
     } else {
       // 유효한 동영상 ID가 없을 경우 처리
-      console.error('유효한 동영상 ID가 없습니다.');
+      console.error("유효한 동영상 ID가 없습니다.");
       // 또는 setVideoUrl(null) 또는 다른 적절한 처리를 수행할 수 있습니다.
     }
   };
@@ -129,6 +129,16 @@ const MakeScript = () => {
   const onSubmit = (event) => {
     event.preventDefault();
     const totalDuration = 60 * parseInt(minute, 10) + parseInt(second, 10);
+    if (
+      !selectedImageFile ||
+      !selectedVoiceFile ||
+      !title ||
+      !line ||
+      !totalDuration
+    ) {
+      alert("모든 정보를 입력해 주세요");
+      return; // Stop execution if validation fails
+    }
 
     // const FormData = require(`form-data`);
     const requestData = {
@@ -178,6 +188,10 @@ const MakeScript = () => {
   const onLinkSubmit = (event) => {
     // FormData 인스턴스를 생성하고 요청 데이터를 추가합니다.
     event.preventDefault();
+    if (!videoUrl || !title) {
+      alert("모든 정보를 입력해 주세요");
+      return; // Stop execution if validation fails
+    }
     if (videoUrl !== expVideoUrl) {
       alert("비디오 체크 버튼을 눌러주세요");
       return;

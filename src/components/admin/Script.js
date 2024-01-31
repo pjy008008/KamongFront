@@ -217,6 +217,10 @@ const Script = () => {
 
   const onLinkSubmit = (event) => {
     event.preventDefault();
+    if (!videoUrl || !title) {
+      alert("모든 정보를 입력해 주세요");
+      return; // Stop execution if validation fails
+    }
     if (videoUrl !== expVideoUrl) {
       alert("비디오 체크 버튼을 눌러주세요");
       return;

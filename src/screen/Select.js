@@ -27,7 +27,7 @@ const Select = () => {
       return (
         <div>
           {/* list개수 컨트롤 코드 작성 */}
-          <p
+          {/* <p
             style={{
               width: "100vw",
               height: "75vh",
@@ -39,14 +39,15 @@ const Select = () => {
             }}
           >
             체험의 갯수가 부족합니다.
-          </p>
+          </p> */}
+          <Slide experiences={experiences} size={1} />
         </div>
       );
     } else {
       return (
         <div>
-          <Slide experiences={experiences} />
-          <Slide experiences={experiences} initialSlide={2} />
+          <Slide experiences={experiences} size={experiences.length} />
+          <Slide experiences={experiences} size={experiences.length} />
         </div>
       );
     }
