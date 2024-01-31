@@ -67,8 +67,10 @@ const SampleVoiceContainer = styled.audio``;
 const SampleVoice = styled.source``;
 const SampleImageContainer = styled.img`
   //이미지 크기
-  width: 50vw;
-  height: 30vh;
+  width: 900px;
+  height: 480px;
+  max-height: 40vh;
+  overflow-y: auto;
 `;
 const Blackboard = styled.div`
   width: 80vw;
@@ -88,7 +90,7 @@ const EraserImage = styled.img`
   position: relative;
   width: 7vw;
   right: 30vw;
-  top: 24vh;
+  top: 8vh;
 `;
 
 const Script = () => {
@@ -131,9 +133,20 @@ const Script = () => {
   };
 
   const convertToEmbedUrl = () => {
-    const embedUrl = videoUrl.replace("watch?v=", "embed/");
-    setVideoUrl(embedUrl);
-    setExpVideoUrl(embedUrl);
+    const match = videoUrl.match(
+      /(?:youtu\.be\/|youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/
+    );
+
+    if (match) {
+      const videoId = match[1]; // 동영상 ID 추출
+      const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+      setVideoUrl(embedUrl);
+      setExpVideoUrl(embedUrl);
+    } else {
+      // 유효한 동영상 ID가 없을 경우 처리
+      console.error("유효한 동영상 ID가 없습니다.");
+      // 또는 setVideoUrl(null) 또는 다른 적절한 처리를 수행할 수 있습니다.
+    }
   };
 
   const handleVoiceFileChange = (event) => {
@@ -161,7 +174,6 @@ const Script = () => {
       setSecond((prev) => value);
     } else if (name === "videoUrl") {
       setVideoUrl((prev) => value);
-      
     }
   };
   const onSubmit = (event) => {
@@ -473,6 +485,27 @@ const Script = () => {
           <SampleContainer>
             {imageUrl ? (
               <Blackboard>
+                <h2
+                  style={{
+                    color: "white",
+                    fontWeight: "bold",
+                    fontSize: "40px",
+                    margin: "0px",
+                    marginTop: "5vh",
+                  }}
+                >
+                  {title}
+                </h2>
+                <p
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: "20px",
+                    maxHeight: "20vh",
+                    overflowY: "auto",
+                  }}
+                >
+                  {line}
+                </p>
                 <SampleImageContainer src={imageUrl} />
                 <EraserImage src={eraser} />
               </Blackboard>

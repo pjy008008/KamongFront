@@ -72,7 +72,6 @@ const MakeScript = () => {
   const [toggle, setToggle] = useState(false);
   const [iframeKey, setIframeKey] = useState(0);
   const [expVideoUrl, setExpVideoUrl] = useState("");
-  const [embedUrl, setEmbedUrl] = useState("");
   //script Id출력
   const params = useParams();
   const location = useLocation();
@@ -111,9 +110,20 @@ const MakeScript = () => {
   };
 
   const convertToEmbedUrl = () => {
-    const embedUrl = videoUrl.replace("watch?v=", "embed/");
-    setVideoUrl(embedUrl);
-    setExpVideoUrl(embedUrl);
+    const match = videoUrl.match(
+      /(?:youtu\.be\/|youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/
+    );
+  
+    if (match) {
+      const videoId = match[1]; // 동영상 ID 추출
+      const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+      setVideoUrl(embedUrl);
+      setExpVideoUrl(embedUrl);
+    } else {
+      // 유효한 동영상 ID가 없을 경우 처리
+      console.error('유효한 동영상 ID가 없습니다.');
+      // 또는 setVideoUrl(null) 또는 다른 적절한 처리를 수행할 수 있습니다.
+    }
   };
 
   const onSubmit = (event) => {
