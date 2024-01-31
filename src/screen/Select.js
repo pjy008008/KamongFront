@@ -27,14 +27,26 @@ const Select = () => {
       return (
         <div>
           {/* list개수 컨트롤 코드 작성 */}
-          <p>list 개수 부족</p>
+          <p
+            style={{
+              width: "100vw",
+              height: "75vh",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "25px",
+              fontWeight: "bold",
+            }}
+          >
+            체험의 갯수가 부족합니다.
+          </p>
         </div>
       );
     } else {
       return (
         <div>
           <Slide experiences={experiences} />
-          <Slide experiences={experiences} />
+          <Slide experiences={experiences} initialSlide={2} />
         </div>
       );
     }
@@ -67,7 +79,6 @@ const Select = () => {
     <div>
       <Nav bgcolor={"white"} fontcolor={"#315C40"} />
       {/* api 호출 후 메뉴 호출하는 함수 구현 */}
-      <Title>체험목록</Title>
       {handleList()}
     </div>
   );

@@ -9,11 +9,12 @@ import { useNavigate, useParams } from "react-router-dom";
 const API_ENDPOINT = "http://35.216.68.47:8080/api/experiences";
 
 const CustomSlider = styled(Slider)`
-  width: 79vw;
-  height: 28vh;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  width: 100vw;
+  height: 45vh;
   z-index: 1;
   margin: 0 auto;
-  margin-bottom: 8vh;
   .slick-prev {
     left: 3% !important;
     z-index: 1;
@@ -25,21 +26,22 @@ const CustomSlider = styled(Slider)`
 `;
 
 const Image = styled.img`
-  width: 38vw;
-  height: 31vh;
-  border-radius: 3%;
+  width: 34vw;
+  height: 45vh;
+  filter: brightness(40%);
 `;
 
-const BannerSlider = ({experiences}) => {
+const BannerSlider = ({ experiences, initialSlide }) => {
   const navigate = useNavigate();
 
   const settings = {
     infinite: true,
     speed: 500,
-    slidesToShow: 2,
+    slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
+    initialSlide: initialSlide,
   };
 
   return (
@@ -57,7 +59,16 @@ const BannerSlider = ({experiences}) => {
           }
         >
           <Image src={experience.imageUrl} alt={`Slide ${index + 1}`}></Image>
-          <p style={{ textAlign: "center", fontWeight: "bold" }}>
+          <p
+            style={{
+              textAlign: "center",
+              fontWeight: "bold",
+              position: "relative",
+              bottom: "27vh",
+              color: "white",
+              fontSize: "20px",
+            }}
+          >
             {experience.title}
           </p>
         </div>

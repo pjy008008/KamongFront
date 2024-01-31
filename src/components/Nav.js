@@ -4,14 +4,13 @@ import { Navigate, useNavigate } from "react-router-dom";
 const NavBar = styled.nav`
   // position: fixed;
   // width: 100%;
-  // height: 50px;
+  height: 10vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: ${(props) => props.bgcolor};
   margin: 0px;
   padding-top: 0.5vh;
-  padding-bottom: 3vh;
 `;
 const Title = styled.h1`
   color: ${(props) => props.fontcolor};

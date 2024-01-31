@@ -161,6 +161,7 @@ const Script = () => {
       setSecond((prev) => value);
     } else if (name === "videoUrl") {
       setVideoUrl((prev) => value);
+      
     }
   };
   const onSubmit = (event) => {
