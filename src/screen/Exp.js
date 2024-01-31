@@ -156,6 +156,13 @@ const Exp = () => {
       overflow: "auto",
       overflowX: "hidden",
     };
+    const lastboardStyle = {
+      overflowY: "auto",
+      height: "80vh",
+    };
+    const lastTitle = {
+      marginTop: "7vh",
+    };
 
     if (sequence === 0) {
       return (
@@ -166,30 +173,32 @@ const Exp = () => {
       );
     } else if (sequence - 1 === steps.length) {
       return (
-        <Blackboard style={blackboardStyle}>
-          <Title>{expTitle} 순서</Title>
-          <div style={{ height: "30px" }}></div>
-          {steps.map((item, key) => (
-            <p
-              style={{
-                marginTop: "0px",
-                textAlign: "left",
-                width: "30vw",
-                color: "white",
-                fontWeight: "bold",
-                fontSize: "25px",
-              }}
-              key={key}
-              onClick={() => {
-                setCount(key + 1);
-              }}
-            >
-              {key + 1}
-              {". "}
-              {item.title}
-            </p>
-          ))}
-          <Button onClick={prevBtn}>이전</Button>
+        <Blackboard style={lastboardStyle}>
+          <div style={{ height: "80vh" }}>
+            <Title style={lastTitle}>{expTitle} 순서</Title>
+            <div style={{ height: "30px" }}></div>
+            {steps.map((item, key) => (
+              <p
+                style={{
+                  marginTop: "0px",
+                  textAlign: "left",
+                  width: "30vw",
+                  color: "white",
+                  fontWeight: "bold",
+                  fontSize: "25px",
+                }}
+                key={key}
+                onClick={() => {
+                  setCount(key + 1);
+                }}
+              >
+                {key + 1}
+                {". "}
+                {item.title}
+              </p>
+            ))}
+            <Button onClick={prevBtn}>이전</Button>
+          </div>
         </Blackboard>
       );
     } else {
@@ -231,6 +240,7 @@ const Exp = () => {
               style={{
                 fontWeight: "bold",
                 fontSize: "20px",
+                width: "50vw",
                 maxHeight: "20vh",
                 overflowY: "auto",
               }}
