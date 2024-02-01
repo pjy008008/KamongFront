@@ -77,7 +77,7 @@ const GoBackButton = styled.button`
 const Title = styled.h2`
   color: white;
   font-weight: bold;
-  font-size: 45px;
+  font-size: 70px;
   margin: 0px;
   font-family: "Gothic_Goding", sans-serif;
 `;
@@ -238,7 +238,7 @@ const Exp = () => {
                 <p
                   style={{
                     fontWeight: "bold",
-                    fontSize: "25px",
+                    fontSize: "35px",
                     width: "30vw",
                     maxHeight: "20vh",
                     fontFamily: "Gothic_Goding",
