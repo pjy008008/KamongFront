@@ -79,6 +79,7 @@ const Title = styled.h2`
   font-weight: bold;
   font-size: 45px;
   margin: 0px;
+  font-family: "Gothic_Goding", sans-serif;
 `;
 
 const CustomButton = styled.button`
@@ -240,6 +241,7 @@ const Exp = () => {
                     fontSize: "25px",
                     width: "30vw",
                     maxHeight: "20vh",
+                    fontFamily: "Gothic_Goding",
                   }}
                 >
                   {steps[sequence - 1].line}
