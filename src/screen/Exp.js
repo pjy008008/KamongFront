@@ -77,7 +77,7 @@ const GoBackButton = styled.button`
 const Title = styled.h2`
   color: white;
   font-weight: bold;
-  font-size: 40px;
+  font-size: 45px;
   margin: 0px;
 `;
 
@@ -154,7 +154,6 @@ const Exp = () => {
   const handleExp = (sequence) => {
     const blackboardStyle = {
       overflow: "auto",
-      overflowX: "hidden",
     };
     const lastboardStyle = {
       overflowY: "auto",
@@ -203,14 +202,20 @@ const Exp = () => {
       );
     } else {
       if (steps[sequence - 1].isImage) {
+        //이미지 슬라이드
         return (
           <Blackboard style={blackboardStyle}>
+            {/* 재생 버튼 */}
             <div
               style={{
+                position: "absolute",
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
                 paddingBottom: "2vh",
+                top: "8vh",
+                right: "12vw",
+                zIndex: "1",
               }}
             >
               <Button onClick={prevBtn}>이전</Button>
@@ -224,32 +229,39 @@ const Exp = () => {
               </CustomButton>
               <Button onClick={nextBtn}>다음</Button>
             </div>
-
-            <Title>{steps[sequence - 1].title}</Title>
-            <img
-              style={{
-                width: "40vw",
-                maxHeight: "40vh",
-                overflowY: "auto",
-              }}
-              src={steps[sequence - 1].imageUrl}
-              alt="체험 이미지"
-            />
-
-            <p
-              style={{
-                fontWeight: "bold",
-                fontSize: "20px",
-                width: "50vw",
-                maxHeight: "20vh",
-                overflowY: "auto",
-              }}
+            <div
+              style={{ display: "flex", width: "80vw", alignItems: "center" }}
             >
-              {steps[sequence - 1].line}
-            </p>
+              <div style={{ width: "30vw", marginLeft: "5vw" }}>
+                <Title>{steps[sequence - 1].title}</Title>
+                <p
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: "25px",
+                    width: "30vw",
+                    maxHeight: "20vh",
+                  }}
+                >
+                  {steps[sequence - 1].line}
+                </p>
+              </div>
+
+              <img
+                style={{
+                  width: "30vw",
+                  marginTop: "5vh",
+                  marginLeft: "7vw",
+                  maxHeight: "65vh",
+                  overflowY: "auto",
+                }}
+                src={steps[sequence - 1].imageUrl}
+                alt="체험 이미지"
+              />
+            </div>
           </Blackboard>
         );
       } else {
+        //영상 슬라이드
         return (
           <Blackboard style={blackboardStyle}>
             <div
