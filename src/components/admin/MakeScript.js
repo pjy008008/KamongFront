@@ -386,7 +386,7 @@ const MakeScript = () => {
           </TitleContainer>
           <ContextContainer>
             <Title>대사</Title>
-            <input
+            <textarea
               style={{
                 backgroundColor: "#DDDDDD",
                 border: "none",
@@ -395,6 +395,8 @@ const MakeScript = () => {
                 paddingLeft: "20px",
                 fontSize: "17px",
                 marginLeft: "1.8vw",
+                paddingTop: "15px",
+                fontFamily: "sans-serif",
               }}
               onChange={onChange}
               name="line"

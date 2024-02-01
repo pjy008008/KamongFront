@@ -40,14 +40,18 @@ const Select = () => {
           >
             체험의 갯수가 부족합니다.
           </p> */}
-          <Slide experiences={experiences} size={1} />
+          <Slide experiences={experiences} size={1} initialSlide={1} />
         </div>
       );
     } else {
       return (
         <div>
           <Slide experiences={experiences} size={experiences.length} />
-          <Slide experiences={experiences} size={experiences.length} />
+          <Slide
+            experiences={experiences}
+            size={experiences.length}
+            initialSlide={3}
+          />
         </div>
       );
     }

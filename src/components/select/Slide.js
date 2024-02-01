@@ -34,8 +34,9 @@ const Image = styled.img`
   filter: brightness(40%);
 `;
 
-const BannerSlider = ({ experiences, size }) => {
+const BannerSlider = ({ experiences, size, initialSlide }) => {
   const navigate = useNavigate();
+
   const settings = {
     infinite: true,
     speed: 500,
@@ -43,7 +44,7 @@ const BannerSlider = ({ experiences, size }) => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
-    initialSlide: 1,
+    initialSlide: initialSlide,
   };
 
   return (
