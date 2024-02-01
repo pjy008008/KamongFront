@@ -5,14 +5,12 @@ import axios from "axios";
 import eraser from "../img/eraser.png";
 import pause from "../img/pause.png";
 import play from "../img/play.png";
-import styles from "./Exp.module.css";
 
 const StartContainer = styled.div`
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  width: 100vw;
-  height: 100vh;
 `;
 
 const Blackboard = styled.div`
@@ -29,12 +27,30 @@ const Blackboard = styled.div`
 `;
 
 const EraserImage = styled.img`
-  position: relative;
-  bottom: 9vh;
-  right: 30vw;
+  position: absolute;
+  bottom: 10vh;
+  left: 20vw;
   width: 7vw;
 `;
 
+const Chalk1 = styled.div`
+  width: 1vw;
+  height: 4vw;
+  background-color: white;
+  position: absolute;
+  bottom: 55vh;
+  right: 23vw;
+  border-radius: 10px;
+`;
+const Chalk2 = styled.div`
+  width: 1vw;
+  height: 4vw;
+  background-color: #f6afaf;
+  position: absolute;
+  bottom: 55vh;
+  right: 21.7vw;
+  border-radius: 10px;
+`;
 const Button = styled.button`
   padding: 10px 20px;
   font-size: 16px;
@@ -62,16 +78,16 @@ const StartButton = styled.button`
 `;
 
 const GoBackButton = styled.button`
-  position: absolute;
-  background-color: transparent;
   padding: 10px 20px;
   font-weight: bold;
   font-size: 16px;
+  background-color: white;
   color: black;
   border: none;
   cursor: pointer;
-  margin-top: 10px;
-  margin-left: 5px;
+  margin-top: 20px;
+  margin-right: auto;
+  margin-left: 1vw;
 `;
 
 const Title = styled.h2`
@@ -89,7 +105,7 @@ const CustomButton = styled.button`
   position: relative;
   margin-top: 1vw;
   margin-left: 2vw;
-  margin-right: 2vw; /* 오른쪽 여백을 추가하여 다음 버튼과의 간격을 조절합니다. */
+  margin-right: 2.5vw; /* 오른쪽 여백을 추가하여 다음 버튼과의 간격을 조절합니다. */
 `;
 
 const IconImg = styled.img`
@@ -152,34 +168,20 @@ const Exp = () => {
   };
 
   const handleExp = (sequence) => {
-    const blackboardStyle = {
-      overflow: "auto",
-      overflowX: "hidden",
-    };
-
-    if (sequence === 0) {
+    if (sequence == 0) {
       return (
-        <Blackboard style={blackboardStyle}>
+        <Blackboard>
           <Title>카몽이와 함께 하는 {expTitle}</Title>
           <StartButton onClick={nextBtn}>체험 시작</StartButton>
         </Blackboard>
       );
-    } else if (sequence - 1 === steps.length) {
+    } else if (sequence - 1 == steps.length) {
       return (
-        <Blackboard style={blackboardStyle}>
-          <Title>{expTitle} 순서</Title>
-          <div style={{ height: "30px" }}></div>
+        <Blackboard>
+          <Title>[{expTitle} 순서]</Title>
           {steps.map((item, key) => (
-            <p
-              style={{
-                marginTop: "0px",
-                textAlign: "left",
-                width: "30vw",
-                color: "white",
-                fontWeight: "bold",
-                fontSize: "25px",
-              }}
-              key={key}
+            <Title
+              style={{}}
               onClick={() => {
                 setCount(key + 1);
               }}
@@ -187,87 +189,49 @@ const Exp = () => {
               {key + 1}
               {". "}
               {item.title}
-            </p>
+            </Title>
           ))}
           <Button onClick={prevBtn}>이전</Button>
         </Blackboard>
       );
     } else {
-      if (steps[sequence - 1].isImage) {
-        return (
-          <Blackboard style={blackboardStyle}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                paddingBottom: "2vh",
-              }}
+      return (
+        <Blackboard>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              paddingBottom: "2vw",
+            }}
+          >
+            <Button onClick={prevBtn}>이전</Button>
+            <CustomButton
+              onClick={() => toggleAudio(steps[sequence - 1].voiceUrl)}
             >
-              <Button onClick={prevBtn}>이전</Button>
-              <CustomButton
-                onClick={() => toggleAudio(steps[sequence - 1].voiceUrl)}
-              >
-                <IconImg
-                  src={isPlaying ? pause : play}
-                  alt={isPlaying ? "멈춤" : "재생"}
-                />
-              </CustomButton>
-              <Button onClick={nextBtn}>다음</Button>
-            </div>
+              <IconImg
+                src={isPlaying ? pause : play}
+                alt={isPlaying ? "멈춤" : "재생"}
+              />
+            </CustomButton>
+            <Button onClick={nextBtn}>다음</Button>
+          </div>
 
-            <Title>{steps[sequence - 1].title}</Title>
+          <Title>{steps[sequence - 1].title}</Title>
+          <p style={{ fontWeight: "bold", fontSize: "20px" }}>
+            {steps[sequence - 1].line}
+          </p>
+          <p>
             <img
-              style={{
-                width: "40vw",
-                maxHeight: "40vh",
-                overflowY: "auto",
-              }}
+              style={{ width: "900px", height: "480px" }}
               src={steps[sequence - 1].imageUrl}
-              alt="체험 이미지"
+              alt="Experience Image"
             />
-
-            <p
-              style={{
-                fontWeight: "bold",
-                fontSize: "20px",
-                maxHeight: "20vh",
-                overflowY: "auto",
-              }}
-            >
-              {steps[sequence - 1].line}
-            </p>
-          </Blackboard>
-        );
-      } else {
-        return (
-          <Blackboard style={blackboardStyle}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                paddingBottom: "2vh",
-              }}
-            >
-              <Button onClick={prevBtn}>이전</Button>
-              <Button onClick={nextBtn}>다음</Button>
-            </div>
-            <div className={styles.youtubeContainer}>
-              <iframe
-                className={styles.youtubeVideo}
-                src={steps[sequence - 1].videoUrl}
-                allow="autoplay;"
-                frameBorder="0"
-                allowFullScreen
-              ></iframe>
-            </div>
-          </Blackboard>
-        );
-      }
+          </p>
+        </Blackboard>
+      );
     }
   };
-
   const prevBtn = () => {
     setCount((prev) => prev - 1);
   };
@@ -276,15 +240,11 @@ const Exp = () => {
   };
 
   return (
-    <div>
+    <StartContainer>
       <GoBackButton onClick={goBack}>뒤로가기</GoBackButton>
-      <StartContainer>
-        <div>
-          {handleExp(count)}
-          <EraserImage src={eraser} />
-        </div>
-      </StartContainer>
-    </div>
+      {handleExp(count)}
+      <EraserImage src={eraser} />
+    </StartContainer>
   );
 };
 

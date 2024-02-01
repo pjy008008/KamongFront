@@ -562,11 +562,14 @@ const Script = () => {
             <button
               style={{
                 marginTop: "20px",
-                width: "120px",
-                height: "32px",
+                borderRadius: "10px",
                 fontWeight: "bold",
                 fontSize: "16px",
                 border: "none",
+                width: "9vw",
+                height: "4vh",
+                color: "white",
+                backgroundColor: "#4b3327",
               }}
               onClick={(event) => {
                 convertToEmbedUrl();

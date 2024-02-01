@@ -264,15 +264,16 @@ const MakeScript = () => {
       </div>
       <button
         style={{
-          backgroundColor: "rgb(240, 240, 240)",
           border: "none",
-          width: "130px",
-          height: "30px",
-          color: "black",
+          borderRadius: "10px",
+          width: "11vw",
+          height: "4vh",
+          color: "white",
           fontWeight: "bold",
           fontSize: "15px",
           marginTop: "20px",
           marginLeft: "5vw",
+          backgroundColor: "#4b3327",
         }}
         onClick={() => {
           setToggle((prev) => !prev);
@@ -332,11 +333,14 @@ const MakeScript = () => {
             <button
               style={{
                 marginTop: "20px",
-                width: "120px",
-                height: "32px",
+                borderRadius: "10px",
                 fontWeight: "bold",
                 fontSize: "16px",
                 border: "none",
+                width: "9vw",
+                height: "4vh",
+                color: "white",
+                backgroundColor: "#4b3327",
               }}
               onClick={(event) => {
                 convertToEmbedUrl();
@@ -395,6 +399,7 @@ const MakeScript = () => {
                 paddingLeft: "20px",
                 fontSize: "17px",
                 marginLeft: "1.8vw",
+                textAlign: "center",
               }}
               onChange={onChange}
               name="line"
