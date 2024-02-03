@@ -14,7 +14,7 @@ const NavBar = styled.nav`
 `;
 const Title = styled.h1`
   color: ${(props) => props.fontcolor};
-  font-size: 32px;
+  font-size: 30px;
   margin: 15px;
   margin-top: 1vh;
   margin-left: 5vw;
