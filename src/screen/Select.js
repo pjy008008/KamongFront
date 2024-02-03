@@ -1,20 +1,7 @@
 import Nav from "../components/Nav";
 import Slide from "../components/select/Slide";
-import styled from "styled-components";
-import first from "../img/1.jpg";
-import second from "../img/2.jpg";
-import third from "../img/3.jpg";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
-const Title = styled.h1`
-  font-size: 30px;
-  text-align: center;
-  color: #4b3327;
-  margin: 0px;
-  margin-bottom: 30px;
-  margin-top: 2vh;
-`;
 
 const API_ENDPOINT = "http://35.216.68.47:8080/api/experiences";
 
@@ -23,38 +10,37 @@ const Select = () => {
   // const [contentArray1, setContentArray1] = useState([]);
   // const [contentArray2, setContentArray2] = useState([]);
   const handleList = () => {
-    if (experiences.length <= 1) {
+    // if (experiences.length <= 1) {
+    // return (
+    //     <div>
+    //       {/* list개수 컨트롤 코드 작성 */}
+    //       {/* <p
+    //         style={{
+    //           width: "100vw",
+    //           height: "75vh",
+    //           display: "flex",
+    //           alignItems: "center",
+    //           justifyContent: "center",
+    //           fontSize: "25px",
+    //           fontWeight: "bold",
+    //         }}
+    //       >
+    //         체험의 갯수가 부족합니다.
+    //       </p> */}
+    //       <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh"}}>
+    //       <Slide experiences={experiences} size={1} initialSlide={1} />
+    //       </div>
+    //     </div>
+    //   );
+    // } else {
       return (
         <div>
-          {/* list개수 컨트롤 코드 작성 */}
-          {/* <p
-            style={{
-              width: "100vw",
-              height: "75vh",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "25px",
-              fontWeight: "bold",
-            }}
-          >
-            체험의 갯수가 부족합니다.
-          </p> */}
-          <Slide experiences={experiences} size={1} initialSlide={1} />
-        </div>
-      );
-    } else {
-      return (
-        <div>
+          <div style={{ display: "flex", alignItems: "center", height: "75vh" }}>
           <Slide experiences={experiences} size={experiences.length} />
-          <Slide
-            experiences={experiences}
-            size={experiences.length}
-            initialSlide={3}
-          />
+          </div>
         </div>
       );
-    }
+    // }
   };
   useEffect(() => {
     const fetchData = async () => {

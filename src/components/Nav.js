@@ -14,31 +14,52 @@ const NavBar = styled.nav`
 `;
 const Title = styled.h1`
   color: ${(props) => props.fontcolor};
-  font-size: 25px;
+  font-size: 32px;
   margin: 15px;
-  margin-top: 15px;
+  margin-top: 1vh;
   margin-left: 5vw;
 
   &:hover {
     cursor: pointer;
   }
+
+  @media (max-width: 1050px) {
+    font-size: 24px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 20px;
+  }
 `;
 const UserIcon = styled.span`
   color: ${(props) => props.fontcolor};
-  font-size: 15px;
+  font-size: 22px;
   margin-right: 30px;
   &:hover {
     cursor: pointer;
   }
+
+  // font-weight: bold; 
+
+  @media (max-width: 1050px) {
+    font-size: 18px;
+  }
 `;
 const LangIcon = styled.span`
   color: ${(props) => props.fontcolor};
-  font-size: 15px;
-  margin-right: 5vw;
+  font-size: 22px;
+  margin-right: 4.5vw;
+
+  // font-weight: bold; 
 
   &:hover {
     cursor: pointer;
   }
+
+  @media (max-width: 1050px) {
+    font-size: 18px;
+  }
+
 `;
 
 const Nav = ({ bgcolor, fontcolor }) => {
@@ -57,9 +78,9 @@ const Nav = ({ bgcolor, fontcolor }) => {
         </Title>
         <div>
           <UserIcon fontcolor={fontcolor} onClick={handleAdmin}>
-            Admin
+            ADMIN
           </UserIcon>
-          <LangIcon fontcolor={fontcolor}>language</LangIcon>
+          <LangIcon fontcolor={fontcolor}>LANGUAGE</LangIcon>
         </div>
       </NavBar>
     </div>
