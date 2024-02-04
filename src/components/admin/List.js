@@ -7,18 +7,20 @@ import axios from "axios";
 const ItemContainer = styled.div`
   width: 90vw;
   margin-top: 3vh;
+  padding-top: 0.1vh;
+  padding-bottom : 1.5vh;
   height: auto;
   background-color: #e4e4e4;
   margin-left: 3vw;
-  display: flex;
+  display: block;
   align-items: center;
   padding-left: 3vw;
-  flex-wrap: wrap;
 `;
 
 const Title = styled.h2`
   font-size: 16px;
   padding-right: 20px;
+  margin-bottom: 0.3vh;
 
   @media screen and (max-width: 1199px) {
     font-size: 1.6vw;
