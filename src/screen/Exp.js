@@ -411,6 +411,7 @@ const Exp = () => {
                   position: "relative",
                   width: "25vw",
                   height: "15vh",
+                  borderRadius: "5px",
                   backgroundColor: "white",
                   marginBottom: "10px",
                   marginLeft: "2vw",
@@ -423,6 +424,7 @@ const Exp = () => {
                     color: "black",
                     fontWeight: "bold",
                     fontSize: "25px",
+                    paddingLeft: "10px",
                   }}
                   key={key}
                   onClick={() => {
@@ -438,6 +440,8 @@ const Exp = () => {
                     textAlign: "left",
                     color: "black",
                     fontSize: "13px",
+                    paddingLeft: "10px",
+                    paddingRight: "10px",
                   }}
                 >
                   {item.line}

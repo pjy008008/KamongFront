@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { Navigate, useNavigate } from "react-router-dom";
-
+import greenl from "../img/greenl.png";
+import greenp from "../img/greenp.png";
+import whitep from "../img/whitep.png";
+import whitel from "../img/whitel.png";
 const NavBar = styled.nav`
   // position: fixed;
   // width: 100%;
@@ -59,7 +62,10 @@ const LangIcon = styled.span`
     font-size: 18px;
   }
 `;
-
+const Icon = styled.img`
+  width: 30px;
+  height: 30px;
+`;
 const Nav = ({ bgcolor, fontcolor }) => {
   const navigate = useNavigate();
   const handleAdmin = () => {
@@ -75,10 +81,20 @@ const Nav = ({ bgcolor, fontcolor }) => {
           BONJUNG
         </Title>
         <div>
-          <UserIcon fontcolor={fontcolor} onClick={handleAdmin}>
-            ADMIN
-          </UserIcon>
-          <LangIcon fontcolor={fontcolor}>LANGUAGE</LangIcon>
+          <span style={{ marginRight: "20px" }} onClick={handleAdmin}>
+            {fontcolor === "white" ? (
+              <Icon src={whitep} />
+            ) : (
+              <Icon src={greenp} />
+            )}
+          </span>
+          <span style={{ marginRight: "50px" }}>
+            {fontcolor === "white" ? (
+              <Icon src={whitel} />
+            ) : (
+              <Icon src={greenl} />
+            )}
+          </span>
         </div>
       </NavBar>
     </div>
