@@ -5,8 +5,6 @@ import greenp from "../img/greenp.png";
 import whitep from "../img/whitep.png";
 import whitel from "../img/whitel.png";
 const NavBar = styled.nav`
-  // position: fixed;
-  // width: 100%;
   height: 10vh;
   display: flex;
   justify-content: space-between;
@@ -14,9 +12,10 @@ const NavBar = styled.nav`
   background-color: ${(props) => props.bgcolor};
   margin: 0px;
 `;
+
 const Title = styled.h1`
   color: ${(props) => props.fontcolor};
-  font-size: 30px;
+  font-size: 26px;
   margin: 15px;
   margin-top: 1vh;
   margin-left: 5vw;
@@ -25,31 +24,30 @@ const Title = styled.h1`
     cursor: pointer;
   }
 
-  @media (max-width: 1050px) {
-    font-size: 24px;
-  }
-
-  @media (max-width: 480px) {
+  @media screen and (max-width:599px) {
     font-size: 20px;
-  }
+    }
 `;
 const UserIcon = styled.span`
   color: ${(props) => props.fontcolor};
-  font-size: 22px;
+  font-size: 20px;
   margin-right: 30px;
   &:hover {
     cursor: pointer;
   }
 
-  // font-weight: bold;
-
-  @media (max-width: 1050px) {
+  @media screen and (max-width: 1199px) {
     font-size: 18px;
   }
+  
+  @media screen and (max-width:899px) {
+    font-size: 16px;
+    }
 `;
+
 const LangIcon = styled.span`
   color: ${(props) => props.fontcolor};
-  font-size: 22px;
+  font-size: 20px;
   margin-right: 4.5vw;
 
   // font-weight: bold;
@@ -58,9 +56,13 @@ const LangIcon = styled.span`
     cursor: pointer;
   }
 
-  @media (max-width: 1050px) {
+  @media screen and (max-width: 1199px) {
     font-size: 18px;
   }
+
+  @media screen and (max-width:899px) {
+    font-size: 16px;
+    }
 `;
 const Icon = styled.img`
   width: 30px;

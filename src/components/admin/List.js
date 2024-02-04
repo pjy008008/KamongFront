@@ -7,19 +7,33 @@ import axios from "axios";
 const ItemContainer = styled.div`
   width: 90vw;
   margin-top: 3vh;
-  height: 7vh;
+  padding-top: 0.1vh;
+  padding-bottom : 1.5vh;
+  height: auto;
   background-color: #e4e4e4;
   margin-left: 3vw;
-  display: flex;
+  display: block;
   align-items: center;
   padding-left: 3vw;
 `;
+
 const Title = styled.h2`
-  font-size: 20px;
-  width: 13vw;
+  font-size: 16px;
   padding-right: 20px;
+  margin-bottom: 0.3vh;
+
+  @media screen and (max-width: 1199px) {
+    font-size: 1.6vw;
+  }
+
+  @media screen and (max-width: 899px) {
+    font-size: 2.2vw;
+  }
 `;
-const Line = styled.span``;
+
+const Line = styled.span`
+`;
+
 const EmptyContainer = styled.div`
   width: 90vw;
   height: 60vh;
@@ -42,13 +56,11 @@ const List = ({ expId }) => {
     const newScript = [...script];
     const [removed] = newScript.splice(result.source.index, 1);
     newScript.splice(result.destination.index, 0, removed);
-    // console.log(newScript)
 
     const adjustedScript = newScript.map((item, index) => ({
       stepId: item.stepId,
       updatedSequence: index + 1,
     }));
-    console.log(adjustedScript);
 
     axios
       .patch(`http://35.216.68.47:8080/api/experiences/pages`, adjustedScript, {
@@ -72,7 +84,6 @@ const List = ({ expId }) => {
       .get(`http://35.216.68.47:8080/api/experiences/${params.expId}/pages`)
       .then(function (response) {
         // 성공 핸들링
-        // console.log(response);
         setScript(response.data.result);
       })
       .catch(function (error) {
@@ -114,7 +125,7 @@ const List = ({ expId }) => {
                       <Title>
                         #{index + 1} {item.title}
                       </Title>
-                      <Line style={{ paddingLeft: "5px" }}>{item.line}</Line>
+                      <Line style={{ paddingLeft: "0px" }}>{item.line}</Line>
                     </ItemContainer>
                   )}
                 </Draggable>

@@ -55,13 +55,37 @@ const TitleContainer = styled.div`
 
 const Title = styled.h1`
   color: white;
-  font-size: 3.5vw;
+  font-size: 50px;
+
+  @media screen and (max-width:1199px) {
+    font-size: 4vw;
+  }
+
+  @media screen and (max-width:899px) {
+    font-size: 5vw;
+  }
+
+  @media screen and (max-width:599px) {
+    font-size: 8vw;
+  }
 `;
 
 const SubTitle = styled.h2`
   color: white;
-  font-size: 2.4vw;
+  font-size: 35px;
   margin-bottom: -1.2vw;
+
+  @media screen and (max-width:1199px) {
+    font-size: 2.4vw;
+  }
+
+  @media screen and (max-width:899px) {
+    font-size: 3.3vw;
+  }
+
+  @media screen and (max-width:599px) {
+    font-size: 4.5vw;
+  }
 `;
 
 const PreStart = () => {
@@ -87,7 +111,6 @@ const PreStart = () => {
           <Image src={item} />
         ))}
       </CustomSlider>
-      {/* <BackImage></BackImage> */}
       <TitleContainer onClick={onClick}>
         <SubTitle>카몽이와 함께하는 초콜릿 체험</SubTitle>
         <Title>시작하기</Title>

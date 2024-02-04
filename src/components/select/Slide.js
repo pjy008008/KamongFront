@@ -3,7 +3,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const API_ENDPOINT = "http://35.216.68.47:8080/api/experiences";
@@ -32,6 +31,7 @@ const Image = styled.img`
   width: ${(props) => (props.size === 1 ? "40vw" : "34vw")};
   height: ${(props) => (props.size === 1 ? "60vh" : "45vh")};
   filter: brightness(40%);
+  object-fit: cover;
 `;
 
 const BannerSlider = ({ experiences, size, initialSlide }) => {

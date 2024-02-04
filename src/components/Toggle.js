@@ -7,11 +7,9 @@ const ToggleContainer = styled.span`
   display: inline-block;
   text-align: center;
   align-items: center;
-  right: 10px;
-  top: 10px;
-  bottom: 10px;
-  width: 70px;
-  height: 40px;
+  right: 1vw;
+  width: 5vw;
+  height: 5vh;
   border-radius: 30px;
   background-color: lightgray;
   transition: 0.5s;
@@ -21,24 +19,48 @@ const ToggleContainer = styled.span`
       background-color: #315c40;
       transition: 0.5s;
     `}
+
+    @media screen and (max-width:1199px) {
+      width: 6.5vw;
+    }
+  
+    @media screen and (max-width:899px) {
+      width: 9vw;
+    }  
 `;
 const ToggleCircle = styled.span`
   position: absolute;
-  top: 4px;
-  left: 3px;
-  width: 35px;
-  height: 33px;
+  left: 0px;
+  width: 2.2vw;
+  height: 5vh;
   border-radius: 50%;
   background-color: white;
   transition: 0.5s;
   ${(props) =>
     props.checked &&
     css`
-      left: 31px;
+      left: 2.8vw;
       background-color: white;
       transition: 0.5s;
+
+      @media screen and (max-width:1199px) {
+        left: 3vw;
+      }
+
+      @media screen and (max-width:899px) {
+        left: 4vw;
+      }  
     `}
+
+    @media screen and (max-width:1199px) {
+      width: 3.5vw;
+    }
+  
+    @media screen and (max-width:899px) {
+      width: 5vw;
+    }  
 `;
+
 const Toggle = ({ expId, status }) => {
   const [isOn, setisOn] = useState(status);
   const toggleHandler = () => {

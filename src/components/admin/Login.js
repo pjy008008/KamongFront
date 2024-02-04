@@ -8,28 +8,36 @@ const Background = styled.div`
   background-color: #315c40;
   text-align: center;
 `;
+
 const LoginContainer = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
   width: 340px;
   height: 380px;
   background-color: white;
   border-radius: 20px;
   text-align: center;
+
+  
+  @media (max-height: 599px) {
+    height: 45vh;
+  }
 `;
+
 const LoginTitle = styled.h2`
   font-size: 40px;
   font-weight: bold;
   margin-top: 85px;
-  color: #4b3327;
-  
-  @media (max-width: 1100px) {
-    font-size: 35px;
+  color: #2D2D2D;
+
+  @media (max-height: 599px) {
+    font-size: 25px;
+    margin-top: 5vh;
   }
 `;
+
 const LoginForm = styled.form``;
 const InputPswd = styled.input`
   border: none;
@@ -46,15 +54,28 @@ const InputPswd = styled.input`
   &::placeholder {
     font-size: 16px;
   }
+
+  @media (max-height: 599px) {
+    font-size: 25px;
+    height: 10vh;
+    margin-top: -10px;
+  }
+
 `;
 const SubmitBtn = styled.button`
   border: none;
-  width: 250px;
-  height: 50px;
-  background-color: #4b3327;
+  width: 255px;
+  height: 6vh;
+  background-color: #2D2D2D;
   color: white;
   font-weight: bold;
   font-size: 25px;
+
+  @media (max-height: 599px) {
+    font-size: 20px;
+    height: 10vh;
+    margin-top: 1px;
+  }
 `;
 
 const Login = () => {
