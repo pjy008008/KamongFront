@@ -111,6 +111,7 @@ const Exp = () => {
   const [count, setCount] = useState(0);
   const [audioPlayer, setAudioPlayer] = useState(null); // 상태 추가
   const [isPlaying, setIsPlaying] = useState(); // 재생 상태 추가
+  const [listToggle, setListToggle] = useState(false);
 
   const CountdownTimer = ({ initialDuration, onTimerEnd }) => {
     const [remainingSeconds, setRemainingSeconds] = useState(initialDuration);
@@ -368,6 +369,86 @@ const Exp = () => {
   return (
     <div>
       <GoBackButton onClick={goBack}>뒤로가기</GoBackButton>
+      <span
+        onClick={() => setListToggle((prev) => !prev)}
+        style={{ position: "absolute", right: "2vw", top: "2vh" }}
+      >
+        목록
+      </span>
+      {listToggle ? (
+        <div
+          style={{
+            zIndex: "2",
+            width: "30vw",
+            height: "100vh",
+            position: "absolute",
+            right: "0vw",
+            top: "0vh",
+            backgroundColor: "#000000",
+            color: "white",
+            opacity: "80%",
+          }}
+        >
+          <span
+            onClick={() => setListToggle((prev) => !prev)}
+            style={{ position: "absolute", right: "2vw", top: "2vh" }}
+          >
+            목록
+          </span>
+          <div
+            style={{
+              maxHeight: "100vh",
+              height: "100vh",
+              overflowY: "scroll",
+              overflowX: "hidden",
+            }}
+          >
+            <div style={{ height: "8vh" }}></div>
+            {steps.map((item, key) => (
+              <div
+                onClick={() => setCount(key + 1)}
+                style={{
+                  position: "relative",
+                  width: "25vw",
+                  height: "15vh",
+                  backgroundColor: "white",
+                  marginBottom: "10px",
+                  marginLeft: "2vw",
+                }}
+              >
+                <p
+                  style={{
+                    marginTop: "0px",
+                    textAlign: "left",
+                    color: "black",
+                    fontWeight: "bold",
+                    fontSize: "25px",
+                  }}
+                  key={key}
+                  onClick={() => {
+                    setCount(key + 1);
+                  }}
+                >
+                  {"#"}
+                  {key + 1} {item.title}
+                </p>
+                <p
+                  style={{
+                    marginTop: "0px",
+                    textAlign: "left",
+                    color: "black",
+                    fontSize: "13px",
+                  }}
+                >
+                  {item.line}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div></div>
+      )}
       <StartContainer>
         <div>
           {handleExp(count)}

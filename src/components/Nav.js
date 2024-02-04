@@ -10,7 +10,6 @@ const NavBar = styled.nav`
   align-items: center;
   background-color: ${(props) => props.bgcolor};
   margin: 0px;
-  padding-top: 0.5vh;
 `;
 const Title = styled.h1`
   color: ${(props) => props.fontcolor};
@@ -39,7 +38,7 @@ const UserIcon = styled.span`
     cursor: pointer;
   }
 
-  // font-weight: bold; 
+  // font-weight: bold;
 
   @media (max-width: 1050px) {
     font-size: 18px;
@@ -50,7 +49,7 @@ const LangIcon = styled.span`
   font-size: 22px;
   margin-right: 4.5vw;
 
-  // font-weight: bold; 
+  // font-weight: bold;
 
   &:hover {
     cursor: pointer;
@@ -59,7 +58,6 @@ const LangIcon = styled.span`
   @media (max-width: 1050px) {
     font-size: 18px;
   }
-
 `;
 
 const Nav = ({ bgcolor, fontcolor }) => {
