@@ -5,19 +5,30 @@ import EntireScript from "../components/admin/EntireScript";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+
 const TopContainer = styled.div`
   margin-top: 1vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
+
 const Title = styled.h1`
   color: #4b3327;
   font-size: 30px;
   font-weight: bold;
   margin: 0px;
   margin-left: 5vw;
+
+  @media screen and (max-width:1199px) {
+    font-size: 2vw;
+  }
+  
+  @media screen and (max-width:899px) {
+    font-size: 3vw;
+  }
 `;
+
 const ScriptBtn = styled.button`
   background-color: #315c40;
   width: 10vw;
@@ -28,7 +39,18 @@ const ScriptBtn = styled.button`
   font-size: 16px;
   border: none;
   border-radius: 10px;
+  
+  @media screen and (max-width:1199px) {
+    width: 15vw;
+    font-size: 1.4vw;
+  }
+  
+  @media screen and (max-width:899px) {
+    width: 18vw;
+    font-size: 1.8vw;
+  }
 `;
+
 const Newbtn = styled.button`
   background-color: #e4e4e4;
   color: #4b3327;
@@ -39,7 +61,18 @@ const Newbtn = styled.button`
   font-size: 16px;
   border-radius: 10px;
   border: none;
+
+  @media screen and (max-width:1199px) {
+    width: 15vw;
+    font-size: 1.4vw;
+  }
+  
+  @media screen and (max-width:899px) {
+    width: 18vw;
+    font-size: 1.8vw;
+  }
 `;
+
 const Container = styled.div``;
 const Detail = () => {
   const params = useParams();

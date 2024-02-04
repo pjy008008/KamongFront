@@ -18,6 +18,7 @@ const ExpContainer = styled.div`
   overflow: scroll;
   overflow-x: hidden;
 `;
+
 const Exp = styled.div`
   width: 70vw;
   height: 7vh;
@@ -29,22 +30,29 @@ const Exp = styled.div`
   display: flex;
   align-items: center;
 `;
+
 const ExpTitle = styled.h2`
   color: #303030;
   margin: 0px;
-  font-size: 27px;
+  font-size: 18px;
   font-weight: bold;
-  padding-left: 3vw;
+  padding-left: 2vw;
 
-  @media (max-width: 1050px) {
-    font-size: 20px;
+  @media screen and (max-width:1199px) {
+    font-size: 2vw;
   }
 
+  @media screen and (max-width:899px) {
+    font-size: 2.2vw;
+  }  
+
+  
 `;
+
 const EditBtn = styled.button`
-  background-color: #4b3327;
+  background-color: #2D2D2D;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 16px;
   border: none;
   color: white;
   width: 5vw;
@@ -52,31 +60,39 @@ const EditBtn = styled.button`
   border-radius: 20px;
   margin-right: 10px;
 
-  @media (max-width: 1050px) {
-    font-size: 14px;
+  @media screen and (max-width:1199px) {
+    width: 6vw;
+    font-size: 1.5vw;
   }
-  @media (max-width: 800px) {
-    width: 40px;
-}
+
+  @media screen and (max-width:899px) {
+    width: 8vw;
+    font-size: 1.7vw;
+  }  
 `;
+
 const DelBtn = styled.button`
-  background-color: #4b3327;
+  background-color: #2D2D2D;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 16px;
   border: none;
   color: white;
   width: 5vw;
   height: 5vh;
   border-radius: 20px;
-  margin-right: 30px;
+  margin-right: 2vw;
 
-   @media (max-width: 1050px) {
-    font-size: 14px;
+  @media screen and (max-width:1199px) {
+    width: 6vw;
+    font-size: 1.5vw;
   }
-    @media (max-width: 800px) {
-      width: 40px;
-  }
+
+  @media screen and (max-width:899px) {
+    width: 8vw;
+    font-size: 1.7vw;
+  }  
 `;
+
 const AddExpContainer = styled.form`
   margin-top: 3vh;
   width: 80vw;
@@ -85,20 +101,24 @@ const AddExpContainer = styled.form`
   border-radius: 20px;
   background-color: #d8d8d8;
 `;
+
 const AddExpTitle = styled.input`
-  width: 55vw;
+  width: 52vw;
   height: 4vh;
   border: none;
   text-align: center;
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 2vh;
-  @media (max-width: 1050px) {
-    width: 52vw;
-}
+
+  @media screen and (max-width:1199px) {
+    width: 51vw
+  }
+
 `;
+
 const AddExpImage = styled.div`
-  width: 55vw;
+  width: 53vw;
   height: 4vh;
   display: flex;
   font-size: 20px;
@@ -112,19 +132,26 @@ const AddExpImage = styled.div`
   &:hover {
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   }
-  @media (max-width: 1050px) {
-    width: 52vw;
-}
+  
+  @media screen and (max-width:1199px) {
+    width: 51vw
+  }
+
 `;
 const AddBtn = styled.button`
-  width: 7vw;
+  width: 10vw;
   background-color: #315c40;
   border: none;
   border-radius: 10px;
   color: white;
-  font-size: 25px;
+  font-size: 1.5vw;
   font-weight: bold;
   margin-right: 5vw;
+
+  @media screen and (max-width:1199px) {
+    width: 11vw;
+    font-size: 2vw;
+  }
 `;
 
 const TitleContainer = styled.div`
@@ -138,7 +165,7 @@ const ChangeExpTitle = styled.input`
   border: none;
   border-bottom: 2px solid #4b3327;
   padding-left: 10px;
-  font-size: 20px;
+  font-size: 1.7vw;
   font-weight: bold;
 `;
 
@@ -174,12 +201,14 @@ const ResponsiveFont = styled.span`
   font-weight: bold;
   padding-left: 3.5vw;
   padding-right: 1vw;
-  font-size: 28px;
+  font-size: 1.5vw;
 
   @media (max-width: 1050px) {
-    font-size: 20px;
+    font-size: 2vw;
   }
 `;
+
+
 
 const Edit = () => {
   const navigate = useNavigate();
@@ -457,7 +486,7 @@ const Edit = () => {
             >
               {item.title}
             </ExpTitle>
-            <div>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <Toggle
                 expId={item.experienceId}
                 status={item.isEnabled}
@@ -473,14 +502,11 @@ const Edit = () => {
       <AddExpContainer onSubmit={onSubmit}>
         <h1
           style={{
-            fontSize: "33px",
+            fontSize: "2vw",
             color: "#315C40",
             paddingLeft: "3vw",
             paddingTop: "3vh",
             fontWeight: "bold",
-            '@media (max-width: 1050px)': {
-              fontSize: "33px",
-            },
           }}
         >
           체험 추가

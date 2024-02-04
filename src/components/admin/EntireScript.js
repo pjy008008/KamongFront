@@ -9,17 +9,22 @@ const Container = styled.div`
   background-color: #e4e4e4;
   overflow-y: scroll;
 `;
+
 const ContentContainer = styled.div`
   margin-top: 3vh;
   margin-left: 3vw;
 `;
+
 const Title = styled.p`
   font-weight: bold;
   margin: 0px;
+  font-size; 1vw;
 `;
+
 const Line = styled.p`
   margin: 0px;
 `;
+
 const EntireScript = ({ exp }) => {
   return (
     <div>
