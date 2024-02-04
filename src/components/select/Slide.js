@@ -75,6 +75,8 @@ const BannerSlider = ({ experiences, size, initialSlide }) => {
               left: size === 1 ? "5vw" : "0",
               color: "white",
               fontSize: size === 1 ? "35px" : "25px",
+              WebkitTextStroke: "1px",
+              WebkitTextStrokeColor: "black",
             }}
           >
             {experience.title}
