@@ -6,7 +6,7 @@ const PrivateRoute = ({ component: Component }) => {
   const authenticated = localStorage.getItem("idx");
 
   //배포할 때는 수정이 필요함 비밀번호 깃에 노출 안되게 할 것
-  const validation = authenticated === "1234";
+  const validation = authenticated === process.env.REACT_APP_PASSWORD;
   return validation ? (
     Component
   ) : (

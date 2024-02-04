@@ -8,7 +8,7 @@ const ItemContainer = styled.div`
   width: 90vw;
   margin-top: 3vh;
   padding-top: 0.1vh;
-  padding-bottom : 1.5vh;
+  padding-bottom: 1.5vh;
   height: auto;
   background-color: #e4e4e4;
   margin-left: 3vw;
@@ -31,8 +31,7 @@ const Title = styled.h2`
   }
 `;
 
-const Line = styled.span`
-`;
+const Line = styled.span``;
 
 const EmptyContainer = styled.div`
   width: 90vw;

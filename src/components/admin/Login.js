@@ -20,7 +20,6 @@ const LoginContainer = styled.div`
   border-radius: 20px;
   text-align: center;
 
-  
   @media (max-height: 599px) {
     height: 45vh;
   }
@@ -30,7 +29,7 @@ const LoginTitle = styled.h2`
   font-size: 40px;
   font-weight: bold;
   margin-top: 85px;
-  color: #2D2D2D;
+  color: #2d2d2d;
 
   @media (max-height: 599px) {
     font-size: 25px;
@@ -60,13 +59,12 @@ const InputPswd = styled.input`
     height: 10vh;
     margin-top: -10px;
   }
-
 `;
 const SubmitBtn = styled.button`
   border: none;
   width: 255px;
   height: 6vh;
-  background-color: #2D2D2D;
+  background-color: #2d2d2d;
   color: white;
   font-weight: bold;
   font-size: 25px;
@@ -90,7 +88,7 @@ const Login = () => {
   const onSubmit = (event) => {
     event.preventDefault();
     localStorage.setItem("idx", password);
-    if (password === "1234") {
+    if (password === process.env.REACT_APP_PASSWORD) {
       navigate("/allexp");
     } else {
       alert("비밀번호가 틀립니다.");
