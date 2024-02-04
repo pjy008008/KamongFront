@@ -14,7 +14,7 @@ const LoginContainer = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
 
-  width: 380px;
+  width: 340px;
   height: 380px;
   background-color: white;
   border-radius: 20px;
@@ -25,6 +25,10 @@ const LoginTitle = styled.h2`
   font-weight: bold;
   margin-top: 85px;
   color: #4b3327;
+  
+  @media (max-width: 1100px) {
+    font-size: 35px;
+  }
 `;
 const LoginForm = styled.form``;
 const InputPswd = styled.input`

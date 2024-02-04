@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Nav from "../Nav";
-import coffee from "../../img/coffee.jpg";
 import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -10,7 +9,6 @@ import bon2 from "../../img/bon2.jpg";
 import bon3 from "../../img/bon3.jpg";
 
 const CustomSlider = styled(Slider)`
-  /* object-fit: cover; */
   position: absolute;
   top: 55%;
   left: 50%;
@@ -90,7 +88,7 @@ const PreStart = () => {
   return (
     <div>
       <Background>
-        <Nav bgcolor={"#315C40"} fontcolor={"white"} />
+        <Nav bgcolor={"white"} fontcolor={"#315C40"} />
         <CustomSlider {...settings}>
           {images.map((item) => (
             <Image src={item} />
