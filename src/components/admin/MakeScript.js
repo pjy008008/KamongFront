@@ -128,16 +128,14 @@ const MakeScript = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    const totalDuration = 60 * parseInt(minute, 10) + parseInt(second, 10);
-    if (
-      !selectedImageFile ||
-      !selectedVoiceFile ||
-      !title ||
-      !line ||
-      !totalDuration
-    ) {
+    const totalDuration =
+      60 * (parseInt(minute, 10) || 0) + (parseInt(second, 10) || 0);
+    if (!selectedImageFile || !selectedVoiceFile || !title || !line) {
       alert("모든 정보를 입력해 주세요");
       return; // Stop execution if validation fails
+    } else if (totalDuration === 0) {
+      alert("시간은 1초를 넘겨야 합니다.");
+      return;
     }
 
     // const FormData = require(`form-data`);

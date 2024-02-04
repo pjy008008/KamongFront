@@ -110,7 +110,68 @@ const Exp = () => {
   const [steps, setSteps] = useState([]);
   const [count, setCount] = useState(0);
   const [audioPlayer, setAudioPlayer] = useState(null); // 상태 추가
-  const [isPlaying, setIsPlaying] = useState(false); // 재생 상태 추가
+  const [isPlaying, setIsPlaying] = useState(); // 재생 상태 추가
+
+  const CountdownTimer = ({ initialDuration, onTimerEnd }) => {
+    const [remainingSeconds, setRemainingSeconds] = useState(initialDuration);
+    const [prevDuration, setPrevDuration] = useState(initialDuration);
+
+    useEffect(() => {
+      // 초기화 및 이전 값 업데이트
+      if (prevDuration !== initialDuration) {
+        setRemainingSeconds(initialDuration);
+        setPrevDuration(initialDuration);
+      }
+
+      // setInterval을 이용한 타이머 설정
+      const timer = setInterval(() => {
+        setRemainingSeconds((prevSeconds) => {
+          if (prevSeconds > 0) {
+            return prevSeconds - 1;
+          } else {
+            clearInterval(timer); // 타이머 정리
+            if (onTimerEnd && typeof onTimerEnd === "function") {
+              onTimerEnd(); // 타이머 종료 시 특정 함수 실행
+            }
+            return 0;
+          }
+        });
+      }, 1000);
+
+      // 컴포넌트가 언마운트되거나 initialDuration이 변경되면 clearInterval 호출
+      return () => clearInterval(timer);
+    }, [initialDuration, prevDuration]);
+
+    // 남은 시간을 포맷하여 표시
+    const formatDuration = (seconds) => {
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = seconds % 60;
+      return `${minutes}:${
+        remainingSeconds < 10 ? "0" : ""
+      }${remainingSeconds}`;
+    };
+
+    return (
+      <p
+        style={{
+          position: "absolute",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          paddingBottom: "2vh",
+          top: "10vh",
+          left: "12vw",
+          zIndex: "1",
+        }}
+      >
+        {formatDuration(remainingSeconds)}
+      </p>
+    );
+  };
+  const handleTimerEnd = () => {
+    console.log("Timer ended! Perform some action.");
+    nextBtn();
+  };
 
   useEffect(() => {
     axios
@@ -260,6 +321,10 @@ const Exp = () => {
                 alt="체험 이미지"
               />
             </div>
+            <CountdownTimer
+              initialDuration={steps[sequence - 1].duration}
+              onTimerEnd={handleTimerEnd}
+            />
           </Blackboard>
         );
       } else {
@@ -279,6 +344,7 @@ const Exp = () => {
             </div>
             <div className={styles.youtubeContainer}>
               <iframe
+                title="설명 영상"
                 className={styles.youtubeVideo}
                 src={steps[sequence - 1].videoUrl}
                 allow="autoplay;"

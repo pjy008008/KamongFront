@@ -116,18 +116,21 @@ const Script = () => {
 
   const handleDel = async (event) => {
     event.preventDefault();
-    try {
-      const response = await axios.delete(
-        `http://35.216.68.47:8080/api/experiences/pages/${params.scriptId}`,
-        {
-          headers: {
-            accept: "*/*",
-          },
-        }
-      );
-      console.log("Deletion successful:", response.data);
-    } catch (error) {
-      console.error("Error deleting data:", error);
+    if (window.confirm("정말 삭제 하시겠습니까?")) {
+      try {
+        const response = await axios.delete(
+          `http://35.216.68.47:8080/api/experiences/pages/${params.scriptId}`,
+          {
+            headers: {
+              accept: "*/*",
+            },
+          }
+        );
+        console.log("Deletion successful:", response.data);
+      } catch (error) {
+        console.error("Error deleting data:", error);
+      }
+    } else {
     }
     navigate(`/exp/${expId}`);
   };
@@ -178,13 +181,15 @@ const Script = () => {
   };
   const onSubmit = (event) => {
     event.preventDefault();
-    const totalDuration = 60 * parseInt(minute, 10) + parseInt(second, 10);
+    const totalDuration =
+      60 * (parseInt(minute, 10) || 0) + (parseInt(second, 10) || 0);
     const formData = new FormData();
     formData.append(
       "request",
       JSON.stringify({
         title: title,
         line: line,
+        isImage: true,
         duration: totalDuration,
       })
     );
