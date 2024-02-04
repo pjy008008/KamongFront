@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const API_ENDPOINT = "http://35.216.68.47:8080/api/experiences";
 
@@ -12,7 +12,7 @@ const CustomSlider = styled(Slider)`
   overflow-y: hidden;
   overflow-x: hidden;
   width: 100vw;
-  height: ${(props) => (props.size === 1 ? "89.5vh" : "45vh")};
+  height: ${(props) => (props.size === 1 ? "60vh" : "45vh")};
   z-index: 1;
   .slick-prev {
     left: 3% !important;
@@ -24,13 +24,13 @@ const CustomSlider = styled(Slider)`
   }
   .slick-track {
     margin-left: ${(props) =>
-      props.size === 1 ? "0" : props.size === 2 ? "15vw" : "0"};
+      props.size === 1 ? "30vw" : props.size === 2 ? "15vw" : "0"};
   }
 `;
 
 const Image = styled.img`
-  width: ${(props) => (props.size === 1 ? "100vw" : "34vw")};
-  height: ${(props) => (props.size === 1 ? "89.5vh" : "45vh")};
+  width: ${(props) => (props.size === 1 ? "40vw" : "34vw")};
+  height: ${(props) => (props.size === 1 ? "60vh" : "45vh")};
   filter: brightness(40%);
 `;
 
@@ -65,16 +65,16 @@ const BannerSlider = ({ experiences, size, initialSlide }) => {
             size={size}
             src={experience.imageUrl}
             alt={`Slide ${index + 1}`}
-          ></Image>
+          />
           <p
             style={{
               textAlign: "center",
               fontWeight: "bold",
               position: "relative",
-              bottom: size === 1 ? "52vh" : "27vh",
-              left: size === 1 ? "35vw" : "0",
+              bottom: size === 1 ? "37vh" : "27vh",
+              left: size === 1 ? "5vw" : "0",
               color: "white",
-              fontSize: size === 1 ? "35px" : "20px",
+              fontSize: size === 1 ? "35px" : "25px",
             }}
           >
             {experience.title}

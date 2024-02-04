@@ -32,31 +32,50 @@ const Exp = styled.div`
 const ExpTitle = styled.h2`
   color: #303030;
   margin: 0px;
+  font-size: 27px;
   font-weight: bold;
-  font-size: 30px;
   padding-left: 3vw;
+
+  @media (max-width: 1050px) {
+    font-size: 20px;
+  }
+
 `;
 const EditBtn = styled.button`
   background-color: #4b3327;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 18px;
   border: none;
   color: white;
   width: 5vw;
   height: 5vh;
   border-radius: 20px;
   margin-right: 10px;
+
+  @media (max-width: 1050px) {
+    font-size: 14px;
+  }
+  @media (max-width: 800px) {
+    width: 40px;
+}
 `;
 const DelBtn = styled.button`
   background-color: #4b3327;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 18px;
   border: none;
   color: white;
   width: 5vw;
   height: 5vh;
   border-radius: 20px;
   margin-right: 30px;
+
+   @media (max-width: 1050px) {
+    font-size: 14px;
+  }
+    @media (max-width: 800px) {
+      width: 40px;
+  }
 `;
 const AddExpContainer = styled.form`
   margin-top: 3vh;
@@ -67,16 +86,19 @@ const AddExpContainer = styled.form`
   background-color: #d8d8d8;
 `;
 const AddExpTitle = styled.input`
-  width: 58vw;
+  width: 55vw;
   height: 4vh;
   border: none;
   text-align: center;
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 2vh;
+  @media (max-width: 1050px) {
+    width: 52vw;
+}
 `;
 const AddExpImage = styled.div`
-  width: 58vw;
+  width: 55vw;
   height: 4vh;
   display: flex;
   font-size: 20px;
@@ -90,6 +112,9 @@ const AddExpImage = styled.div`
   &:hover {
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   }
+  @media (max-width: 1050px) {
+    width: 52vw;
+}
 `;
 const AddBtn = styled.button`
   width: 7vw;
@@ -144,12 +169,23 @@ const ChangeImageButton = styled.button`
   border-radius: 10px;
 `;
 
+const ResponsiveFont = styled.span`
+  color: #4B3327;
+  font-weight: bold;
+  padding-left: 3.5vw;
+  padding-right: 1vw;
+  font-size: 28px;
+
+  @media (max-width: 1050px) {
+    font-size: 20px;
+  }
+`;
+
 const Edit = () => {
   const navigate = useNavigate();
   const [selectedFile, setSelectedFile] = useState(null);
   const [exp, setExp] = useState([]);
   const [title, setTitle] = useState("");
-  //수정을 하기위한 state
   const [expEditId, setExpEditId] = useState(0);
   const [editTitle, setEditTitle] = useState("");
   const [editImage, setEditImage] = useState("");
@@ -437,11 +473,14 @@ const Edit = () => {
       <AddExpContainer onSubmit={onSubmit}>
         <h1
           style={{
-            fontSize: "38px",
+            fontSize: "33px",
             color: "#315C40",
-            paddingLeft: "2vw",
-            paddingTop: "2vh",
+            paddingLeft: "3vw",
+            paddingTop: "3vh",
             fontWeight: "bold",
+            '@media (max-width: 1050px)': {
+              fontSize: "33px",
+            },
           }}
         >
           체험 추가
@@ -450,22 +489,12 @@ const Edit = () => {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            marginTop: "5vh",
+            marginTop: "4vh",
           }}
         >
           <div>
             <div>
-              <span
-                style={{
-                  color: "#4B3327",
-                  fontWeight: "bold",
-                  paddingLeft: "2vw",
-                  paddingRight: "1vw",
-                  fontSize: "25px",
-                }}
-              >
-                체험명
-              </span>
+            <ResponsiveFont>체험명</ResponsiveFont>
               <AddExpTitle
                 onChange={onChange}
                 name="title"
@@ -474,17 +503,7 @@ const Edit = () => {
               ></AddExpTitle>
             </div>
             <div style={{ display: "flex" }}>
-              <span
-                style={{
-                  color: "#4B3327",
-                  fontWeight: "bold",
-                  paddingLeft: "2vw",
-                  paddingRight: "1vw",
-                  fontSize: "25px",
-                }}
-              >
-                이미지
-              </span>
+            <ResponsiveFont>이미지</ResponsiveFont>
               <label htmlFor="file">
                 {selectedFile ? (
                   <AddExpImage>Selected file: {selectedFile.name}</AddExpImage>
