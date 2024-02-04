@@ -9,10 +9,6 @@ import bon2 from "../../img/bon2.jpg";
 import bon3 from "../../img/bon3.jpg";
 
 const CustomSlider = styled(Slider)`
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 100vw;
   height: 90vh;
   margin: 0 auto;
@@ -30,13 +26,11 @@ const Image = styled.img`
   object-fit: cover;
   width: 100vw;
   height: 90vh;
+
+  filter: brightness(35%);
 `;
 
 const BackImage = styled.div`
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 100vw;
   height: 90vh;
   background-color: #282828;
@@ -86,20 +80,18 @@ const PreStart = () => {
   };
 
   return (
-    <div>
-      <Background>
-        <Nav bgcolor={"white"} fontcolor={"#315C40"} />
-        <CustomSlider {...settings}>
-          {images.map((item) => (
-            <Image src={item} />
-          ))}
-        </CustomSlider>
-        <BackImage></BackImage>
-        <TitleContainer onClick={onClick}>
-          <SubTitle>카몽이와 함께하는 초콜릿 체험</SubTitle>
-          <Title>시작하기</Title>
-        </TitleContainer>
-      </Background>
+    <div style={{ overflowX: "hidden", overflowY: "hidden" }}>
+      <Nav bgcolor={"white"} fontcolor={"#315C40"} />
+      <CustomSlider {...settings}>
+        {images.map((item) => (
+          <Image src={item} />
+        ))}
+      </CustomSlider>
+      {/* <BackImage></BackImage> */}
+      <TitleContainer onClick={onClick}>
+        <SubTitle>카몽이와 함께하는 초콜릿 체험</SubTitle>
+        <Title>시작하기</Title>
+      </TitleContainer>
     </div>
   );
 };
