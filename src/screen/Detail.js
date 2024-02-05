@@ -19,12 +19,13 @@ const Title = styled.h1`
   font-weight: bold;
   margin: 0px;
   margin-left: 5vw;
+  align-items: center;
 
-  @media screen and (max-width:1199px) {
+  @media screen and (max-width: 1199px) {
     font-size: 2vw;
   }
-  
-  @media screen and (max-width:899px) {
+
+  @media screen and (max-width: 899px) {
     font-size: 3vw;
   }
 `;
@@ -39,13 +40,13 @@ const ScriptBtn = styled.button`
   font-size: 16px;
   border: none;
   border-radius: 10px;
-  
-  @media screen and (max-width:1199px) {
+
+  @media screen and (max-width: 1199px) {
     width: 15vw;
     font-size: 1.4vw;
   }
-  
-  @media screen and (max-width:899px) {
+
+  @media screen and (max-width: 899px) {
     width: 18vw;
     font-size: 1.8vw;
   }
@@ -62,15 +63,25 @@ const Newbtn = styled.button`
   border-radius: 10px;
   border: none;
 
-  @media screen and (max-width:1199px) {
+  @media screen and (max-width: 1199px) {
     width: 15vw;
     font-size: 1.4vw;
   }
-  
-  @media screen and (max-width:899px) {
+
+  @media screen and (max-width: 899px) {
     width: 18vw;
     font-size: 1.8vw;
   }
+`;
+
+const BackButton = styled.button`
+  width: 8vw;
+  height: 4vh;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  margin-left: 5vw;
+  border-radius: 10px;
 `;
 
 const Container = styled.div``;
@@ -128,6 +139,18 @@ const Detail = () => {
     <div>
       <Nav bgcolor={"white"} fontcolor={"#315C40"}></Nav>
       <TopContainer>
+        <BackButton
+          onClick={() =>
+            navigate("/Allexp", {
+              state: {
+                expId: param,
+                stepId: maxStep,
+              },
+            })
+          }
+        >
+          뒤로가기
+        </BackButton>
         <Title>{title}</Title>
         <div>
           <ScriptBtn onClick={() => setViewEntier((prev) => !prev)}>

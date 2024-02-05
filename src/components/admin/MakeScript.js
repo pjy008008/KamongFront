@@ -262,11 +262,12 @@ const MakeScript = () => {
       </div>
       <button
         style={{
-          backgroundColor: "rgb(240, 240, 240)",
+          backgroundColor: "#4b3327",
+          borderRadius: "10px",
           border: "none",
           width: "130px",
-          height: "30px",
-          color: "black",
+          height: "36px",
+          color: "white",
           fontWeight: "bold",
           fontSize: "15px",
           marginTop: "20px",

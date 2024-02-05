@@ -110,9 +110,33 @@ const Exp = () => {
   const [steps, setSteps] = useState([]);
   const [count, setCount] = useState(0);
   const [audioPlayer, setAudioPlayer] = useState(null); // 상태 추가
-  const [isPlaying, setIsPlaying] = useState(); // 재생 상태 추가
+  const [isPlaying, setIsPlaying] = useState(false); // 재생 상태 추가
   const [listToggle, setListToggle] = useState(false);
 
+  // 페이지 이동 시 cleanup 함수를 활용하여 이전 페이지의 음성 정지
+  useEffect(() => {
+    return () => {
+      if (audioPlayer) {
+        audioPlayer.pause();
+        setIsPlaying(false);
+      }
+    };
+
+  }, [audioPlayer]);
+
+  useEffect(() => {
+    if (audioPlayer && isPlaying) {
+      audioPlayer.pause();
+      setIsPlaying(false);
+    }
+    if (steps[count-1] && steps[count-1].voiceUrl) {
+      const audio = new Audio(steps[count-1].voiceUrl);
+      audio.play();
+      setAudioPlayer(audio);
+      setIsPlaying(true);
+    }
+  }, [count]);
+  
   const CountdownTimer = ({ initialDuration, onTimerEnd }) => {
     const [remainingSeconds, setRemainingSeconds] = useState(initialDuration);
     const [prevDuration, setPrevDuration] = useState(initialDuration);
@@ -202,15 +226,30 @@ const Exp = () => {
     navigate("/select");
   };
 
+  
+  useEffect(() => {
+    return () => {
+      if (audioPlayer) {
+        audioPlayer.pause();
+        setIsPlaying(false);
+      }
+    };
+  }, [audioPlayer]);
+
   const toggleAudio = (url) => {
+    // 현재 재생 중인 오디오가 있을 경우 정지
     if (audioPlayer && isPlaying) {
-      audioPlayer.pause(); // 재생 중인 오디오를 멈춤
-      setIsPlaying(false); // 재생 상태 업데이트
+      audioPlayer.pause();
+      setIsPlaying(false);
+      setAudioPlayer(null); // 초기화
     } else {
+      // 새로운 오디오 재생
       const audio = new Audio(url);
-      audio.play(); // 오디오 재생
-      setAudioPlayer(audio); // 오디오 플레이어 설정
-      setIsPlaying(true); // 재생 상태 업데이트
+      audio.addEventListener('loadedmetadata', () => {
+        audio.play();
+        setAudioPlayer(audio);
+        setIsPlaying(true);
+      });
     }
   };
 
@@ -360,9 +399,24 @@ const Exp = () => {
   };
 
   const prevBtn = () => {
+    // 이전 페이지로 이동할 때 이전 페이지의 음성을 정지
+    if (audioPlayer) {
+      audioPlayer.pause();
+      setIsPlaying(false);
+      setAudioPlayer(null); // 초기화
+    }
+    // 페이지 이동
     setCount((prev) => prev - 1);
   };
+
   const nextBtn = () => {
+    // 다음 페이지로 이동할 때 이전 페이지의 음성을 정지
+    if (audioPlayer) {
+      audioPlayer.pause();
+      setIsPlaying(false);
+      setAudioPlayer(null); // 초기화
+    }
+    // 페이지 이동
     setCount((prev) => prev + 1);
   };
 
