@@ -18,7 +18,6 @@ const ContentContainer = styled.div`
 const Title = styled.p`
   font-weight: bold;
   margin: 0px;
-  font-size; 1vw;
 `;
 
 const Line = styled.p`
