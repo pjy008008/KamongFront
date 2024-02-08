@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import camong from "../img/camong.png";
 import eraser from "../img/eraser.png";
 import pause from "../img/pause.png";
 import play from "../img/play.png";
@@ -9,15 +10,16 @@ import styles from "./Exp.module.css";
 
 const StartContainer = styled.div`
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   width: 100vw;
   height: 100vh;
 `;
 
 const Blackboard = styled.div`
+  margin-top: 5vh;
   width: 80vw;
-  height: 80vh;
+  height: 75vh;
   background-color: #315c40;
   color: white;
   display: flex;
@@ -33,6 +35,13 @@ const EraserImage = styled.img`
   bottom: 9vh;
   right: 30vw;
   width: 7vw;
+`;
+
+const CamongContainer = styled.div`
+  position: fixed;
+  bottom: -1vw;
+  left: 0vw;
+  width: 10vw;
 `;
 
 const Button = styled.button`
@@ -53,12 +62,28 @@ const StartButton = styled.button`
   font-size: 30px;
   font-weight: bold;
   background-color: white;
-  color: black;
+  color: #4b3327;
   border: none;
   cursor: pointer;
-  margin-top: 2vw;
+  margin-top: 5vh;
   margin-right: 0.8vw;
-  border-radius: 10px;
+  border-radius: 30px;
+  width: 250px;
+  height: 80px;
+  z-index: 1;
+
+
+
+  @media screen and (max-width:1199px) {
+    width: 25vw;
+    font-size: 3vw;
+  }
+  
+  @media screen and (max-width:899px) {
+    width: 30vw;
+    font-size: 4vw;
+  }
+
 `;
 
 const GoBackButton = styled.button`
@@ -80,6 +105,17 @@ const Title = styled.h2`
   font-size: 70px;
   margin: 0px;
   font-family: "Gothic_Goding", sans-serif;
+  z-index: 1;
+
+  @media screen and (max-width:1199px) {
+    font-size: 6vw;
+  }
+  
+  @media screen and (max-width:899px) {
+    width: 65vw;
+    font-size: 10vw;
+    
+  }
 `;
 
 const CustomButton = styled.button`
@@ -259,7 +295,7 @@ const Exp = () => {
     };
     const lastboardStyle = {
       overflowY: "auto",
-      height: "80vh",
+      height: "72vh",
     };
     const lastTitle = {
       marginTop: "7vh",
@@ -270,6 +306,9 @@ const Exp = () => {
         <Blackboard style={blackboardStyle}>
           <Title>카몽이와 함께 하는 {expTitle}</Title>
           <StartButton onClick={nextBtn}>체험 시작</StartButton>
+          <CamongContainer>
+            <img src={camong} style={{ width: "530px", height: "400px" }}/>
+          </CamongContainer>
         </Blackboard>
       );
     } else if (sequence - 1 === steps.length) {
