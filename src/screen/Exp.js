@@ -72,31 +72,29 @@ const StartButton = styled.button`
   height: 80px;
   z-index: 1;
 
-
-
-  @media screen and (max-width:1199px) {
+  @media screen and (max-width: 1199px) {
     width: 25vw;
     font-size: 3vw;
   }
-  
-  @media screen and (max-width:899px) {
+
+  @media screen and (max-width: 899px) {
     width: 30vw;
     font-size: 4vw;
   }
-
 `;
 
 const GoBackButton = styled.button`
   position: absolute;
-  background-color: transparent;
+  background-color: #315c40;
   padding: 10px 20px;
   font-weight: bold;
   font-size: 16px;
-  color: black;
+  color: white;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
   margin-top: 10px;
-  margin-left: 5px;
+  margin-left: 10px;
 `;
 
 const Title = styled.h2`
@@ -107,14 +105,13 @@ const Title = styled.h2`
   font-family: "Gothic_Goding", sans-serif;
   z-index: 1;
 
-  @media screen and (max-width:1199px) {
+  @media screen and (max-width: 1199px) {
     font-size: 6vw;
   }
-  
-  @media screen and (max-width:899px) {
+
+  @media screen and (max-width: 899px) {
     width: 65vw;
     font-size: 10vw;
-    
   }
 `;
 
@@ -157,7 +154,6 @@ const Exp = () => {
         setIsPlaying(false);
       }
     };
-
   }, [audioPlayer]);
 
   useEffect(() => {
@@ -165,14 +161,14 @@ const Exp = () => {
       audioPlayer.pause();
       setIsPlaying(false);
     }
-    if (steps[count-1] && steps[count-1].voiceUrl) {
-      const audio = new Audio(steps[count-1].voiceUrl);
+    if (steps[count - 1] && steps[count - 1].voiceUrl) {
+      const audio = new Audio(steps[count - 1].voiceUrl);
       audio.play();
       setAudioPlayer(audio);
       setIsPlaying(true);
     }
   }, [count]);
-  
+
   const CountdownTimer = ({ initialDuration, onTimerEnd }) => {
     const [remainingSeconds, setRemainingSeconds] = useState(initialDuration);
     const [prevDuration, setPrevDuration] = useState(initialDuration);
@@ -262,7 +258,6 @@ const Exp = () => {
     navigate("/select");
   };
 
-  
   useEffect(() => {
     return () => {
       if (audioPlayer) {
@@ -281,7 +276,7 @@ const Exp = () => {
     } else {
       // 새로운 오디오 재생
       const audio = new Audio(url);
-      audio.addEventListener('loadedmetadata', () => {
+      audio.addEventListener("loadedmetadata", () => {
         audio.play();
         setAudioPlayer(audio);
         setIsPlaying(true);
@@ -307,7 +302,7 @@ const Exp = () => {
           <Title>카몽이와 함께 하는 {expTitle}</Title>
           <StartButton onClick={nextBtn}>체험 시작</StartButton>
           <CamongContainer>
-            <img src={camong} style={{ width: "530px", height: "400px" }}/>
+            <img src={camong} style={{ width: "530px", height: "400px" }} />
           </CamongContainer>
         </Blackboard>
       );
@@ -400,10 +395,10 @@ const Exp = () => {
                 alt="체험 이미지"
               />
             </div>
-            <CountdownTimer
+            {/* <CountdownTimer
               initialDuration={steps[sequence - 1].duration}
               onTimerEnd={handleTimerEnd}
-            />
+            /> */}
           </Blackboard>
         );
       } else {
@@ -462,12 +457,12 @@ const Exp = () => {
   return (
     <div>
       <GoBackButton onClick={goBack}>뒤로가기</GoBackButton>
-      <span
+      <GoBackButton
         onClick={() => setListToggle((prev) => !prev)}
-        style={{ position: "absolute", right: "2vw", top: "2vh" }}
+        style={{ right: "10px" }}
       >
         목록
-      </span>
+      </GoBackButton>
       {listToggle ? (
         <div
           style={{
@@ -484,7 +479,12 @@ const Exp = () => {
         >
           <span
             onClick={() => setListToggle((prev) => !prev)}
-            style={{ position: "absolute", right: "2vw", top: "2vh" }}
+            style={{
+              position: "absolute",
+              right: "2vw",
+              top: "2vh",
+              fontWeight: "bold",
+            }}
           >
             목록
           </span>
@@ -496,14 +496,14 @@ const Exp = () => {
               overflowX: "hidden",
             }}
           >
-            <div style={{ height: "8vh" }}></div>
+            <div style={{ height: "8vh", width: "25vw" }}></div>
             {steps.map((item, key) => (
               <div
                 onClick={() => setCount(key + 1)}
                 style={{
                   position: "relative",
                   width: "25vw",
-                  height: "15vh",
+                  paddingBottom: "2px",
                   borderRadius: "5px",
                   backgroundColor: "white",
                   marginBottom: "10px",
