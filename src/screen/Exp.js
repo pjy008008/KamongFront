@@ -67,7 +67,6 @@ const UrlButton = styled.button`
   cursor: pointer;
   margin-right: 0.8vw;
   border-radius: 10px;
-  
 `;
 
 const ButtonContainer = styled.div`
@@ -134,9 +133,9 @@ const Title = styled.h2`
 `;
 
 const CustomButton = styled.button`
-  padding: 0; 
+  padding: 0;
   border: none;
-  background: none; 
+  background: none;
   cursor: pointer;
   position: relative;
   margin-top: 2.7vh;
@@ -161,13 +160,13 @@ const Exp = () => {
   const [steps, setSteps] = useState([]);
   const [count, setCount] = useState(0);
   const [audioPlayer, setAudioPlayer] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(false); 
+  const [isPlaying, setIsPlaying] = useState(false);
   const [listToggle, setListToggle] = useState(false);
 
   useEffect(() => {
     return () => {
       if (audioPlayer) {
-        audioPlayer.pause(); 
+        audioPlayer.pause();
         setIsPlaying(false);
       }
     };
@@ -175,13 +174,13 @@ const Exp = () => {
 
   useEffect(() => {
     if (audioPlayer && isPlaying) {
-      audioPlayer.pause(); 
-      setIsPlaying(false); 
+      audioPlayer.pause();
+      setIsPlaying(false);
     }
     if (steps[count - 1] && steps[count - 1].voiceUrl) {
-      const audio = new Audio(steps[count - 1].voiceUrl); 
-      audio.play(); 
-      setAudioPlayer(audio); 
+      const audio = new Audio(steps[count - 1].voiceUrl);
+      audio.play();
+      setAudioPlayer(audio);
       setIsPlaying(true);
     }
   }, [count]);
@@ -200,14 +199,16 @@ const Exp = () => {
       // setInterval을 이용한 타이머 설정
       const timer = setInterval(() => {
         setRemainingSeconds((prevSeconds) => {
-          if (prevSeconds > 0) {
-            return prevSeconds - 1;
-          } else {
-            clearInterval(timer); // 타이머 정리
-            if (onTimerEnd && typeof onTimerEnd === "function") {
-              onTimerEnd(); // 타이머 종료 시 특정 함수 실행
+          if (isPlaying === true) {
+            if (prevSeconds > 0) {
+              return prevSeconds - 1;
+            } else {
+              clearInterval(timer); // 타이머 정리
+              if (onTimerEnd && typeof onTimerEnd === "function") {
+                onTimerEnd(); // 타이머 종료 시 특정 함수 실행
+              }
+              return 0;
             }
-            return 0;
           }
         });
       }, 1000);
@@ -345,16 +346,16 @@ const Exp = () => {
               }}
             >
               <ButtonContainer>
-              <Button onClick={prevBtn}>이전</Button>
-              <CustomButton
-                onClick={() => toggleAudio(steps[sequence - 1].voiceUrl)}
-              >
-                <IconImg
-                  src={isPlaying ? pause : play}
-                  alt={isPlaying ? "멈춤" : "재생"}
-                />
-              </CustomButton>
-              <Button onClick={nextBtn}>다음</Button>
+                <Button onClick={prevBtn}>이전</Button>
+                <CustomButton
+                  onClick={() => toggleAudio(steps[sequence - 1].voiceUrl)}
+                >
+                  <IconImg
+                    src={isPlaying ? pause : play}
+                    alt={isPlaying ? "멈춤" : "재생"}
+                  />
+                </CustomButton>
+                <Button onClick={nextBtn}>다음</Button>
               </ButtonContainer>
             </div>
             <div
@@ -397,17 +398,17 @@ const Exp = () => {
         //영상 슬라이드
         return (
           <Blackboard style={blackboardStyle}>
-             <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        paddingBottom: "2vh",
-      }}
-    >
-      <UrlButton onClick={prevBtn}>이전</UrlButton>
-      <UrlButton onClick={nextBtn}>다음</UrlButton>
-    </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                paddingBottom: "2vh",
+              }}
+            >
+              <UrlButton onClick={prevBtn}>이전</UrlButton>
+              <UrlButton onClick={nextBtn}>다음</UrlButton>
+            </div>
             <div className={styles.youtubeContainer}>
               <iframe
                 title="설명 영상"
@@ -428,7 +429,7 @@ const Exp = () => {
     if (audioPlayer) {
       audioPlayer.pause();
       setIsPlaying(false);
-      setAudioPlayer(null); 
+      setAudioPlayer(null);
     }
     setCount((prev) => prev - 1);
   };
@@ -446,98 +447,98 @@ const Exp = () => {
     <div>
       <GoBackButton onClick={goBack}>뒤로가기</GoBackButton>
       <GoBackButton
-  onClick={() => setListToggle((prev) => !prev)}
-  style={{ right: "10px" }}
->
-  목록
-</GoBackButton>
-{listToggle ? (
-  <div
-    style={{
-      zIndex: "2",
-      width: "45vw",
-      height: "100vh",
-      position: "absolute",
-      right: "0vw",
-      top: "0vh",
-      backgroundColor: "#000000",
-      color: "white",
-      opacity: "80%",
-    }}
-  >
-    <span
-      onClick={() => setListToggle((prev) => !prev)}
-      style={{
-        position: "absolute",
-        right: "2vw",
-        top: "2vh",
-        fontWeight: "bold",
-      }}
-    >
-      목록
-    </span>
-    <div
-      style={{
-        maxHeight: "100vh",
-        height: "100vh",
-        overflowY: "scroll",
-        overflowX: "hidden",
-      }}
-    >
-      <div style={{ height: "8vh", width: "40vw" }}></div>
-      {steps.map((item, key) => (
+        onClick={() => setListToggle((prev) => !prev)}
+        style={{ right: "10px" }}
+      >
+        목록
+      </GoBackButton>
+      {listToggle ? (
         <div
-          onClick={() => {
-            if (audioPlayer) {
-              audioPlayer.pause();
-              setIsPlaying(false);
-              setAudioPlayer(null);
-            }
-            setListToggle(false); // 목록을 닫습니다.
-            setCount(key + 1);
-          }}
           style={{
-            position: "relative",
-            width: "40vw",
-            paddingBottom: "2px",
-            borderRadius: "5px",
-            backgroundColor: "white",
-            marginBottom: "10px",
-            marginLeft: "2vw",
+            zIndex: "2",
+            width: "45vw",
+            height: "100vh",
+            position: "absolute",
+            right: "0vw",
+            top: "0vh",
+            backgroundColor: "#000000",
+            color: "white",
+            opacity: "80%",
           }}
-          key={key}
         >
-          <p
+          <span
+            onClick={() => setListToggle((prev) => !prev)}
             style={{
-              marginTop: "0px",
-              textAlign: "left",
-              color: "black",
+              position: "absolute",
+              right: "2vw",
+              top: "2vh",
               fontWeight: "bold",
-              fontSize: "25px",
-              paddingLeft: "10px",
             }}
           >
-            {"#"}
-            {key + 1} {item.title}
-          </p>
-          <p
+            목록
+          </span>
+          <div
             style={{
-              marginTop: "0px",
-              textAlign: "left",
-              color: "black",
-              fontSize: "13px",
-              paddingLeft: "10px",
-              paddingRight: "10px",
+              maxHeight: "100vh",
+              height: "100vh",
+              overflowY: "scroll",
+              overflowX: "hidden",
             }}
           >
-            {item.line}
-          </p>
+            <div style={{ height: "8vh", width: "40vw" }}></div>
+            {steps.map((item, key) => (
+              <div
+                onClick={() => {
+                  if (audioPlayer) {
+                    audioPlayer.pause();
+                    setIsPlaying(false);
+                    setAudioPlayer(null);
+                  }
+                  setListToggle(false); // 목록을 닫습니다.
+                  setCount(key + 1);
+                }}
+                style={{
+                  position: "relative",
+                  width: "40vw",
+                  paddingBottom: "2px",
+                  borderRadius: "5px",
+                  backgroundColor: "white",
+                  marginBottom: "10px",
+                  marginLeft: "2vw",
+                }}
+                key={key}
+              >
+                <p
+                  style={{
+                    marginTop: "0px",
+                    textAlign: "left",
+                    color: "black",
+                    fontWeight: "bold",
+                    fontSize: "25px",
+                    paddingLeft: "10px",
+                  }}
+                >
+                  {"#"}
+                  {key + 1} {item.title}
+                </p>
+                <p
+                  style={{
+                    marginTop: "0px",
+                    textAlign: "left",
+                    color: "black",
+                    fontSize: "13px",
+                    paddingLeft: "10px",
+                    paddingRight: "10px",
+                  }}
+                >
+                  {item.line}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
-      ))}
-    </div>
-  </div>
-) : (
-  <div></div>
+      ) : (
+        <div></div>
       )}
       <StartContainer>
         <div>
