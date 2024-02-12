@@ -1,8 +1,8 @@
 .youtubeContainer {
   position: relative;
-  width: 80%;
-  padding-top: 45%; /* 16:9 비율에 따른 값 (9 / 16 * 100%) */
-  margin-bottom: 20px;
+  width: 106vh;
+  padding-top: 60vh; /* 16:9 비율에 따른 값 (9 / 16 * 100%) */
+
 }
 
 .youtubeVideo {
