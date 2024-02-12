@@ -40,17 +40,30 @@ const Image = styled.img`
   height: 40vh;
   filter: brightness(60%);
   border-radius: 30px;
+  object-fit: cover; 
 `;
-const Title = styled.p`
+const CenteredText = styled.p`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   font-weight: bold;
   position: relative;
-  bottom: 28vh;
+  width: 30vw;
+  height: 8vh;
+  bottom: 15vh;
   left: 0;
   color: white;
-  -webkit-text-stroke: 1px;
-  -webkit-text-stroke-color: black;
-  font-size: 35px;
+  font-size: 30px;
+  background-color: rgba(0, 0, 0, 0.3);
+
+  @media screen and (max-width: 1199px) {
+    font-size: 25px;
+  }
+
+  @media screen and (max-width: 899px) {
+    font-size: 3vw;
+  }
 `;
 
 const BannerSlider = ({ experiences, size }) => {
@@ -95,21 +108,9 @@ const BannerSlider = ({ experiences, size }) => {
               src={experience.imageUrl}
               alt={`Slide ${index + 1}`}
             />
-            <p
-              style={{
-                textAlign: "center",
-                fontWeight: "bold",
-                position: "relative",
-                bottom: "28vh",
-                left: "0",
-                color: "white",
-                fontSize: "35px",
-                WebkitTextStroke: "1px",
-                WebkitTextStrokeColor: "black",
-              }}
-            >
+            <CenteredText>
               {experience.title}
-            </p>
+            </CenteredText>
           </ExpContainer>
         </div>
       ))}
