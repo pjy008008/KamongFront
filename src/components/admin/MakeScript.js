@@ -291,7 +291,7 @@ const MakeScript = () => {
           <InputContainer onSubmit={onLinkSubmit} id="form">
             <TitleContainer>
               <Title>제목</Title>
-              <input
+              <textarea
                 style={{
                   backgroundColor: "#DDDDDD",
                   border: "none",
@@ -366,20 +366,19 @@ const MakeScript = () => {
         <InputContainer onSubmit={onSubmit} id="form">
           <TitleContainer>
             <Title>제목</Title>
-            <input
+            <textarea
               style={{
                 backgroundColor: "#DDDDDD",
                 border: "none",
                 width: "80vw",
                 height: "5vh",
                 paddingLeft: "20px",
-                fontSize: "17px",
                 marginLeft: "1.8vw",
+                fontSize: "17px",
               }}
               onChange={onChange}
               value={title}
               name="title"
-              type="text"
               placeholder="제목을 입력하세요"
             />
           </TitleContainer>
@@ -392,15 +391,12 @@ const MakeScript = () => {
                 width: "80vw",
                 height: "23vh",
                 paddingLeft: "20px",
-                fontSize: "17px",
                 marginLeft: "1.8vw",
-                paddingTop: "15px",
-                fontFamily: "sans-serif",
+                fontSize: "17px",
               }}
               onChange={onChange}
               name="line"
               value={line}
-              type="text"
               placeholder="대사를 입력하세요"
             />
           </ContextContainer>

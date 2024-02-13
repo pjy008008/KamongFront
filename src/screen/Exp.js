@@ -221,9 +221,8 @@ const Exp = () => {
     const formatDuration = (seconds) => {
       const minutes = Math.floor(seconds / 60);
       const remainingSeconds = seconds % 60;
-      return `${minutes}:${
-        remainingSeconds < 10 ? "0" : ""
-      }${remainingSeconds}`;
+      return `${minutes}:${remainingSeconds < 10 ? "0" : ""
+        }${remainingSeconds}`;
     };
 
     return null;
@@ -362,9 +361,10 @@ const Exp = () => {
               style={{ display: "flex", width: "80vw", alignItems: "center" }}
             >
               <div style={{ width: "30vw", marginLeft: "5vw" }}>
-                <Title>{steps[sequence - 1].title}</Title>
+                <Title style={{ whiteSpace: "pre-wrap" }}>{steps[sequence - 1].title}</Title>
                 <p
                   style={{
+                    whiteSpace: "pre-wrap",
                     fontWeight: "bold",
                     fontSize: "35px",
                     width: "30vw",

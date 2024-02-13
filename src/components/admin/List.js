@@ -103,13 +103,13 @@ const List = ({ expId }) => {
               <EmptyContainer>대사가 존재하지 않습니다</EmptyContainer>
             ) : (
               script.map((item, index) => (
-                <Draggable
+                <Draggable 
                   key={index}
                   draggableId={`item-${index}`}
                   index={index}
                 >
                   {(provided) => (
-                    <ItemContainer
+                    <ItemContainer 
                       onClick={() =>
                         navigate(`/script/${item.stepId}`, {
                           state: {
@@ -121,10 +121,10 @@ const List = ({ expId }) => {
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                     >
-                      <Title>
+                      <Title style={{ whiteSpace: "pre-wrap" }}>
                         #{index + 1} {item.title}
                       </Title>
-                      <Line style={{ paddingLeft: "0px" }}>{item.line}</Line>
+                      <Line style={{ paddingLeft: "0px", whiteSpace: "pre-wrap" }}>{item.line}</Line>
                     </ItemContainer>
                   )}
                 </Draggable>
