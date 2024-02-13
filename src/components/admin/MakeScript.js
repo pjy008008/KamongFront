@@ -371,7 +371,7 @@ const MakeScript = () => {
                 backgroundColor: "#DDDDDD",
                 border: "none",
                 width: "80vw",
-                height: "10vh",
+                height: "5vh",
                 paddingLeft: "20px",
                 marginLeft: "1.8vw",
                 fontSize: "17px",
