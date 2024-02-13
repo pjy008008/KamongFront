@@ -324,12 +324,12 @@ const Script = () => {
           <InputContainer onSubmit={onSubmit} id="form">
             <TitleContainer>
               <Title>제목</Title>
-              <input
+              <textarea
                 style={{
                   backgroundColor: "#DDDDDD",
                   border: "none",
                   width: "80vw",
-                  height: "5vh",
+                  height: "10vh",
                   paddingLeft: "20px",
                   marginLeft: "1.8vw",
                   fontSize: "17px",
@@ -337,13 +337,12 @@ const Script = () => {
                 onChange={onChange}
                 value={title}
                 name="title"
-                type="text"
                 placeholder="제목을 입력하세요"
               />
             </TitleContainer>
             <ContextContainer>
               <Title>대사</Title>
-              <input
+              <textarea
                 style={{
                   backgroundColor: "#DDDDDD",
                   border: "none",
@@ -356,7 +355,6 @@ const Script = () => {
                 onChange={onChange}
                 name="line"
                 value={line}
-                type="text"
                 placeholder="대사를 입력하세요"
               />
             </ContextContainer>
@@ -528,12 +526,12 @@ const Script = () => {
           <InputContainer onSubmit={onLinkSubmit} id="form">
             <TitleContainer>
               <Title>제목</Title>
-              <input
+              <textarea
                 style={{
                   backgroundColor: "#DDDDDD",
                   border: "none",
                   width: "80vw",
-                  height: "5vh",
+                  height: "10vh",
                   paddingLeft: "20px",
                   fontSize: "17px",
                   marginLeft: "1.8vw",
@@ -541,7 +539,6 @@ const Script = () => {
                 onChange={onChange}
                 value={title}
                 name="title"
-                type="text"
                 placeholder="제목을 입력하세요"
               />
             </TitleContainer>
