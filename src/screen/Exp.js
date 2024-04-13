@@ -234,7 +234,7 @@ const Exp = () => {
 
   useEffect(() => {
     axios
-      .get(`http://35.216.68.47:8080/api/experiences/${expId}/pages`)
+      .get(`https://camong.p-e.kr/api/experiences/${expId}/pages`)
       .then((response) => {
         console.log(response.data.result);
         setSteps(response.data.result);

@@ -62,7 +62,7 @@ const List = ({ expId }) => {
     }));
 
     axios
-      .patch(`http://35.216.68.47:8080/api/experiences/pages`, adjustedScript, {
+      .patch(`https://camong.p-e.kr/api/experiences/pages`, adjustedScript, {
         headers: {
           accept: "*/*",
           "Content-Type": "application/json",
@@ -80,7 +80,7 @@ const List = ({ expId }) => {
 
   useEffect(() => {
     axios
-      .get(`http://35.216.68.47:8080/api/experiences/${params.expId}/pages`)
+      .get(`https://camong.p-e.kr/api/experiences/${params.expId}/pages`)
       .then(function (response) {
         // 성공 핸들링
         setScript(response.data.result);

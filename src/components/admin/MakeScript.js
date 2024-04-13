@@ -162,7 +162,7 @@ const MakeScript = () => {
     // POST 요청을 보냅니다.
     axios
       .post(
-        `http://35.216.68.47:8080/api/experiences/${expId}/pages`,
+        `https://camong.p-e.kr/api/experiences/${expId}/pages`,
         formData,
         {
           headers: {
@@ -196,7 +196,7 @@ const MakeScript = () => {
     }
     const formData = new FormData();
 
-    const url = `http://35.216.68.47:8080/api/experiences/${expId}/pages`;
+    const url = `https://camong.p-e.kr/api/experiences/${expId}/pages`;
 
     const form = new FormData();
     form.append(

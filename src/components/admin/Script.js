@@ -119,7 +119,7 @@ const Script = () => {
     if (window.confirm("정말 삭제 하시겠습니까?")) {
       try {
         const response = await axios.delete(
-          `http://35.216.68.47:8080/api/experiences/pages/${params.scriptId}`,
+          `https://camong.p-e.kr/api/experiences/pages/${params.scriptId}`,
           {
             headers: {
               accept: "*/*",
@@ -199,7 +199,7 @@ const Script = () => {
     // PATCH 요청 보내기
     axios
       .patch(
-        `http://35.216.68.47:8080/api/experiences/pages/${params.scriptId}`,
+        `https://camong.p-e.kr/api/experiences/pages/${params.scriptId}`,
         formData,
         {
           headers: {
@@ -244,7 +244,7 @@ const Script = () => {
     // PATCH 요청 보내기
     axios
       .patch(
-        `http://35.216.68.47:8080/api/experiences/pages/${params.scriptId}`,
+        `https://camong.p-e.kr/api/experiences/pages/${params.scriptId}`,
         formData,
         {
           headers: {
@@ -267,7 +267,7 @@ const Script = () => {
 
   useEffect(() => {
     axios
-      .get(`http://35.216.68.47:8080/api/experiences/pages/${params.scriptId}`)
+      .get(`https://camong.p-e.kr/api/experiences/pages/${params.scriptId}`)
       .then(function (response) {
         // 성공 핸들링
         console.log(response);

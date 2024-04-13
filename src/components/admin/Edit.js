@@ -253,7 +253,7 @@ const Edit = () => {
     if (window.confirm("정말 삭제 하시겠습니까?")) {
       try {
         const response = await axios.delete(
-          `http://35.216.68.47:8080/api/experiences/${expId}`,
+          `https://camong.p-e.kr/api/experiences/${expId}`,
           {
             headers: {
               accept: "*/*",
@@ -282,7 +282,7 @@ const Edit = () => {
   };
   const handleEditSubmit = (event) => {
     event.preventDefault();
-    const apiUrl = `http://35.216.68.47:8080/api/experiences/${expEditId}`;
+    const apiUrl = `https://camong.p-e.kr/api/experiences/${expEditId}`;
 
     const formData = new FormData();
     formData.append("request", JSON.stringify({ title: editTitle }));
@@ -326,7 +326,7 @@ const Edit = () => {
     try {
       // Make a POST request to submit the data
       const response = await axios.post(
-        "http://35.216.68.47:8080/api/experiences",
+        "https://camong.p-e.kr/api/experiences",
         formData,
         {
           headers: {
@@ -350,7 +350,7 @@ const Edit = () => {
   };
   useEffect(() => {
     axios
-      .get("http://35.216.68.47:8080/api/experiences")
+      .get("https://camong.p-e.kr/api/experiences")
       .then(function (response) {
         // 성공 핸들링
         console.log(response);

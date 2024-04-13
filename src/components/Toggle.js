@@ -67,7 +67,7 @@ const Toggle = ({ expId, status }) => {
     // isOn의 상태를 변경하는 메소드를 구현
     setisOn(!isOn);
 
-    const url = `http://35.216.68.47:8080/api/experiences/${expId}/status`;
+    const url = `https://camong.p-e.kr/api/experiences/${expId}/status`;
 
     axios
       .patch(url, null, {

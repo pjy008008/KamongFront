@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-const API_ENDPOINT = "http://35.216.68.47:8080/api/experiences";
+const API_ENDPOINT = "https://camong.p-e.kr/api/experiences";
 
 // const CustomSlider = styled(Slider)`
 //   overflow-y: hidden;

@@ -95,7 +95,7 @@ const Detail = () => {
   const [viewEntire, setViewEntier] = useState(false);
   useEffect(() => {
     axios
-      .get("http://35.216.68.47:8080/api/experiences")
+      .get("https://camong.p-e.kr/api/experiences")
       .then(function (response) {
         // 성공 핸들링
 
@@ -118,7 +118,7 @@ const Detail = () => {
       });
 
     axios
-      .get(`http://35.216.68.47:8080/api/experiences/${param}/pages`)
+      .get(`https://camong.p-e.kr/api/experiences/${param}/pages`)
       .then(function (response) {
         // 성공 핸들링
         console.log(response);

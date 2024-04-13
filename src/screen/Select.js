@@ -3,7 +3,7 @@ import Slide from "../components/select/Slide";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const API_ENDPOINT = "http://35.216.68.47:8080/api/experiences";
+const API_ENDPOINT = "https://camong.p-e.kr/api/experiences";
 
 const Select = () => {
   const [experiences, setExperiences] = useState([]);
